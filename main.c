@@ -31,27 +31,68 @@ void draw(t_data *img, int width, int height)
 	// printf("%d\n", 0xff);
 }
 
+t_vect	vect_init(double x, double y, double z)
+{
+	t_vect ret;
+
+	ret.x = x;
+	ret.y = y;
+	ret.z = z;
+	ret.len = vect_len(ret);
+	return (ret);
+}
+
+void	draw_img(t_data img, t_vect sp, t_vect cam, t_win win)
+{
+	int x = 0;
+	int y = 0;
+	t_vect ray;
+
+	while (y < win.h)
+	{
+		x = 0;
+		while (x < win.w)
+		{
+
+			my_mlx_pixel_put(img, x, y, 0x00FF0000);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	calc()
+{
+	t_vect	cam;
+	t_vect	sp;
+	t_vect	ray;
+
+	cam = vect_init(0, 0, -5);
+	sp = vect_init(0, 0, 5);
+	ray = vect_sub(, cam);
+	ray.len = vect_len(d);
+
+}
 
 int     main(void)
 {
-	t_vec	v;
+	t_vect	v;
 	t_data  img;
-    int     img_w;
-    int     img_h;
-	int		w = 512;
-	int		h = 512;
+	t_win	win;
 
-	v.z = 0;
+	win.w = 512;
+	win.h = 512;
+	img.w = win.w;
+	img.h = win.h;
     img.mlx = mlx_init();
-	img.win = mlx_new_window(img.mlx, w, h, "Hello world!");
-	img.img = mlx_new_image(img.mlx, w, h);
+	img.win = mlx_new_window(img.mlx, win.w, win.h, "Hello world!");
+	img.img = mlx_new_image(img.mlx, win.w, win.h);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length, &img.endian);
 	// mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
 	// img.img = mlx_xpm_file_to_image(img.mlx, "./test.xpm", &img_width, &img_height);
     // mlx_loop_hook(img.mlx, render_next_frame, &img);
-	v.x = 2 * w / (img_w - 1) - 1;
-	v.y = -2 * h / (img_h - 1) - 1;
-	draw(&img, w, h);
+	printf("%d\n", img.line_length / 4);
+	draw(&img, win.w, win.h);
 	mlx_hook(img.win, 2, 1L << 0, close2, &img);
 	mlx_hook(img.win, 33, 1L << 17, close1, &img);
 	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
