@@ -31,21 +31,12 @@ void draw(t_data *img, int width, int height)
 	// printf("%d\n", 0xff);
 }
 
-t_vect	vect_init(double x, double y, double z)
-{
-	t_vect ret;
-
-	ret.x = x;
-	ret.y = y;
-	ret.z = z;
-	ret.len = vect_len(ret);
-	return (ret);
-}
 
 void	draw_img(t_data img, t_vect sp, t_vect cam, t_win win)
 {
 	int x = 0;
 	int y = 0;
+
 	t_vect ray;
 
 	while (y < win.h)
@@ -53,7 +44,7 @@ void	draw_img(t_data img, t_vect sp, t_vect cam, t_win win)
 		x = 0;
 		while (x < win.w)
 		{
-
+			ray = vect_init(x, y, 0);
 			my_mlx_pixel_put(img, x, y, 0x00FF0000);
 			x++;
 		}
