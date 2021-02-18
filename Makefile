@@ -1,6 +1,6 @@
 NAME	= a.out
 CC		= clang
-CFLAGS	= picxel_put.c main.c -lm libmlx_Linux.a -lXext -lX11
+CFLAGS	= pixel_put.c main.c -lm libmlx_Linux.a -lXext -lX11
 AR		= ar
 ARFLAGS	= scr
 SRCDIR	= ./

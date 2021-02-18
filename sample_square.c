@@ -5,7 +5,7 @@
 typedef struct  s_data {
     void        *img;
     char        *addr;
-    int         bits_per_pixel;
+    int         bpp;
     int         line_length;
     int         endian;
 	void		*mlx;
@@ -21,7 +21,7 @@ int             main(void)
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
     img.img = mlx_new_image(mlx, 1920, 1080);
-    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+    img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length,
 								&img.endian);
 	int i = 0;
 	int j = 0;
