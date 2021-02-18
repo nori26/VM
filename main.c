@@ -32,27 +32,39 @@ void draw(t_data *img, int width, int height)
 }
 
 
-void	draw_img(t_data img, t_vect sp, t_vect cam, t_win win)
+void	draw_img(t_data *img, t_vect sp, t_vect cam, t_win win)
 {
-	int x = 0;
-	int y = 0;
-
-	t_vect ray;
+	int		x = 0;
+	int		y = 0;
+	t_vect	pix;
+	t_vect	ray;
 
 	while (y < win.h)
 	{
 		x = 0;
 		while (x < win.w)
 		{
-			ray = vect_init(x, y, 0);
-			my_mlx_pixel_put(img, x, y, 0x00FF0000);
+			pix = point_to_vect(x, y, win);
+			ray = vect_sub(pix, cam);
+			ray = vect_init(ray.x / ray.len, ray.y / ray.len, ray.z / ray.len);
+			if (!x && !y)
+			{
+			printf("%f\n%f\n%f\n", pix.x, pix.y, pix.z);
+			printf("%f\n%f\n%f\n%f\n", ray.x, ray.y, ray.z, ray.len);
+			}
+			if (sphere(cam, ray, sp, 1))
+			{
+				my_mlx_pixel_put(img, x, y, 0x00FF0000);
+			}
+			else
+				my_mlx_pixel_put(img, x, y, 0x000000FF);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	calc()
+void	calc(t_data img, t_win win)
 {
 	t_vect	cam;
 	t_vect	sp;
@@ -60,9 +72,7 @@ void	calc()
 
 	cam = vect_init(0, 0, -5);
 	sp = vect_init(0, 0, 5);
-	ray = vect_sub(, cam);
-	ray.len = vect_len(d);
-
+	draw_img(&img, sp, cam, win);
 }
 
 int     main(void)
@@ -71,8 +81,8 @@ int     main(void)
 	t_data  img;
 	t_win	win;
 
-	win.w = 512;
-	win.h = 512;
+	win.w = 511;
+	win.h = 511;
 	img.w = win.w;
 	img.h = win.h;
     img.mlx = mlx_init();
@@ -82,8 +92,9 @@ int     main(void)
 	// mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
 	// img.img = mlx_xpm_file_to_image(img.mlx, "./test.xpm", &img_width, &img_height);
     // mlx_loop_hook(img.mlx, render_next_frame, &img);
-	printf("%d\n", img.line_length / 4);
-	draw(&img, win.w, win.h);
+	// printf("%d\n", img.line_length / 4);
+	calc(img, win);
+	// draw(&img, win.w, win.h);
 	mlx_hook(img.win, 2, 1L << 0, close2, &img);
 	mlx_hook(img.win, 33, 1L << 17, close1, &img);
 	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);

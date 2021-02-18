@@ -6,11 +6,13 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 01:28:53 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/18 19:45:57 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/18 22:58:04 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
+#include <math.h>
+
 
 t_vect			vect_init(double x, double y, double z)
 {
@@ -40,7 +42,7 @@ t_vect			vect_mult(t_vect v, double d)
 
 double			inner(t_vect v1, t_vect v2)
 {
-	return (v1.x * v2.x + v1.y + v2.y * v1.z * v2.z);
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
 t_vect			cross(t_vect v1, t_vect v2)
@@ -51,12 +53,12 @@ t_vect			cross(t_vect v1, t_vect v2)
 			v1.x * v2.y - v1.y * v2.x));
 }
 
-t_vect			point_to_vec(t_data img, t_point p, int win_w, int win_h)
+t_vect			point_to_vect(double x, double y, t_win win)
 {
 	t_vect ret;
 
-	ret.x = 2 * win_w / (img.w - 1) - 1;
-	ret.y = -2 * win_h / (img.h - 1) - 1;
+	ret.x = 2 * x / (win.w - 1) - 1;
+	ret.y = -2 * y / (win.h - 1) + 1;
 	ret.z = 0;
 	return (ret);
 }
@@ -66,22 +68,20 @@ double			vect_len(t_vect v)
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
 
-int				sphere(t_vect cam, t_vect p, t_vect sp, int r)
+int				sphere(t_vect cam, t_vect ray, t_vect sp, double r)
 {
-	double t;
-	t_vect d;
 	double a;
 	double b;
 	double c;
+	double d;
 
-	d = vect_sub(p, cam);
-	a = d.len * d.len;
-	b = 2 * (inner(d, cam) - inner(d, sp));
-	c = vect_len(vect_sub(cam, p)) - r * r;
-	if ((t = b * b - 4 * a * c) < 0)
+	a = 1;
+	b = 2 * (inner(ray, cam) - inner(ray, sp));
+	c = vect_sub(cam, sp).len - r * r;
+	if (ray.x == 1 && ray.y == 1)
+		printf("b : %f\n", b * b - 4 * a * c);
+	if ((d = b * b - 4 * a * c) < 0 || (-b + sqrt(d)) / (2 * a) < 0)
 		return (0);
-	else if (!t)
-
-
-	t = -2 * 
+	else
+		return (1);
 }

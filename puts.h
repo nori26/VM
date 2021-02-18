@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/18 18:43:51 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/18 22:21:29 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@ t_vect			cross(t_vect v1, t_vect v2);
 t_vect			vect_add(t_vect v1, t_vect v2);
 t_vect			vect_mult(t_vect v1, double d);
 t_vect			vect_sub(t_vect v1, t_vect v2);
-t_vect			point_to_vec(t_data img, t_point p, int win_w, int win_h);
+t_vect			point_to_vect(double x, double y, t_win win);
 t_vect			vect_init(double x, double y, double z);
-
-
+int				sphere(t_vect cam, t_vect ray, t_vect sp, double r);
 
 
 
