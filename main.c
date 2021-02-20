@@ -31,33 +31,31 @@ void draw(t_data *img, int width, int height)
 	// printf("%d\n", 0xff);
 }
 
-
 void	draw_img(t_data *img, t_vect sp, t_vect cam, t_win win)
 {
-	int		x = 0;
-	int		y = 0;
+	int		x;
+	int		y;
 	t_vect	pix;
 	t_vect	ray;
 
+	y = 0;
 	while (y < win.h)
 	{
 		x = 0;
 		while (x < win.w)
 		{
 			pix = point_to_vect(x, y, win);
-			ray = vect_sub(pix, cam);
-			ray = vect_init(ray.x / ray.len, ray.y / ray.len, ray.z / ray.len);
-			if (!x && !y)
-			{
-			printf("%f\n%f\n%f\n", pix.x, pix.y, pix.z);
-			printf("%f\n%f\n%f\n%f\n", ray.x, ray.y, ray.z, ray.len);
-			}
+			// if (x == 128 && y == 255)
+			// {
+			ray = vect_unit(vect_sub(pix, cam));
+			// printf("%f\n", ray.len);
+			// printf("%f\n%f\n%f\n", pix.x, pix.y, pix.z);
+			// printf("%f\n%f\n%f\n%f\n", ray.x, ray.y, ray.z, ray.len);
 			if (sphere(cam, ray, sp, 1))
-			{
 				my_mlx_pixel_put(img, x, y, 0x00FF0000);
-			}
 			else
-				my_mlx_pixel_put(img, x, y, 0x000000FF);
+				my_mlx_pixel_put(img, x, y, 0x00333333);
+			// }
 			x++;
 		}
 		y++;
@@ -81,8 +79,8 @@ int     main(void)
 	t_data  img;
 	t_win	win;
 
-	win.w = 511;
-	win.h = 511;
+	win.w = 512;
+	win.h = 512;
 	img.w = win.w;
 	img.h = win.h;
     img.mlx = mlx_init();

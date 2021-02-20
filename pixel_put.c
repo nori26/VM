@@ -20,7 +20,7 @@ int             close1(int keycode, t_data *vars)
 
 int             close2(int keycode, t_data *vars)
 {
-	printf("%d\n", keycode);
+	// printf("%d\n", keycode);
     if (keycode == 65307)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);

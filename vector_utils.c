@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 01:28:53 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/18 22:58:04 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/19 23:43:09 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ t_vect			point_to_vect(double x, double y, t_win win)
 	return (ret);
 }
 
+t_vect			vect_unit(t_vect v)
+{
+	return (vect_init(v.x / v.len, v.y / v.len, v.z / v.len));
+}
+
 double			vect_len(t_vect v)
 {
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
@@ -76,10 +81,9 @@ int				sphere(t_vect cam, t_vect ray, t_vect sp, double r)
 	double d;
 
 	a = 1;
-	b = 2 * (inner(ray, cam) - inner(ray, sp));
-	c = vect_sub(cam, sp).len - r * r;
-	if (ray.x == 1 && ray.y == 1)
-		printf("b : %f\n", b * b - 4 * a * c);
+	b = 2 * inner(ray, vect_sub(cam, sp));
+	// printf("%f\n%f\n%f\n", ray.x, ray.y, ray.z);
+	c = pow(vect_sub(cam, sp).len, 2) - r * r;
 	if ((d = b * b - 4 * a * c) < 0 || (-b + sqrt(d)) / (2 * a) < 0)
 		return (0);
 	else
