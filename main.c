@@ -37,6 +37,7 @@ void	draw_img(t_data *img, t_vect sp, t_vect cam, t_win win)
 	int		y;
 	t_vect	pix;
 	t_vect	ray;
+	t_vect	norm;
 
 	y = 0;
 	while (y < win.h)
@@ -47,6 +48,7 @@ void	draw_img(t_data *img, t_vect sp, t_vect cam, t_win win)
 			pix = point_to_vect(x, y, win);
 			// if (x == 128 && y == 255)
 			// {
+			norm = vect_uni(vect_sub(pix - sp))
 			ray = vect_unit(vect_sub(pix, cam));
 			// printf("%f\n", ray.len);
 			// printf("%f\n%f\n%f\n", pix.x, pix.y, pix.z);
