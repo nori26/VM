@@ -35,9 +35,10 @@ void	draw_img(t_data *img, t_vect sp, t_vect cam, t_win win)
 	int		y;
 	int 	color = 0;
 	double	t;
-	t_vect	pix;
-	t_vect	view;
-	t_vect	point;
+	double	r = 1;
+	t_vect	pos;
+	t_vect	u_view;
+	t_vect	p_point;
 
 	y = 0;
 	while (y < win.h)
@@ -45,18 +46,18 @@ void	draw_img(t_data *img, t_vect sp, t_vect cam, t_win win)
 		x = 0;
 		while (x < win.w)
 		{
-			pix = point_to_vect(x, y, win);
+			pos = point_to_vect(x, y, win);
 			// if (x == 128 && y == 255)
 			// {
-			view = vect_unit(vect_sub(pix, cam));
+			u_view = vect_unit(vect_sub(pos, cam));
 			// printf("%f\n", ray.len);
 			// printf("%f\n%f\n%f\n", pix.x, pix.y, pix.z);
 			// printf("%f\n%f\n%f\n%f\n", ray.x, ray.y, ray.z, ray.len);
-			if ((t = sphere(cam, view, sp, 1)) > 0)
+			if ((t = sphere(cam, u_view, sp, r)) > 0)
 			{
-				point = vect_add(vect_mult(view, t), cam);
+				p_point = vect_add(vect_mult(u_view, t), cam);
 				// if (x == 255 && y == 255){					
-					color = diff_ref(point, sp, view);
+					color = light(p_point, sp, u_view);
 					if (color > 255)
 						color = 255;
 					// printf("%d\n%f\n", color, t);//}

@@ -28,10 +28,9 @@ double			vect_len(t_vect v)
 
 int main()
 {
-	t_vect v1 = {1, 1.7320508, 0};
-	// t_vec v2 = {3, 7, 5};
-	// t_vec ret = outer(v1, v2);
+	int printf;
 
-	printf("%f\n", sqrt(-1));
-	printf("%f", vect_len(v1));	
+	printf = 1;
+	printf("%-10s : %d\n", "ZERO-FIELD", 10);
+
 }

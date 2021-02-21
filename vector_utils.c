@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 01:28:53 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/21 11:11:33 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/21 23:09:47 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,18 @@ double			vect_len(t_vect v)
 {
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
+double			quadratic_formula(double a, double b, double c, double d)
+{
+	double small;
+	double large;
+	double root_d;
 
+	root_d = sqrt(d);
+	small = (-b - root_d) / (2 * a);
+	large = (-b + root_d) / (2 * a);
+	return (small);
+	// return (small > 0 ? small : (large > 0) * large);
+}
 double			sphere(t_vect cam, t_vect view, t_vect sp, double r)
 {
 	double a;
@@ -84,8 +95,7 @@ double			sphere(t_vect cam, t_vect view, t_vect sp, double r)
 	b = 2 * dot(view, vect_sub(cam, sp));
 	// printf("%f\n%f\n%f\n", ray.x, ray.y, ray.z);
 	c = pow(vect_sub(cam, sp).len, 2) - r * r;
-	if ((d = b * b - 4 * a * c) < 0 || (-b + sqrt(d)) / (2 * a) < 0)
+	if ((d = b * b - 4 * a * c) < 0)
 		return (0);
-	else
-		return ((-b - sqrt(d)) / (2 * a));
+	return (quadratic_formula(a, b, c, d));
 }
