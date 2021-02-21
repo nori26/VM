@@ -27,17 +27,16 @@ void draw(t_data *img, int width, int height)
 		}
 		y++;
 	}
-	// printf("%d\n", 0xff);
 }
 
 void	draw_img(t_data *img, t_vect sp, t_vect cam, t_win win)
 {
 	int		x;
 	int		y;
-	t_vect	pix;
-	t_vect	view;
 	int 	color = 0;
 	double	t;
+	t_vect	pix;
+	t_vect	view;
 	t_vect	point;
 
 	y = 0;
@@ -102,7 +101,6 @@ int     main(void)
     // mlx_loop_hook(img.mlx, render_next_frame, &img);
 	// printf("%d\n", img.line_length / 4);
 	calc(img, win);
-	// draw(&img, win.w, win.h);
 	mlx_hook(img.win, 2, 1L << 0, close2, &img);
 	mlx_hook(img.win, 33, 1L << 17, close1, &img);
 	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);

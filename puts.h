@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/21 06:23:46 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/21 11:28:21 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # define GLOSS 8
 # define AMB 0.001
 // # define AMB 1
-# define DIFF 0.3
+# define DIFF 0.69
 // # define DIFF 1
-# define SPEC 0.4
+# define SPEC 0.3
 typedef struct  s_data {
     void        *img;
     char        *addr;
@@ -56,7 +56,7 @@ typedef struct	s_win
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int             close2(int keycode, t_data *vars);
 int             close1(int keycode, t_data *vars);
-double			inner(t_vect v1, t_vect v2);
+double			dot(t_vect v1, t_vect v2);
 t_vect			cross(t_vect v1, t_vect v2);
 t_vect			vect_add(t_vect v1, t_vect v2);
 t_vect			vect_mult(t_vect v1, double d);

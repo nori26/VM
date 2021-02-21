@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 01:28:53 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/20 11:08:48 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/21 11:11:33 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_vect			vect_mult(t_vect v, double d)
 	return (vect_init(v.x * d, v.y * d, v.z * d));
 }
 
-double			inner(t_vect v1, t_vect v2)
+double			dot(t_vect v1, t_vect v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
@@ -81,7 +81,7 @@ double			sphere(t_vect cam, t_vect view, t_vect sp, double r)
 	double d;
 
 	a = 1;
-	b = 2 * inner(view, vect_sub(cam, sp));
+	b = 2 * dot(view, vect_sub(cam, sp));
 	// printf("%f\n%f\n%f\n", ray.x, ray.y, ray.z);
 	c = pow(vect_sub(cam, sp).len, 2) - r * r;
 	if ((d = b * b - 4 * a * c) < 0 || (-b + sqrt(d)) / (2 * a) < 0)
