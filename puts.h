@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/22 00:14:21 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/22 00:51:02 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ typedef struct	s_vect
 	double		len;
 }				t_vect;
 //win minus or int_max
-typedef struct	s_win
-{
-	int			w;
-	int			h;
-}				t_win;
+
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int             close2(int keycode, t_data *vars);
 int             close1(int keycode, t_data *vars);
@@ -62,7 +58,7 @@ t_vect			cross(t_vect v1, t_vect v2);
 t_vect			vect_add(t_vect v1, t_vect v2);
 t_vect			vect_mult(t_vect v1, double d);
 t_vect			vect_sub(t_vect v1, t_vect v2);
-t_vect			point_to_vect(double x, double y, t_win win);
+t_vect			point_to_vect(double x, double y, t_data img);
 t_vect			vect_init(double x, double y, double z);
 double			sphere(t_vect cam, t_vect ray, t_vect sp, double r);
 t_vect			vect_unit(t_vect v);
