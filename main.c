@@ -1,6 +1,5 @@
 #include "mlx.h"
 #include "puts.h"
-#include <math.h>
 
 void draw(t_data *img, int width, int height)
 {
@@ -36,8 +35,10 @@ void	draw_img(t_data *img, t_vect sp, t_vect cam, t_win win)
 	int		x;
 	int		y;
 	t_vect	pix;
-	t_vect	ray;
-	t_vect	norm;
+	t_vect	view;
+	int 	color = 0;
+	double	t;
+	t_vect	point;
 
 	y = 0;
 	while (y < win.h)
@@ -48,15 +49,22 @@ void	draw_img(t_data *img, t_vect sp, t_vect cam, t_win win)
 			pix = point_to_vect(x, y, win);
 			// if (x == 128 && y == 255)
 			// {
-			norm = vect_uni(vect_sub(pix - sp))
-			ray = vect_unit(vect_sub(pix, cam));
+			view = vect_unit(vect_sub(pix, cam));
 			// printf("%f\n", ray.len);
 			// printf("%f\n%f\n%f\n", pix.x, pix.y, pix.z);
 			// printf("%f\n%f\n%f\n%f\n", ray.x, ray.y, ray.z, ray.len);
-			if (sphere(cam, ray, sp, 1))
-				my_mlx_pixel_put(img, x, y, 0x00FF0000);
+			if ((t = sphere(cam, view, sp, 1)) > 0)
+			{
+				point = vect_add(vect_mult(view, t), cam);
+				// if (x == 255 && y == 255){					
+					color = diff_ref(point, sp, view);
+					if (color > 255)
+						color = 255;
+					// printf("%d\n%f\n", color, t);//}
+				my_mlx_pixel_put(img, x, y, (color << 16) + (color << 8) + color);
+			}
 			else
-				my_mlx_pixel_put(img, x, y, 0x00333333);
+				my_mlx_pixel_put(img, x, y, (100 << 16) + (149 << 8) + 237);
 			// }
 			x++;
 		}
@@ -81,8 +89,8 @@ int     main(void)
 	t_data  img;
 	t_win	win;
 
-	win.w = 512;
-	win.h = 512;
+	win.w = 511;
+	win.h = 511;
 	img.w = win.w;
 	img.h = win.h;
     img.mlx = mlx_init();

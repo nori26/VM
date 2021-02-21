@@ -32,5 +32,6 @@ int main()
 	// t_vec v2 = {3, 7, 5};
 	// t_vec ret = outer(v1, v2);
 
+	printf("%f\n", sqrt(-1));
 	printf("%f", vect_len(v1));	
 }

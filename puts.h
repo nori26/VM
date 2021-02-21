@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/19 23:42:18 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/21 06:23:46 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,14 @@
 # define PUTS_H
 # include <stdio.h>
 # include <stdlib.h>
+# include <math.h>
 # define PI 3.14159265
-
+# define GLOSS 8
+# define AMB 0.001
+// # define AMB 1
+# define DIFF 0.3
+// # define DIFF 1
+# define SPEC 0.4
 typedef struct  s_data {
     void        *img;
     char        *addr;
@@ -57,8 +63,8 @@ t_vect			vect_mult(t_vect v1, double d);
 t_vect			vect_sub(t_vect v1, t_vect v2);
 t_vect			point_to_vect(double x, double y, t_win win);
 t_vect			vect_init(double x, double y, double z);
-int				sphere(t_vect cam, t_vect ray, t_vect sp, double r);
+double			sphere(t_vect cam, t_vect ray, t_vect sp, double r);
 t_vect			vect_unit(t_vect v);
-
+int				diff_ref(t_vect point, t_vect sp, t_vect view);
 
 #endif
