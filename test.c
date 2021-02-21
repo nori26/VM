@@ -6,6 +6,7 @@ typedef struct	s_vec
 	double		x;
 	double		y;
 	double		z;
+	long long		d;
 }				t_vect;
 
 t_vect	cross(t_vect v1, t_vect v2)
@@ -28,9 +29,8 @@ double			vect_len(t_vect v)
 
 int main()
 {
-	int printf;
+	t_vect test;
 
-	printf = 1;
-	printf("%-10s : %d\n", "ZERO-FIELD", 10);
+	printf("%lld", test.d);
 
 }

@@ -6,13 +6,13 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/21 23:12:15 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/21 23:26:17 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-int	light(t_vect point, t_vect sp, t_vect u_view)
+int	light(t_vect p_point, t_vect sp, t_vect u_view)
 {
 	int		ret;
 	double	cos_nl;
@@ -22,8 +22,8 @@ int	light(t_vect point, t_vect sp, t_vect u_view)
 
 	ret = (int)(255 * AMB);
 	p_light = vect_init(-5, 5, -5);
-	u_normal = vect_unit(vect_sub(point, sp));
-	u_light = vect_unit(vect_sub(p_light, point));
+	u_normal = vect_unit(vect_sub(p_point, sp));
+	u_light = vect_unit(vect_sub(p_light, p_point));
 	cos_nl = dot(u_light, u_normal);
 	if (cos_nl > 0)
 		ret += spec(u_view, u_light, u_normal, cos_nl);
@@ -36,7 +36,6 @@ int spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl)
 	double cos_vr;
 
 	u_ref = vect_unit(vect_sub(vect_mult(u_normal, 2 * cos_nl), u_light));
-	cos_vr = dot(u_view, u_ref);
-	return (255 * SPEC * pow(cos_vr, GLOSS));
-	// return (cos_vr > 0 ? 255 * SPEC * pow(cos_vr, GLOSS) : 0);
+	cos_vr = dot(vect_mult(u_view, -1), u_ref);
+	return (cos_vr > 0 ? 255 * SPEC * pow(cos_vr, GLOSS) : 0);
 }

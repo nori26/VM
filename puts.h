@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/21 23:10:34 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/22 00:14:21 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 // # define AMB 1
 # define DIFF 0.69
 // # define DIFF 1
-// # define SPEC 0.3
-# define SPEC 1
+# define SPEC 0.3
 
 typedef struct  s_data {
     void        *img;
@@ -69,6 +68,7 @@ double			sphere(t_vect cam, t_vect ray, t_vect sp, double r);
 t_vect			vect_unit(t_vect v);
 int				light(t_vect point, t_vect sp, t_vect u_view);
 int				spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
+
 
 
 #endif

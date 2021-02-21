@@ -53,7 +53,7 @@ void	draw_img(t_data *img, t_vect sp, t_vect cam, t_win win)
 			// printf("%f\n", ray.len);
 			// printf("%f\n%f\n%f\n", pix.x, pix.y, pix.z);
 			// printf("%f\n%f\n%f\n%f\n", ray.x, ray.y, ray.z, ray.len);
-			if ((t = sphere(cam, u_view, sp, r)) > 0)
+			if ((t = sphere(cam, u_view, sp, r)))
 			{
 				p_point = vect_add(vect_mult(u_view, t), cam);
 				// if (x == 255 && y == 255){					
@@ -63,8 +63,8 @@ void	draw_img(t_data *img, t_vect sp, t_vect cam, t_win win)
 					// printf("%d\n%f\n", color, t);//}
 				my_mlx_pixel_put(img, x, y, (color << 16) + (color << 8) + color);
 			}
-			else
-				my_mlx_pixel_put(img, x, y, (100 << 16) + (149 << 8) + 237);
+			// else
+			// 	my_mlx_pixel_put(img, x, y, (100 << 16) + (149 << 8) + 237);
 			// }
 			x++;
 		}
@@ -79,8 +79,12 @@ void	calc(t_data img, t_win win)
 	t_vect	ray;
 
 	cam = vect_init(0, 0, -5);
-	sp = vect_init(0, 0, 5);
+	sp = vect_init(3, 0, 25);
 	draw_img(&img, sp, cam, win);
+	// sp = vect_init(2, 0, 25);
+	// draw_img(&img, sp, cam, win);
+	// sp = vect_init(1, 0, 15);
+	// draw_img(&img, sp, cam, win);
 }
 
 int     main(void)
