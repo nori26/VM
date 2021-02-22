@@ -1,16 +1,16 @@
 NAME	= a.out
 CC		= clang
-CFLAGS	= pixel_put.c main.c light.c vector_utils.c -lm libmlx_Linux.a -lXext -lX11
+CFLAGS	= -lm libmlx_Linux.a -lXext -lX11
 AR		= ar
 ARFLAGS	= scr
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRCNAME))
 OBJS	= $(SRCS:.c=.o)
-SRCNAME	= pixel_put.c main.c
+SRCNAME	= main.c pixel_put.c light.c vector_utils.c sphere.c
 
 all		: $(NAME)
 $(NAME)	: 
-	$(CC) $(CFLAGS)
+	$(CC) ${SRCNAME} $(CFLAGS)
 san     :
 	$(CC) $(CFLAGS) -g -fsanitize=address
 bonus	: $(B_OBJS) $(OBJS)

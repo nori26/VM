@@ -6,13 +6,11 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 01:28:53 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/21 11:11:33 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/22 00:49:37 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
-#include <math.h>
-
 
 t_vect			vect_init(double x, double y, double z)
 {
@@ -53,12 +51,12 @@ t_vect			cross(t_vect v1, t_vect v2)
 			v1.x * v2.y - v1.y * v2.x));
 }
 
-t_vect			point_to_vect(double x, double y, t_win win)
+t_vect			point_to_vect(double x, double y, t_data img)
 {
 	t_vect ret;
 
-	ret.x = 2 * x / (win.w - 1) - 1;
-	ret.y = -2 * y / (win.h - 1) + 1;
+	ret.x = 2 * x / (img.w - 1) - 1;
+	ret.y = -2 * y / (img.h - 1) + 1;
 	ret.z = 0;
 	return (ret);
 }
@@ -71,21 +69,4 @@ t_vect			vect_unit(t_vect v)
 double			vect_len(t_vect v)
 {
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
-}
-
-double			sphere(t_vect cam, t_vect view, t_vect sp, double r)
-{
-	double a;
-	double b;
-	double c;
-	double d;
-
-	a = 1;
-	b = 2 * dot(view, vect_sub(cam, sp));
-	// printf("%f\n%f\n%f\n", ray.x, ray.y, ray.z);
-	c = pow(vect_sub(cam, sp).len, 2) - r * r;
-	if ((d = b * b - 4 * a * c) < 0 || (-b + sqrt(d)) / (2 * a) < 0)
-		return (0);
-	else
-		return ((-b - sqrt(d)) / (2 * a));
 }

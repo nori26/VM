@@ -6,6 +6,7 @@ typedef struct	s_vec
 	double		x;
 	double		y;
 	double		z;
+	long long		d;
 }				t_vect;
 
 t_vect	cross(t_vect v1, t_vect v2)
@@ -18,20 +19,22 @@ t_vect	cross(t_vect v1, t_vect v2)
 	return (ret);
 }
 
+char c = 'a';
 double			vect_len(t_vect v)
 {
 	double len;
 
-	len = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	len = 0;
+	v.x = 0;
+	// len = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 	return (len);
+}
+void test()
+{
+	printf("%c\n", c);
 }
 
 int main()
 {
-	t_vect v1 = {1, 1.7320508, 0};
-	// t_vec v2 = {3, 7, 5};
-	// t_vec ret = outer(v1, v2);
-
-	printf("%f\n", sqrt(-1));
-	printf("%f", vect_len(v1));	
+	test();
 }
