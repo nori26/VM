@@ -19,18 +19,22 @@ t_vect	cross(t_vect v1, t_vect v2)
 	return (ret);
 }
 
+char c = 'a';
 double			vect_len(t_vect v)
 {
 	double len;
 
-	len = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	len = 0;
+	v.x = 0;
+	// len = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 	return (len);
+}
+void test()
+{
+	printf("%c\n", c);
 }
 
 int main()
 {
-	t_vect test;
-
-	printf("%lld", test.d);
-
+	test();
 }
