@@ -1,7 +1,7 @@
 #include "puts.h"
 #include "mlx.h"
 
-void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void            my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
     char    *dst;
 
@@ -9,7 +9,7 @@ void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-int             close1(int keycode, t_data *vars)
+int             close1(int keycode, t_img *vars)
 {
 	// printf("%d\n", keycode);
 	// mlx_loop_end(vars->mlx);
@@ -18,7 +18,7 @@ int             close1(int keycode, t_data *vars)
 	exit(0);
 }
 
-int             close2(int keycode, t_data *vars)
+int             close2(int keycode, t_img *vars)
 {
 	// printf("%d\n", keycode);
     if (keycode == 65307)

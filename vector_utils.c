@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 01:28:53 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/22 00:49:37 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/23 08:01:45 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_vect			cross(t_vect v1, t_vect v2)
 			v1.x * v2.y - v1.y * v2.x));
 }
 
-t_vect			point_to_vect(double x, double y, t_data img)
+t_vect			point_to_vect(double x, double y, t_img img)
 {
 	t_vect ret;
 

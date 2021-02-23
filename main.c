@@ -1,7 +1,7 @@
 #include "mlx.h"
 #include "puts.h"
 
-void draw(t_data *img, int width, int height)
+void draw(t_img *img, int width, int height)
 {
 	int x = 0;
 	int y = 0;
@@ -29,7 +29,7 @@ void draw(t_data *img, int width, int height)
 	}
 }
 
-void	draw_img(t_data *img, t_vect sp, t_vect cam, int i)
+void	draw_img(t_img *img, t_vect sp, t_vect cam, int i)
 {
 	int		x;
 	int		y;
@@ -39,6 +39,7 @@ void	draw_img(t_data *img, t_vect sp, t_vect cam, int i)
 	t_vect	pos;
 	t_vect	u_view;
 	t_vect	p_point;
+	void *k = NULL;
 
 	y = 0;
 	while (y < img->h)
@@ -53,7 +54,7 @@ void	draw_img(t_data *img, t_vect sp, t_vect cam, int i)
 			// printf("%f\n", ray.len);
 			// printf("%f\n%f\n%f\n", pix.x, pix.y, pix.z);
 			// printf("%f\n%f\n%f\n%f\n", ray.x, ray.y, ray.z, ray.len);
-			if ((t = sphere(cam, u_view, sp, r)) && i)
+			if ((t = sphere(cam, u_view, sp, r, k)) && i)
 			{
 				p_point = vect_add(vect_mult(u_view, t), cam);
 				// if (x == 255 && y == 255){					
@@ -72,7 +73,7 @@ void	draw_img(t_data *img, t_vect sp, t_vect cam, int i)
 	}
 }
 
-void	calc(t_data img)
+void	calc(t_img img)
 {
 	t_vect	cam;
 	t_vect	sp;
@@ -80,23 +81,12 @@ void	calc(t_data img)
 
 	draw_img(&img, sp, cam, 0);
 	cam = vect_init(0, 0, -5);
-
-	sp = vect_init(3, 0, 25);
-	draw_img(&img, sp, cam, 1);
-	sp = vect_init(2, 0, 20);
-	draw_img(&img, sp, cam, 1);
-	sp = vect_init(1, 0, 15);
-	draw_img(&img, sp, cam, 1);
-	sp = vect_init(0, 0, 10);
-	draw_img(&img, sp, cam, 1);
-	sp = vect_init(-1, 0, 5);
-	draw_img(&img, sp, cam, 1);
 }
 
 int     main(void)
 {
 	t_vect	v;
-	t_data  img;
+	t_img  img;
 
 	img.w = 512;
 	img.h = 512;

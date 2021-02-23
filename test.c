@@ -1,13 +1,21 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
-typedef struct	s_vec
+typedef struct s_list t_list;
+struct s_vect;
+typedef struct	s_vect
 {
 	double		x;
 	double		y;
 	double		z;
-	long long		d;
+	long long	d;
+	void (*f)(t_list);
 }				t_vect;
+struct			s_list
+{
+	t_vect		v;
+};
 
 t_vect	cross(t_vect v1, t_vect v2)
 {
@@ -19,22 +27,33 @@ t_vect	cross(t_vect v1, t_vect v2)
 	return (ret);
 }
 
-char c = 'a';
+char 			g_c = 'a';
 double			vect_len(t_vect v)
 {
-	double len;
+	double		len;
 
 	len = 0;
 	v.x = 0;
-	// len = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 	return (len);
 }
-void test()
+void			test()
 {
-	printf("%c\n", c);
+	printf("%c\n", g_c);
 }
 
-int main()
+void			test2(int a)
 {
-	test();
+	printf("%d\n", a);
+}
+int				main()
+{
+	void		(**f)();
+	t_vect		v;
+
+	f = malloc(30);
+	f[0] = test;
+	f[1] = test2;
+	f[0]();
+	f[1](1);
+	v.x = 1;
 }

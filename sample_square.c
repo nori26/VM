@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct  s_data {
+typedef struct  s_img {
     void        *img;
     char        *addr;
     int         bpp;
@@ -10,13 +10,13 @@ typedef struct  s_data {
     int         endian;
 	void		*mlx;
 	void		*win;
-}               t_data;
+}               t_img;
 
 int             main(void)
 {
     void    *mlx;
     void    *mlx_win;
-    t_data  img;
+    t_img  img;
 
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
