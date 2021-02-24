@@ -1,6 +1,6 @@
 NAME	= a.out
 CC		= clang
-CFLAGS	= -lm libmlx_Linux.a -lXext -lX11
+CFLAGS	= -g -fsanitize=address -lm libmlx_Linux.a -lXext -lX11
 AR		= ar
 ARFLAGS	= scr
 SRCDIR	= ./

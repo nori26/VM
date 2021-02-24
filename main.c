@@ -1,34 +1,6 @@
 #include "mlx.h"
 #include "puts.h"
 
-void draw(t_img *img, int width, int height)
-{
-	int x = 0;
-	int y = 0;
-	int color = 0;
-	int count = width / 255 + !!(width % 255);
-	int i;
-	double fx;
-	double fy;
-
-	while (y < height)
-	{
-		i = 0;
-		x = 0;
-		fy = (double)y / (height -1);
-		while (x < width)
-		{
-			fx = (double)x / (width -1);
-			color = (int)(255 * (1 - fx)) << 16;
-			color |= (int)(255 * fy) << 8;
-			color |= (int)(255 * fx * fy);
-			my_mlx_pixel_put(img, x, y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
 void	draw_img(t_img *img)
 {
 	int 	color;
@@ -46,8 +18,10 @@ void	draw_img(t_img *img)
 		{
 			img->lst = img->start;
 			pos = point_to_vect(x, y, *img);
+			// pos = vect_init(2 * x / (img->w - 1) - 1, 2 * y / (img->h - 1) + 1, 0);
 			img->view = vect_unit(vect_sub(pos, img->cam));
 			ft_bzero(&img->point, sizeof(img->point));
+			img->point.pos_len = DBL_MAX;
 			while (img->lst)
 			{
 				t = img->lst->f(img, img->lst->obj);
@@ -58,7 +32,7 @@ void	draw_img(t_img *img)
 				color = light(img);
 				if (color > 255)
 					color = 255;
-				my_mlx_pixel_put(img, x, y, (color << 16) + ((int)(color * 0.4) << 8) + (int)(color * 0.4));
+				my_mlx_pixel_put(img, x, y, (color << 16) + ((int)(color) << 8) + (int)(color));
 			}
 			else
 				my_mlx_pixel_put(img, x, y, (100 << 16) + (149 << 8) + 237);
@@ -76,7 +50,7 @@ int	sp_init(t_img *img, double (*f)(), t_vect o, double r)
 		return (-1);
 	sp->o = o;
 	sp->r = r;
-	if (!ft_lstadd_front(img->lst, ft_lstnew(sp, sphere)))
+	if (!ft_lstadd_front(&img->lst, ft_lstnew(sp, sphere)))
 		return (-1);
 	return (0);
 }
@@ -100,6 +74,7 @@ int     main(void)
 	t_vect	v;
 	t_img  img;
 
+	ft_bzero(&img, sizeof(img));
 	img.w = 512;
 	img.h = 512;
     img.mlx = mlx_init();

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 20:09:29 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/24 20:30:08 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+# include <float.h>
 # define PI 3.14159265
 # define GLOSS 8
 # define AMB 0.001
@@ -90,12 +91,14 @@ t_vect			vect_mult(t_vect v1, double d);
 t_vect			vect_sub(t_vect v1, t_vect v2);
 t_vect			point_to_vect(double x, double y, t_img img);
 t_vect			vect_init(double x, double y, double z);
+double			vect_len(t_vect v);
 double			sphere(t_img *img, t_sp *sp);
 double			quadratic_formula(double a, double b, double d);
 t_vect			vect_unit(t_vect v);
 int				light(t_img *img);
 int				spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
 t_list			*ft_lstnew(void *obj, void *func);
+t_list			*ft_lstadd_front(t_list **lst, t_list *new);
 void			ft_bzero(void *s, size_t n);
 
 

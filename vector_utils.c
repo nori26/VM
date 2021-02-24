@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 01:28:53 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/23 08:01:45 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/24 20:50:24 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_vect			vect_init(double x, double y, double z)
 	ret.x = x;
 	ret.y = y;
 	ret.z = z;
-	ret.len = sqrt(x * x + y * y + z * z);
 	return (ret);
 }
 
@@ -63,7 +62,10 @@ t_vect			point_to_vect(double x, double y, t_img img)
 
 t_vect			vect_unit(t_vect v)
 {
-	return (vect_init(v.x / v.len, v.y / v.len, v.z / v.len));
+	double len;
+
+	len = vect_len(v);
+	return (vect_init(v.x / len, v.y / len, v.z / len));
 }
 
 double			vect_len(t_vect v)

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 16:03:16 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/24 20:51:06 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,7 @@ double			quadratic_formula(double a, double b, double d)
 	large = (-b + root_d) / (2 * a);
 	return (small > 0 ? small : (large > 0) * large);
 }
-// double			sphere(t_vect cam, t_vect view, t_vect sp, double r)
-// {
-// 	double a;
-// 	double b;
-// 	double c;
-// 	double d;
 
-// 	a = 1;
-// 	b = 2 * dot(view, vect_sub(cam, sp));
-// 	c = pow(vect_sub(cam, sp).len, 2) - r * r;
-// 	if ((d = b * b - 4 * a * c) < 0)
-// 		return (0);
-// 	return (quadratic_formula(a, b, c, d));
-// }
 double			sphere(t_img *img, t_sp *sp)
 {
 	double b;
@@ -72,7 +59,7 @@ double			sphere(t_img *img, t_sp *sp)
 	t_vect view_spatial;
 
 	b = 2 * dot(img->view, vect_sub(img->cam, sp->o));
-	c = pow(vect_sub(img->cam, sp->o).len, 2) - sp->r * sp->r;
+	c = pow(vect_len(vect_sub(img->cam, sp->o)), 2) - sp->r * sp->r;
 	if ((d = b * b - 4 * c) < 0)
 		return (0);
 	view_spatial = vect_mult(img->view, quadratic_formula(1, b, d));
