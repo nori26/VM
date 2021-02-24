@@ -17,8 +17,8 @@ void	draw_img(t_img *img)
 		while (x < img->w)
 		{
 			img->lst = img->start;
-			pos = point_to_vect(x, y, *img);
-			// pos = vect_init(2 * x / (img->w - 1) - 1, 2 * y / (img->h - 1) + 1, 0);
+			// pos = point_to_vect(x, y, *img);
+			pos = vect_init(2 * x / (img->w - 1) - 1, 2 * y / (img->h - 1) + 1, 0);
 			img->view = vect_unit(vect_sub(pos, img->cam));
 			ft_bzero(&img->point, sizeof(img->point));
 			img->point.pos_len = DBL_MAX;
