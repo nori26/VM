@@ -74,7 +74,12 @@ void	draw_img(t_img *img, t_vect sp, t_vect cam, int i)
 
 void	sp_init(t_img *img, double (*f)(), t_vect v, double r)
 {
-	img->lst->obj = malloc(sizeof(t_sp));
+	t_sp *sp;
+
+	if (!(sp = malloc(sizeof(t_sp))))
+		return (-1);//
+	if (!ft_lstadd_front(img->lst, ft_lstnew()
+	img->lst->obj = 
 	img->lst->sp->o = v;
 	img->lst->sp->r = r;
 }

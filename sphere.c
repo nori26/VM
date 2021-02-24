@@ -6,11 +6,19 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 04:14:56 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/24 04:41:10 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
+
+t_list	*ft_lstadd_front(t_list **lst, t_list *new)
+{
+	if (*lst && new)
+		new->next = *lst;
+	*lst = new;
+	return (new);
+}
 
 t_list	*ft_lstnew(void *obj, void *func)
 {

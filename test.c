@@ -15,8 +15,14 @@ typedef struct	s_vect
 struct			s_list
 {
 	t_vect		v;
+	char		a[1];
 };
 
+typedef struct			k_list
+{
+	t_vect		v;
+	char		a[100];
+}						n_list;
 t_vect	cross(t_vect v1, t_vect v2)
 {
 	t_vect ret;
@@ -52,6 +58,7 @@ int				main()
 	char *c = malloc(1);
 	t_vect		v;
 
+	printf("%lu\n%lu\n", sizeof(t_list), sizeof(n_list));
 	s = c;
 	f = malloc(30);
 	f[0] = test;
