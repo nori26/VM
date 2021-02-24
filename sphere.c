@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 20:51:06 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/24 22:26:53 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_list	*ft_lstadd_front(t_list **lst, t_list *new)
 	return (new);
 }
 
-t_list	*ft_lstnew(void *obj, void *func)
+t_list	*ft_lstnew(void *obj, void *func, t_rgb rgb)
 {
 	t_list *lst;
 
@@ -28,6 +28,7 @@ t_list	*ft_lstnew(void *obj, void *func)
 		return (NULL);
 	lst->obj = obj;
 	lst->f = func;
+	lst->rgb = rgb;
 	lst->next = NULL;
 	return (lst);
 }
@@ -62,6 +63,7 @@ double			sphere(t_img *img, t_sp *sp)
 	c = pow(vect_len(vect_sub(img->cam, sp->o)), 2) - sp->r * sp->r;
 	if ((d = b * b - 4 * c) < 0)
 		return (0);
+	
 	view_spatial = vect_mult(img->view, quadratic_formula(1, b, d));
 	if ((pos_len = vect_len(view_spatial)) >= img->point.pos_len)
 		return (0);

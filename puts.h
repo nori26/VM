@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 20:30:08 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/24 21:58:59 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 // # define AMB 1
 # define DIFF 0.69
 // # define DIFF 1
+// # define SPEC 1
 # define SPEC 0.3
 typedef struct s_list	t_list;
 typedef struct s_img	t_img;
@@ -57,6 +58,7 @@ typedef struct	s_point
 struct  s_list
 {
 	void		*obj;
+	t_rgb		rgb;
 	double		(*f)();
 	t_list		*next;
 };
@@ -95,9 +97,9 @@ double			vect_len(t_vect v);
 double			sphere(t_img *img, t_sp *sp);
 double			quadratic_formula(double a, double b, double d);
 t_vect			vect_unit(t_vect v);
-int				light(t_img *img);
-int				spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
-t_list			*ft_lstnew(void *obj, void *func);
+double				light(t_img *img);
+double				spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
+t_list			*ft_lstnew(void *obj, void *func, t_rgb rgb);
 t_list			*ft_lstadd_front(t_list **lst, t_list *new);
 void			ft_bzero(void *s, size_t n);
 
