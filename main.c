@@ -72,17 +72,19 @@ void	draw_img(t_img *img, t_vect sp, t_vect cam, int i)
 	}
 }
 
-void	sp_init(t_img *img, double (*f)(), t_vect v, double r)
+int	sp_init(t_img *img, double (*f)(), t_vect v, double r)
 {
 	t_sp *sp;
 
 	if (!(sp = malloc(sizeof(t_sp))))
-		return (-1);//
-	if (!ft_lstadd_front(img->lst, ft_lstnew()
-	img->lst->obj = 
-	img->lst->sp->o = v;
-	img->lst->sp->r = r;
+		return (-1);
+	sp->o = v;
+	sp->r = r;
+	if (!ft_lstadd_front(img->lst, ft_lstnew(sp, sphere)))
+		return (-1);
+	return (0);
 }
+
 void	calc(t_img img)
 {
 	t_vect	cam;

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 04:28:30 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/24 15:41:50 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ struct  s_img {
 	t_rgb		rgb;
 	t_point		point;
 	t_list		*lst;
+	t_vect		cam;
+	t_vect		view;
 };
 //win minus or int_max
 
