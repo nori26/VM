@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 22:37:39 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/24 22:44:01 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	draw_img(t_img *img)
 			img->point.pos_len = -1;
 			while (img->lst->next)
 			{
+				if (x == 255 && y == 255)
+					printf("aaa\n");
 				img->lst->f(img, img->lst->obj);
 				img->lst = img->lst->next;
 			}
@@ -95,9 +97,11 @@ void light_init(t_img *img, t_vect l)
 }
 void	calc(t_img *img)
 {
-	sp_init(img, sphere, vect_init(0, 0, 5), 1);
-	sp_init(img, sphere, vect_init(0, 15, 5), 1);
-	sp_init(img, sphere, vect_init(0, 20, 5), 1);
+	sp_init(img, sphere, vect_init(3, 0, 25), 1);
+	sp_init(img, sphere, vect_init(2, 0, 20), 1);
+	sp_init(img, sphere, vect_init(1, 0, 15), 1);
+	sp_init(img, sphere, vect_init(0, 0, 10), 1);
+	sp_init(img, sphere, vect_init(-1, 0, 5), 1);
 	light_init(img, vect_init(-5, 5, -5));
 	img->cam = vect_init(0, 0, -5);
 	img->start = img->lst;
