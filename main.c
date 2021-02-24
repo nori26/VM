@@ -29,42 +29,38 @@ void draw(t_img *img, int width, int height)
 	}
 }
 
-void	draw_img(t_img *img, t_vect sp, t_vect cam, int i)
+void	draw_img(t_img *img)
 {
+	int 	color;
 	int		x;
 	int		y;
-	int 	color = 0;
 	double	t;
-	t_list	*tmp;
 	t_vect	pos;
-	t_vect	u_view;
-	t_vect	p_point;
 
 	y = 0;
-	tmp = img->lst;
+	color = 0;
 	while (y < img->h)
 	{
 		x = 0;
 		while (x < img->w)
 		{
-			img->lst = tmp;
+			img->lst = img->start;
 			pos = point_to_vect(x, y, *img);
-			u_view = vect_unit(vect_sub(pos, cam));
+			img->view = vect_unit(vect_sub(pos, img->cam));
 			ft_bzero(&img->point, sizeof(img->point));
 			while (img->lst)
 			{
-				t = img->lst->f(cam, u_view, img, img->lst->obj);
+				t = img->lst->f(img, img->lst->obj);
 				img->lst = img->lst->next;
 			}
-			if ((t = sphere(cam, u_view, img, img->lst->obj)) && i)
+			if (t)
 			{
-				p_point = vect_add(vect_mult(u_view, t), cam);
-					color = light(p_point, sp, u_view);
-					if (color > 255)
-						color = 255;
+				color = light(img);
+				if (color > 255)
+					color = 255;
 				my_mlx_pixel_put(img, x, y, (color << 16) + ((int)(color * 0.4) << 8) + (int)(color * 0.4));
 			}
-			if (!i)
+			else
 				my_mlx_pixel_put(img, x, y, (100 << 16) + (149 << 8) + 237);
 			x++;
 		}
@@ -72,27 +68,31 @@ void	draw_img(t_img *img, t_vect sp, t_vect cam, int i)
 	}
 }
 
-int	sp_init(t_img *img, double (*f)(), t_vect v, double r)
+int	sp_init(t_img *img, double (*f)(), t_vect o, double r)
 {
 	t_sp *sp;
 
 	if (!(sp = malloc(sizeof(t_sp))))
 		return (-1);
-	sp->o = v;
+	sp->o = o;
 	sp->r = r;
 	if (!ft_lstadd_front(img->lst, ft_lstnew(sp, sphere)))
 		return (-1);
 	return (0);
 }
 
+void light_init(t_img *img, t_vect l)
+{
+	img->light.pos = l;
+}
+
 void	calc(t_img img)
 {
-	t_vect	cam;
-	t_vect	view;
-
 	sp_init(&img, sphere, vect_init(0, 0, 5), 1);
-	draw_img(&img, cam, 0);
-	cam = vect_init(0, 0, -5);
+	light_init(&img, vect_init(-5, 5, -5));
+	img.cam = vect_init(0, 0, -5);
+	img.start = img.lst;
+	draw_img(&img);
 }
 
 int     main(void)

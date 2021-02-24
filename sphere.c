@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 04:41:10 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/24 16:03:16 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,23 @@ double			quadratic_formula(double a, double b, double d)
 // 		return (0);
 // 	return (quadratic_formula(a, b, c, d));
 // }
-double			sphere(t_vect cam, t_vect view, t_img *img, t_sp *sp)
+double			sphere(t_img *img, t_sp *sp)
 {
 	double b;
 	double c;
 	double d;
-	double t;
 	double pos_len;
+	t_vect view_spatial;
 
-	b = 2 * dot(view, vect_sub(cam, sp->o));
-	c = pow(vect_sub(cam, sp->o).len, 2) - sp->r * sp->r;
+	b = 2 * dot(img->view, vect_sub(img->cam, sp->o));
+	c = pow(vect_sub(img->cam, sp->o).len, 2) - sp->r * sp->r;
 	if ((d = b * b - 4 * c) < 0)
 		return (0);
-	t = quadratic_formula(1, b, d);
-	if ((pos_len = vect_len(vect_mult(view, t))) >= img->point.pos_len)
+	view_spatial = vect_mult(img->view, quadratic_formula(1, b, d));
+	if ((pos_len = vect_len(view_spatial)) >= img->point.pos_len)
 		return (0);
 	img->point.pos_len = pos_len;
-	img->point.pos = vect_add(vect_mult(view, t), cam);
+	img->point.pos = vect_add(view_spatial, img->cam);
 	img->point.normal = vect_unit(vect_sub(img->point.pos, sp->o));
 	return (1);
 }

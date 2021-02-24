@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 15:41:50 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/24 20:09:29 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ typedef struct	s_vect
 	double		z;
 	double		len;
 }				t_vect;
+typedef struct s_light
+{
+	t_vect		pos;
+	t_rgb		rgb;
+}				t_light;
 typedef struct	s_sp
 {
 	t_vect		o;
@@ -68,8 +73,10 @@ struct  s_img {
 	t_rgb		rgb;
 	t_point		point;
 	t_list		*lst;
+	t_list		*start;
 	t_vect		cam;
 	t_vect		view;
+	t_light		light;
 };
 //win minus or int_max
 
@@ -83,10 +90,10 @@ t_vect			vect_mult(t_vect v1, double d);
 t_vect			vect_sub(t_vect v1, t_vect v2);
 t_vect			point_to_vect(double x, double y, t_img img);
 t_vect			vect_init(double x, double y, double z);
-double			sphere(t_vect cam, t_vect view, t_img *img, t_sp *sp);
+double			sphere(t_img *img, t_sp *sp);
 double			quadratic_formula(double a, double b, double d);
 t_vect			vect_unit(t_vect v);
-int				light(t_vect point, t_vect sp, t_vect u_view);
+int				light(t_img *img);
 int				spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
 t_list			*ft_lstnew(void *obj, void *func);
 void			ft_bzero(void *s, size_t n);

@@ -6,27 +6,23 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/21 23:26:17 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/24 20:10:05 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-int	light(t_vect p_point, t_vect sp, t_vect u_view)
+int	light(t_img *img)
 {
 	int		ret;
 	double	cos_nl;
-	t_vect	u_normal;
-	t_vect	p_light;
 	t_vect	u_light;
 
 	ret = (int)(255 * AMB);
-	p_light = vect_init(-5, 5, -5);
-	u_normal = vect_unit(vect_sub(p_point, sp));
-	u_light = vect_unit(vect_sub(p_light, p_point));
-	cos_nl = dot(u_light, u_normal);
+	u_light = vect_unit(vect_sub(img->light.pos, img->point.pos));
+	cos_nl = dot(u_light, img->point.normal);
 	if (cos_nl > 0)
-		ret += spec(u_view, u_light, u_normal, cos_nl);
+		ret += spec(img->view, u_light, img->point.normal, cos_nl);
 	return (ret += (cos_nl > 0) * (int)(cos_nl * 255 * DIFF));
 }
 
