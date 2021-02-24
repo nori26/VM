@@ -48,8 +48,11 @@ void			test2(int a)
 int				main()
 {
 	void		(**f)();
+	void 	*s;
+	char *c = malloc(1);
 	t_vect		v;
 
+	s = c;
 	f = malloc(30);
 	f[0] = test;
 	f[1] = test2;
