@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/25 16:17:59 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/25 21:05:12 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <math.h>
 # include <float.h>
 # include "get_next_line.h"
+# include <fcntl.h>
+# include "libft/libft.h"
 # define PI 3.14159265
 # define GLOSS 8
 # define AMB 0.1
@@ -25,7 +27,7 @@
 # define DIFF 0.9
 # define SPEC 0.9
 // # define SPEC 0.3
-typedef struct s_list	t_list;
+typedef struct s_lst	t_lst;
 typedef struct s_img	t_img;
 typedef struct	s_rgb
 {
@@ -57,18 +59,18 @@ typedef struct	s_plane
 	double		r;
 	t_rgb		rgb;
 }				t_plane;
-typedef struct	s_point
+typedef struct	s_node
 {
 	t_vect		pos;
 	t_vect		normal;
 	t_rgb		rgb;
 	double		pos_len;
-}				t_point;
-struct  s_list
+}				t_node;
+struct  s_lst
 {
 	void		*obj;
 	double		(*f)();
-	t_list		*next;
+	t_lst		*next;
 };
 struct  s_img {
     void        *img;
@@ -82,9 +84,9 @@ struct  s_img {
 	void		*win;
 	t_sp		sp;
 	t_rgb		rgb;
-	t_point		point;
-	t_list		*lst;
-	t_list		*start;
+	t_node		node;
+	t_lst		*lst;
+	t_lst		*start;
 	t_vect		cam;
 	t_vect		view;
 	t_light		light;
@@ -105,11 +107,10 @@ double			vect_len(t_vect v);
 double			sphere(t_img *img, t_sp *sp);
 double			quadratic_formula(double a, double b, double d);
 t_vect			vect_unit(t_vect v);
-double				light(t_img *img);
-double				spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
-t_list			*ft_lstnew(void *obj, void *func);
-t_list			*ft_lstadd_front(t_list **lst, t_list *new);
-void			ft_bzero(void *s, size_t n);
+double			light(t_img *img);
+double			spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
+t_lst			*ft_lstnew_rt(void *obj, void *func);
+t_lst			*ft_lstadd_front_rt(t_lst **lst, t_lst *new);
 t_rgb			rgb_init(int r, int g, int b);
 int				color(t_rgb obj, t_light light, double ref);
 

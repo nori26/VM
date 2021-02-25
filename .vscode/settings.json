@@ -3,6 +3,9 @@
 		"mlx.h": "c",
 		"stdio.h": "c",
 		"typeinfo": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"cmath": "cpp",
+		"limits": "cpp",
+		"*.tcc": "cpp"
 	}
 }

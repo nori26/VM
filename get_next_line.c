@@ -6,22 +6,35 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 08:43:23 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/25 23:26:46 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/25 20:48:20 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+void	*free_set(void *p1, void *p2)
+{
+	free(p1);
+	return (p2);
+}
+
+int		freeturn(char **p, int ret)
+{
+	free(*p);
+	*p = NULL;
+	return (ret);
+}
+
 int		check_buf(char **buf, char **line, char *p)
 {
 	char *tmp;
 
-	tmp = *buf;
 	if (p)
 	{
 		*p = '\0';
 		if (!(*line = free_set(*line, ft_strjoin(*line, *buf))))
 			return (freeturn(buf, -1));
+		tmp = *buf;
 		while (*++p)
 			*tmp++ = *p;
 		*tmp = '\0';

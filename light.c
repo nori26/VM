@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 23:08:40 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/25 19:48:04 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ double	light(t_img *img)
 	t_vect	u_light;
 
 	ret = AMB;
-	u_light = vect_unit(vect_sub(img->light.pos, img->point.pos));
-	cos_nl = dot(u_light, img->point.normal);
+	u_light = vect_unit(vect_sub(img->light.pos, img->node.pos));
+	cos_nl = dot(u_light, img->node.normal);
 	if (cos_nl > 0)
-		ret += spec(img->view, u_light, img->point.normal, cos_nl);
+		ret += spec(img->view, u_light, img->node.normal, cos_nl);
 	ret += (cos_nl > 0) * (cos_nl * DIFF);
 	return (ret > 1 ? 1 : ret);
 }

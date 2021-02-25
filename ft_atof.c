@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atof.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/25 18:57:47 by nosuzuki          #+#    #+#             */
+/*   Updated: 2021/02/25 18:58:13 by nosuzuki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <float.h>
 #include <stdint.h>
@@ -15,61 +27,63 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-// double	ft_mini_atof(const char *s)
-// {
-// 	int			neg;
-// 	uint64_t	len;
-// 	double		frac;
-// 	double		integer;
-
-// 	if (!s)
-// 		return (INFINITY);
-// 	neg = *s == '-' ? *s++ == '-' : 0;
-// 	if (*s == '0' && s[1] && s[1] != '.')
-// 		return (INFINITY);
-// 	integer = 0;
-// 	if (!('0' <= *s && *s <= '9'))
-// 		return (INFINITY);
-// 	while ('0' <= *s && *s <= '9')
-// 		integer = integer * 10 + *s++ - '0';
-// 	if ((*s && *s != '.') || integer == INFINITY)
-// 		return (INFINITY);
-// 	frac = 0;
-// 	if ((len = ft_strlen(s)) == 1)
-// 		return (INFINITY);
-// 	while (*s && '0' <= s[--len] && s[len] <= '9')
-// 		frac = frac / 10 + (s[len] - '0');
-// 	if (len > 0)
-// 		return (INFINITY);
-// 	return (neg ? -(integer + frac / 10) : integer + frac / 10); 
-// }
-double    ft_mini_atof(char *str)
+double	ft_mini_atof(const char *s)
 {
-    int        sign;
-    double    integer;
-    double    decimal;
-    int        len;
+	int			neg;
+	uint64_t	len;
+	double		frac;
+	double		integer;
 
-    sign = 1;
-    integer = 0;
-    decimal = 0;
-    if (str == NULL)
-        return (INFINITY);
-    if (*str == '-')
-        sign *= -1 + (*str++ * 0);
-    if (!ft_isdigit(*str)|| (*str == '0' && str[1] && str[1] != '.'))
-        return (INFINITY);
-    while (ft_isdigit(*str))
-        integer = integer * 10 + (*str++ - '0');
-    if ((*str && *str++ != '.') || integer == INFINITY)
-        return (INFINITY);
-    len = ft_strlen(str);
-    while (len > 0 && ft_isdigit(str[len - 1]))
-        decimal = decimal / 10 + (str[--len] - '0');
-    if (len != 0)
-        return (INFINITY);
-    return (sign * (integer + decimal / 10));
+	if (!s)
+		return (INFINITY);
+	neg = *s == '-' ? *s++ == '-' : 0;
+	if ((*s == '0' && s[1] && s[1] != '.') || !('0' <= *s && *s <= '9'))
+		return (INFINITY);
+	integer = 0;
+	while ('0' <= *s && *s <= '9')
+		integer = integer * 10 + *s++ - '0';
+	if ((*s && *s != '.') || integer == INFINITY || ((len = ft_strlen(s)) == 1))
+		return (INFINITY);
+	frac = 0;
+	while (*s && '0' <= s[--len] && s[len] <= '9')
+		frac = frac / 10 + (s[len] - '0');
+	if (len > 0)
+		return (INFINITY);
+	return (neg ? -(integer + frac / 10) : integer + frac / 10); 
 }
+
+int	ft_isdigit(int c)
+{
+	return ('0' <= c && c <= '9');
+}
+
+// double    ft_mini_atof(char *str)
+// {
+//     int        sign;
+//     double    integer;
+//     double    decimal;
+//     int        len;
+
+//     sign = 1;
+//     integer = 0;
+//     decimal = 0;
+//     if (str == NULL)
+//         return (INFINITY);
+//     if (*str == '-')
+//         sign *= -1 + (*str++ * 0);
+//     if (!ft_isdigit(*str)|| (*str == '0' && str[1] && str[1] != '.'))
+//         return (INFINITY);
+//     while (ft_isdigit(*str))
+//         integer = integer * 10 + (*str++ - '0');
+//     if ((*str && *str++ != '.') || integer == INFINITY)
+//         return (INFINITY);
+//     len = ft_strlen(str);
+//     while (len > 0 && ft_isdigit(str[len - 1]))
+//         decimal = decimal / 10 + (str[--len] - '0');
+//     if (len != 0)
+//         return (INFINITY);
+//     return (sign * (integer + decimal / 10));
+// }
 int atof_test(int i, char *s)
 {
 	double d;

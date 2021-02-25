@@ -6,13 +6,13 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/25 13:33:06 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/25 21:07:55 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-t_list	*ft_lstadd_front(t_list **lst, t_list *new)
+t_lst	*ft_lstadd_front_rt(t_lst **lst, t_lst *new)
 {
 	if (*lst && new)
 		new->next = *lst;
@@ -20,22 +20,16 @@ t_list	*ft_lstadd_front(t_list **lst, t_list *new)
 	return (new);
 }
 
-t_list	*ft_lstnew(void *obj, void *func)
+t_lst	*ft_lstnew_rt(void *obj, void *func)
 {
-	t_list *lst;
+	t_lst *lst;
 
-	if (!(lst = malloc(sizeof(t_list))))
+	if (!(lst = malloc(sizeof(t_lst))))
 		return (NULL);
 	lst->obj = obj;
 	lst->f = func;
 	lst->next = NULL;
 	return (lst);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	while (n--)
-		*(char *)s++ = 0;
 }
 
 double			quadratic_formula(double a, double b, double d)
@@ -64,12 +58,12 @@ double			sphere(t_img *img, t_sp *sp)
 		return (0);
 	pos_len = quadratic_formula(1, b, d);
 	view_spatial = vect_mult(img->view, pos_len);
-	if (img->point.pos_len >= 0 && (pos_len >= img->point.pos_len))
+	if (img->node.pos_len >= 0 && (pos_len >= img->node.pos_len))
 		return (0);
-	img->point.rgb = sp->rgb;
-	img->point.pos_len = pos_len;
-	img->point.pos = vect_add(view_spatial, img->cam);
-	img->point.normal = vect_unit(vect_sub(img->point.pos, sp->o));
+	img->node.rgb = sp->rgb;
+	img->node.pos_len = pos_len;
+	img->node.pos = vect_add(view_spatial, img->cam);
+	img->node.normal = vect_unit(vect_sub(img->node.pos, sp->o));
 	return (1);
 }
 

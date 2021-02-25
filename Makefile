@@ -7,11 +7,13 @@ SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRCNAME))
 OBJS	= $(SRCS:.c=.o)
 SRCNAME	= main.c pixel_put.c light.c vector_utils.c sphere.c\
-          get_next_line.c get_next_line_utils.c
+          get_next_line.c
 
 all		: $(NAME)
 $(NAME)	: 
-	$(CC) ${SRCNAME} $(CFLAGS)
+	$(MAKE) -C ./libft
+	cp ./libft/libft.a .
+	$(CC) ${SRCNAME} libft.a $(CFLAGS)
 san     :
 	$(CC) $(CFLAGS) -g -fsanitize=address
 bonus	: $(B_OBJS) $(OBJS)

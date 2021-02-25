@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/25 18:38:42 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/25 21:08:36 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ void	draw_img(t_img *img)
 			pos = vect_init(2.0 * x / (img->w - 1) - 1,
 							-2.0 * y / (img->h - 1) + 1, 0);
 			img->view = vect_unit(vect_sub(pos, img->cam));
-			ft_bzero(&img->point, sizeof(img->point));
-			img->point.pos_len = -1;
+			ft_bzero(&img->node, sizeof(img->node));
+			img->node.pos_len = -1;
 			while (img->lst)
 			{
 				img->lst->f(img, img->lst->obj);
 				img->lst = img->lst->next;
 			}
-			if (img->point.pos_len != -1)
+			if (img->node.pos_len != -1)
 			{
 				my_mlx_pixel_put(img, x, y,
-							color(img->point.rgb, img->light, light(img)));
+							color(img->node.rgb, img->light, light(img)));
 			}
 			else
 				my_mlx_pixel_put(img, x, y, (100 << 16) + (149 << 8) + 237);
@@ -68,7 +68,7 @@ int	sp_init(t_img *img, t_vect o, double r, t_rgb rgb)
 	sp->o = o;
 	sp->r = r;
 	sp->rgb = rgb;
-	if (!ft_lstadd_front(&img->lst, ft_lstnew(sp, sphere)))
+	if (!ft_lstadd_front_rt(&img->lst, ft_lstnew_rt(sp, sphere)))
 		return (-1);
 	return (0);
 }
@@ -81,12 +81,12 @@ void light_init(t_img *img, t_vect l)
 
 void	calc(t_img *img)
 {
-	// sp_init(img, vect_init(3, 0, 25), 1, rgb_init(255, 0, 0));
-	// sp_init(img, vect_init(2, 0, 20), 1, rgb_init(0, 255, 0));
-	// sp_init(img, vect_init(1, 0, 15), 1, rgb_init(0, 0, 255));
-	// sp_init(img, vect_init(0, 0, 10), 1, rgb_init(255, 0, 0));
-	// sp_init(img, vect_init(-1, -0, 5), 1, rgb_init(0, 255, 0));
-	sp_init(img, vect_init(0, 0, 30), 10, rgb_init(255, 0, 0));
+	sp_init(img, vect_init(3, 0, 25), 1, rgb_init(255, 0, 0));
+	sp_init(img, vect_init(2, 0, 20), 1, rgb_init(0, 255, 0));
+	sp_init(img, vect_init(1, 0, 15), 1, rgb_init(0, 0, 255));
+	sp_init(img, vect_init(0, 0, 10), 1, rgb_init(255, 0, 0));
+	sp_init(img, vect_init(-1, -0, 5), 1, rgb_init(0, 255, 0));
+	// sp_init(img, vect_init(0, 0, 30), 10, rgb_init(255, 0, 0));
 	light_init(img, vect_init(30, 30, -30));
 	// light_init(img, vect_init(150, 150, -150));
 	img->cam = vect_init(0, 0, -5);
