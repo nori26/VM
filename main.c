@@ -6,30 +6,19 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 22:44:01 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/25 16:00:31 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "puts.h"
 
-int		color(t_rgb obj, t_light light, double ref)
-{
-	int r;
-	int g;
-	int b;
-
-	r = 255 * obj.r * light.rgb.r * ref;
-	g = 255 * obj.g * light.rgb.g * ref;
-	b = 255 * obj.b * light.rgb.b * ref;
-	return ((r << 16) + (g << 8) + b);
-}
+int i;
 
 void	draw_img(t_img *img)
 {
 	int		x;
 	int		y;
-	double	t;
 	t_vect	pos;
 
 	y = 0;
@@ -44,17 +33,17 @@ void	draw_img(t_img *img)
 			img->view = vect_unit(vect_sub(pos, img->cam));
 			ft_bzero(&img->point, sizeof(img->point));
 			img->point.pos_len = -1;
-			while (img->lst->next)
+			i = 0;
+			while (img->lst)
 			{
-				if (x == 255 && y == 255)
-					printf("aaa\n");
+				i++;
 				img->lst->f(img, img->lst->obj);
 				img->lst = img->lst->next;
 			}
-			img->lst->f(img, img->lst->obj);
-			if (img->point.pos_len > -1)
+			if (img->point.pos_len != -1)
 			{
-				my_mlx_pixel_put(img, x, y, color(img->lst->rgb, img->light, light(img)));
+				my_mlx_pixel_put(img, x, y,
+							color(img->point.rgb, img->light, light(img)));
 			}
 			else
 				my_mlx_pixel_put(img, x, y, (100 << 16) + (149 << 8) + 237);
@@ -71,21 +60,19 @@ t_rgb	rgb_init(int r, int g, int b)
 	color.r = r / 255.0;
 	color.g = g / 255.0;
 	color.b = b / 255.0;
-	printf("%f\n", color.r);
 	return (color);
 }
 
-int	sp_init(t_img *img, double (*f)(), t_vect o, double r)
+int	sp_init(t_img *img, t_vect o, double r, t_rgb rgb)
 {
 	t_sp	*sp;
-	t_rgb	rgb;
 
 	if (!(sp = malloc(sizeof(t_sp))))
 		return (-1);
 	sp->o = o;
 	sp->r = r;
-	rgb = rgb_init(255, 0, 0);
-	if (!ft_lstadd_front(&img->lst, ft_lstnew(sp, sphere, rgb)))
+	sp->rgb = rgb;
+	if (!ft_lstadd_front(&img->lst, ft_lstnew(sp, sphere)))
 		return (-1);
 	return (0);
 }
@@ -95,22 +82,25 @@ void light_init(t_img *img, t_vect l)
 	img->light.pos = l;
 	img->light.rgb = rgb_init(255, 255, 255);
 }
+
 void	calc(t_img *img)
 {
-	sp_init(img, sphere, vect_init(3, 0, 25), 1);
-	sp_init(img, sphere, vect_init(2, 0, 20), 1);
-	sp_init(img, sphere, vect_init(1, 0, 15), 1);
-	sp_init(img, sphere, vect_init(0, 0, 10), 1);
-	sp_init(img, sphere, vect_init(-1, 0, 5), 1);
-	light_init(img, vect_init(-5, 5, -5));
+	// sp_init(img, vect_init(3, 0, 25), 1, rgb_init(255, 0, 0));
+	// sp_init(img, vect_init(2, 0, 20), 1, rgb_init(0, 255, 0));
+	// sp_init(img, vect_init(1, 0, 15), 1, rgb_init(0, 0, 255));
+	// sp_init(img, vect_init(0, 0, 10), 1, rgb_init(255, 0, 0));
+	// sp_init(img, vect_init(-1, -0, 5), 1, rgb_init(0, 255, 0));
+	sp_init(img, vect_init(0, 0, 30), 10, rgb_init(255, 0, 0));
+	light_init(img, vect_init(30, 30, -30));
+	// light_init(img, vect_init(150, 150, -150));
 	img->cam = vect_init(0, 0, -5);
+	// img->cam = vect_init(0, 0, -30);
 	img->start = img->lst;
 	draw_img(img);
 }
 
 int     main(void)
 {
-	t_vect	v;
 	t_img  img;
 
 	ft_bzero(&img, sizeof(img));

@@ -11,6 +11,8 @@ void            my_mlx_pixel_put(t_img *data, int x, int y, int color)
 
 int             close1(int keycode, t_img *vars)
 {
+	(void)vars;
+	(void)keycode;
 	// printf("%d\n", keycode);
 	// mlx_loop_end(vars->mlx);
     // mlx_destroy_window(vars->mlx, vars->win);

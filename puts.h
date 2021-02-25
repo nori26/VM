@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 21:58:59 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/25 16:17:59 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@
 # include <stdlib.h>
 # include <math.h>
 # include <float.h>
+# include "get_next_line.h"
 # define PI 3.14159265
 # define GLOSS 8
-# define AMB 0.001
+# define AMB 0.1
 // # define AMB 1
-# define DIFF 0.69
-// # define DIFF 1
-// # define SPEC 1
-# define SPEC 0.3
+// # define DIFF 0.69 * 0.9
+# define DIFF 0.9
+# define SPEC 0.9
+// # define SPEC 0.3
 typedef struct s_list	t_list;
 typedef struct s_img	t_img;
 typedef struct	s_rgb
@@ -48,17 +49,24 @@ typedef struct	s_sp
 {
 	t_vect		o;
 	double		r;
+	t_rgb		rgb;
 }				t_sp;
+typedef struct	s_plane
+{
+	t_vect		o;
+	double		r;
+	t_rgb		rgb;
+}				t_plane;
 typedef struct	s_point
 {
 	t_vect		pos;
 	t_vect		normal;
+	t_rgb		rgb;
 	double		pos_len;
 }				t_point;
 struct  s_list
 {
 	void		*obj;
-	t_rgb		rgb;
 	double		(*f)();
 	t_list		*next;
 };
@@ -99,10 +107,10 @@ double			quadratic_formula(double a, double b, double d);
 t_vect			vect_unit(t_vect v);
 double				light(t_img *img);
 double				spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
-t_list			*ft_lstnew(void *obj, void *func, t_rgb rgb);
+t_list			*ft_lstnew(void *obj, void *func);
 t_list			*ft_lstadd_front(t_list **lst, t_list *new);
 void			ft_bzero(void *s, size_t n);
-
-
+t_rgb			rgb_init(int r, int g, int b);
+int				color(t_rgb obj, t_light light, double ref);
 
 #endif

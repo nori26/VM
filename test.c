@@ -1,69 +1,26 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <float.h>
+#include <limits.h>
+#include <stdint.h>
 
-typedef struct s_list t_list;
-struct s_vect;
-typedef struct	s_vect
+void			test2(double a)
 {
-	double		x;
-	double		y;
-	double		z;
-	long long	d;
-	void (*f)(t_list);
-}				t_vect;
-struct			s_list
-{
-	t_vect		v;
-	char		a[1];
-};
-
-typedef struct			k_list
-{
-	t_vect		v;
-	char		a[100];
-}						n_list;
-t_vect	cross(t_vect v1, t_vect v2)
-{
-	t_vect ret;
-
-	ret.x = v1.y * v2.z - v1.z * v2.y;
-	ret.y = v1.z * v2.x - v1.x * v2.z;
-	ret.z = v1.x * v2.y - v1.y * v2.x;
-	return (ret);
-}
-
-char 			g_c = 'a';
-double			vect_len(t_vect v)
-{
-	double		len;
-
-	len = 0;
-	v.x = 0;
-	return (len);
-}
-void			test()
-{
-	printf("%c\n", g_c);
-}
-
-void			test2(int a)
-{
-	printf("%d\n", a);
+	if (a == -INFINITY)
+		printf("%f\n", a);
 }
 int				main()
 {
-	void		(**f)();
-	void 	*s;
-	char *c = malloc(1);
-	t_vect		v;
-
-	printf("%lu\n%lu\n", sizeof(t_list), sizeof(n_list));
-	s = c;
-	f = malloc(30);
-	f[0] = test;
-	f[1] = test2;
-	f[0]();
-	f[1](1);
-	v.x = 1;
+	// test2(DBL_MAX * -1.000000000001);
+	// test2(DBL_MAX * -3);
+	// test2(DBL_MAX * -1.1);
+	// test2(DBL_MAX * -1.15);
+	// test2(DBL_MAX);
+	// test2(DBL_MAX);
+	// test2(DBL_MAX);
+	// test2(DBL_MAX);
+	// test2(DBL_MAX);
+	// test2(DBL_MAX);
+	char *s = malloc(1);
 }

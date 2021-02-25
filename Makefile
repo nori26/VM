@@ -1,12 +1,13 @@
 NAME	= a.out
 CC		= clang
-CFLAGS	= -g -fsanitize=address -lm libmlx_Linux.a -lXext -lX11
+CFLAGS	= -Wall -Werror -Wextra -lm libmlx_Linux.a -lXext -lX11 #-g -fsanitize=address
 AR		= ar
 ARFLAGS	= scr
 SRCDIR	= ./
 SRCS	= $(addprefix $(SRCDIR), $(SRCNAME))
 OBJS	= $(SRCS:.c=.o)
-SRCNAME	= main.c pixel_put.c light.c vector_utils.c sphere.c
+SRCNAME	= main.c pixel_put.c light.c vector_utils.c sphere.c\
+          get_next_line.c get_next_line_utils.c
 
 all		: $(NAME)
 $(NAME)	: 

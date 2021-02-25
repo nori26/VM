@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 22:35:26 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/25 13:33:06 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_list	*ft_lstadd_front(t_list **lst, t_list *new)
 	return (new);
 }
 
-t_list	*ft_lstnew(void *obj, void *func, t_rgb rgb)
+t_list	*ft_lstnew(void *obj, void *func)
 {
 	t_list *lst;
 
@@ -28,7 +28,6 @@ t_list	*ft_lstnew(void *obj, void *func, t_rgb rgb)
 		return (NULL);
 	lst->obj = obj;
 	lst->f = func;
-	lst->rgb = rgb;
 	lst->next = NULL;
 	return (lst);
 }
@@ -63,11 +62,15 @@ double			sphere(t_img *img, t_sp *sp)
 	c = pow(vect_len(vect_sub(img->cam, sp->o)), 2) - sp->r * sp->r;
 	if ((d = b * b - 4 * c) < 0)
 		return (0);
-	view_spatial = vect_mult(img->view, quadratic_formula(1, b, d));
-	if (img->point.pos_len >= 0 && (pos_len = vect_len(view_spatial)) >= img->point.pos_len)
+	pos_len = quadratic_formula(1, b, d);
+	view_spatial = vect_mult(img->view, pos_len);
+	if (img->point.pos_len >= 0 && (pos_len >= img->point.pos_len))
 		return (0);
+	img->point.rgb = sp->rgb;
 	img->point.pos_len = pos_len;
 	img->point.pos = vect_add(view_spatial, img->cam);
 	img->point.normal = vect_unit(vect_sub(img->point.pos, sp->o));
 	return (1);
 }
+
+// double		plane()

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 21:58:37 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/24 23:08:40 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,16 @@ double spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl)
 	u_ref = vect_unit(vect_sub(vect_mult(u_normal, 2 * cos_nl), u_light));
 	cos_vr = dot(vect_mult(u_view, -1), u_ref);
 	return (cos_vr > 0 ? SPEC * pow(cos_vr, GLOSS) : 0);
+}
+
+int		color(t_rgb obj, t_light light, double ref)
+{
+	int r;
+	int g;
+	int b;
+
+	r = 255 * obj.r * light.rgb.r * ref;
+	g = 255 * obj.g * light.rgb.g * ref;
+	b = 255 * obj.b * light.rgb.b * ref;
+	return ((r << 16) + (g << 8) + b);
 }

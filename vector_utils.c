@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 01:28:53 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/24 20:58:04 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/25 12:40:27 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ t_vect			vect_unit(t_vect v)
 
 double			vect_len(t_vect v)
 {
-	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
+	return (sqrt(dot(v, v)));
 }
