@@ -6,14 +6,12 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/25 16:00:31 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/25 18:38:42 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "puts.h"
-
-int i;
 
 void	draw_img(t_img *img)
 {
@@ -33,10 +31,8 @@ void	draw_img(t_img *img)
 			img->view = vect_unit(vect_sub(pos, img->cam));
 			ft_bzero(&img->point, sizeof(img->point));
 			img->point.pos_len = -1;
-			i = 0;
 			while (img->lst)
 			{
-				i++;
 				img->lst->f(img, img->lst->obj);
 				img->lst = img->lst->next;
 			}
