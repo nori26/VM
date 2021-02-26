@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:57:47 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/25 18:58:13 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/26 07:00:32 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ size_t	ft_strlen(const char *s)
 
 double	ft_mini_atof(const char *s)
 {
-	int			neg;
-	uint64_t	len;
-	double		frac;
-	double		integer;
+	int		neg;
+	size_t	len;
+	double	integer;
+	double	fraction;
 
 	if (!s)
 		return (INFINITY);
@@ -44,12 +44,12 @@ double	ft_mini_atof(const char *s)
 		integer = integer * 10 + *s++ - '0';
 	if ((*s && *s != '.') || integer == INFINITY || ((len = ft_strlen(s)) == 1))
 		return (INFINITY);
-	frac = 0;
+	fraction = 0;
 	while (*s && '0' <= s[--len] && s[len] <= '9')
-		frac = frac / 10 + (s[len] - '0');
+		fraction = fraction / 10 + (s[len] - '0');
 	if (len > 0)
 		return (INFINITY);
-	return (neg ? -(integer + frac / 10) : integer + frac / 10); 
+	return (neg ? -(integer + fraction / 10) : integer + fraction / 10); 
 }
 
 int	ft_isdigit(int c)
