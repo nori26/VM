@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/25 21:05:12 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/26 14:57:40 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <stdlib.h>
 # include <math.h>
 # include <float.h>
+# include "libft/libft.h"
 # include "get_next_line.h"
 # include <fcntl.h>
-# include "libft/libft.h"
 # define PI 3.14159265
 # define GLOSS 8
 # define AMB 0.1
@@ -113,5 +113,15 @@ t_lst			*ft_lstnew_rt(void *obj, void *func);
 t_lst			*ft_lstadd_front_rt(t_lst **lst, t_lst *new);
 t_rgb			rgb_init(int r, int g, int b);
 int				color(t_rgb obj, t_light light, double ref);
-
+double			ft_mini_atoinf(const char *s, char type);
+int				pl_init(char *data, t_img *img);
+int				sp1_init(char *data, t_img *img);
+int				sq_init(char *data, t_img *img);
+int				cy_init(char *data, t_img *img);
+int				tr_init(char *data, t_img *img);
+int				parse_resolution(char *start, t_img *img);
+int				resolution_init(char *data, t_img *img);
+int				amb_init(char *data, t_img *img);
+int				cam_init(char *data, t_img *img);
+int				light1_init(char *data, t_img *img);
 #endif

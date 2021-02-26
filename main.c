@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/25 21:08:36 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/26 08:23:47 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,16 @@ int     main(void)
 	t_img  img;
 
 	ft_bzero(&img, sizeof(img));
-	img.w = 512;
-	img.h = 512;
+	img.w = 1920;
+	img.h = 975;
     img.mlx = mlx_init();
 	img.win = mlx_new_window(img.mlx, img.w, img.h, "Hello world!");
 	img.img = mlx_new_image(img.mlx, img.w, img.h);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length, &img.endian);
+	int x = 0;
+	int y = 0;
+	mlx_get_screen_size(img.mlx, &x, &y);
+	printf("%d\n%d\n", x, y);
 	// mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
 	// img.img = mlx_xpm_file_to_image(img.mlx, "./test.xpm", &img_width, &img_height);
     // mlx_loop_hook(img.mlx, render_next_frame, &img);

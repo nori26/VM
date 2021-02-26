@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atof.c                                          :+:      :+:    :+:   */
+/*   ft_atof_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:57:47 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/26 07:00:32 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/26 22:47:41 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <math.h>
+
 
 size_t	ft_strlen(const char *s)
 {
@@ -27,81 +28,42 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-double	ft_mini_atof(const char *s)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int		neg;
-	size_t	len;
-	double	integer;
-	double	fraction;
+	int i;
 
-	if (!s)
-		return (INFINITY);
-	neg = *s == '-' ? *s++ == '-' : 0;
-	if ((*s == '0' && s[1] && s[1] != '.') || !('0' <= *s && *s <= '9'))
-		return (INFINITY);
-	integer = 0;
-	while ('0' <= *s && *s <= '9')
-		integer = integer * 10 + *s++ - '0';
-	if ((*s && *s != '.') || integer == INFINITY || ((len = ft_strlen(s)) == 1))
-		return (INFINITY);
-	fraction = 0;
-	while (*s && '0' <= s[--len] && s[len] <= '9')
-		fraction = fraction / 10 + (s[len] - '0');
-	if (len > 0)
-		return (INFINITY);
-	return (neg ? -(integer + fraction / 10) : integer + fraction / 10); 
+	i = 0;
+	while ((s1[i] || s2[i]) && s1[i] == s2[i] )
+		i++;
+	return (i);
 }
 
-int	ft_isdigit(int c)
-{
-	return ('0' <= c && c <= '9');
-}
-
-// double    ft_mini_atof(char *str)
-// {
-//     int        sign;
-//     double    integer;
-//     double    decimal;
-//     int        len;
-
-//     sign = 1;
-//     integer = 0;
-//     decimal = 0;
-//     if (str == NULL)
-//         return (INFINITY);
-//     if (*str == '-')
-//         sign *= -1 + (*str++ * 0);
-//     if (!ft_isdigit(*str)|| (*str == '0' && str[1] && str[1] != '.'))
-//         return (INFINITY);
-//     while (ft_isdigit(*str))
-//         integer = integer * 10 + (*str++ - '0');
-//     if ((*str && *str++ != '.') || integer == INFINITY)
-//         return (INFINITY);
-//     len = ft_strlen(str);
-//     while (len > 0 && ft_isdigit(str[len - 1]))
-//         decimal = decimal / 10 + (str[--len] - '0');
-//     if (len != 0)
-//         return (INFINITY);
-//     return (sign * (integer + decimal / 10));
-// }
 int atof_test(int i, char *s)
 {
-	double d;
+	int 	res;
+	char	buft[2000];
+	char 	libuf[2000];
+	double	d;
 
-	printf("=========%d=========\n", i);
-	if (((d = ft_mini_atof(s)) == INFINITY))
-		return (puts("err"));
-	printf("%.1500g\n", d);
-	printf("%.1500g\n\n", atof(s));
-	return (0);
+	printf("=============%02d=============\n", i);
+	if (((d = ft_atof(s)) == INFINITY))
+		return (puts("            \x1b[32merr\x1b[39m\n"));
+	sprintf(buft, "%.1500g", d);
+	sprintf(libuf, "%.1500g", atof(s));
+	// printf("%.1500g\n", d);
+	// printf("%.1500g\n\n", atof(s));
+	if ((res = ft_strcmp(libuf, buft)) < 15 && (size_t)res < ft_strlen(libuf))
+		return (printf("result    : \x1b[31m[KO]\n\x1b[39mprecision : %3d\n\n", res));
+	return (printf("result    : \x1b[32m[OK]\n\x1b[39mprecision : %3d\n\n", res));
 }
 
 int main()
 {
 	char buf[2000];
+	char buf2[100];
 
 	sprintf(buf, "%.1500f", DBL_MIN);
-	atof_test(1, buf);
+	atof_test(0, buf);
 	sprintf(buf, "%.1500f", DBL_MIN / 1000000);
 	atof_test(1, buf);
 	sprintf(buf, "%.1500f", DBL_MAX);
@@ -117,6 +79,12 @@ int main()
 	atof_test(11, "-1.01");
 	atof_test(12, "-100.01");
 	atof_test(13, "-100");
+	sprintf(buf2, "%d", INT_MAX);
+	// printf("%d\n", INT_MAX);
+	atof_test(14, buf2);
+	sprintf(buf2, "%d", INT_MIN);
+	atof_test(15, buf2);
+	// printf("%d\n", INT_MIN);
 
 	puts("\n\n=====================================");
 	puts("===============error=================");
@@ -166,5 +134,6 @@ int main()
 	atof_test(41, "\"");
 	atof_test(42, "\'");
 	atof_test(43, "..");
-	atof_test(44, NULL);
+	atof_test(45, "");
+	atof_test(46, NULL);
 }

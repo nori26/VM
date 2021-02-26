@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 06:54:19 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/25 21:12:23 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/26 19:12:35 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@
 # define BUF_SIZE BUFFER_SIZE
 int		get_next_line(int fd, char **line);
 int		check_buf(char **buf, char **line, char *p);
-int		check_buf(char **buf, char **line, char *p);
+int		freeturn(char **p, int ret);
+void	*free_set(void *p1, void *p2);
 #endif
