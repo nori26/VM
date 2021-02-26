@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/26 19:39:00 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/26 23:13:30 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,32 @@ char	*skip_not_space(char *s)
 	return (s);
 }
 
-double	trim_space(char **s)
+char	*trim_space(char **s)
 {
 	char	*tmp;
-	double	ret;
+	char	*ret;
 
-	*s = skip_space(*s);
-	tmp = skip_not_space(*s);
+	ret = skip_space(*s);
+	tmp = skip_not_space(ret);
 	*tmp = '\0';
-	ret = ft_mini_atoinf(*s, 'd');
 	*s = ++tmp;
 	return (ret);
 }
 
 int		resolution_init(char *data, t_img *img)
 {
-	int win_w;
-	int win_h;
-	double width;
-	double height;
+	int 	win_w;
+	int 	win_h;
+	char	*res;
+	double	width;
+	double	height;
 
 	if (!ft_isspace(*data))
 		return (-1);
-	width = trim_space(&data);
-	height = trim_space(&data);
+	res = trim_space(&data);
+	width = ft_mini_atoinf(res, 'd');
+	res = trim_space(&data);
+	height = ft_mini_atoinf(res, 'd');
 	if (width > INT_MAX || height > INT_MAX || width < 0 || height < 0)
 		return (-1);
 	win_w = 512;
@@ -78,6 +80,7 @@ int		cam_init(char *data, t_img *img)
 {
 	if (!ft_isspace(*data))
 		return (-1);
+	
 	return (0);
 }
 
