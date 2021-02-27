@@ -7,7 +7,7 @@ echo -e "============================================\n"
 for i in {1..100}
 do
 	echo "file : $i.rt"
-./a.out rt/invalid/$i.rt 
+	./a.out rt/invalid/$i.rt
 	if [ $? != 0 ]; then
 		printf '\n\033[32m%s\033[m\n' '[OK]'
 		echo -e "============================================\n"
@@ -23,6 +23,16 @@ done
 
 echo "file : .rt"
 ./a.out rt/invalid/.rt 
+if [ $? != 0 ]; then
+	printf '\n\033[32m%s\033[m\n' '[OK]'
+	echo -e "============================================\n"
+else
+	printf '\n\033[31m%s\033[m\n' '[KO]'
+	echo -e "============================================\n"
+fi
+
+echo "file : a"
+./a.out rt/invalid/a 
 if [ $? != 0 ]; then
 	printf '\n\033[32m%s\033[m\n' '[OK]'
 	echo -e "============================================\n"

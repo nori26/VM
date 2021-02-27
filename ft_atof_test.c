@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:57:47 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/26 22:47:41 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/27 11:02:07 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,32 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (i);
 }
 
+double	ft_atof(const char *s, char type)
+{
+	int		neg;
+	size_t	len;
+	double	integer;
+	double	fraction;
+
+	if (!s)
+		return (INFINITY);
+	neg = *s == '-' ? *s++ == '-' : 0;
+	if ((*s == '0' && s[1] && s[1] != '.') || !('0' <= *s && *s <= '9'))
+		return (INFINITY);
+	integer = 0;
+	while ('0' <= *s && *s <= '9')
+		integer = integer * 10 + *s++ - '0';
+	if ((*s && (type == 'd' || (type == 'f' && *s != '.'))) ||
+		integer == INFINITY || ((len = ft_strlen(s)) == 1))
+		return (INFINITY);
+	fraction = 0;
+	while (*s && '0' <= s[--len] && s[len] <= '9')
+		fraction = fraction / 10 + (s[len] - '0');
+	if (len > 0)
+		return (INFINITY);
+	return (neg ? -(integer + fraction / 10) : integer + fraction / 10); 
+}
+
 int atof_test(int i, char *s)
 {
 	int 	res;
@@ -46,7 +72,7 @@ int atof_test(int i, char *s)
 	double	d;
 
 	printf("=============%02d=============\n", i);
-	if (((d = ft_atof(s)) == INFINITY))
+	if (((d = ft_atof(s, 'f')) == INFINITY))
 		return (puts("            \x1b[32merr\x1b[39m\n"));
 	sprintf(buft, "%.1500g", d);
 	sprintf(libuf, "%.1500g", atof(s));
@@ -136,4 +162,8 @@ int main()
 	atof_test(43, "..");
 	atof_test(45, "");
 	atof_test(46, NULL);
+	atof_test(47, "1.000000000000000000000000000000001");
+	double d = 1.000000000000001;
+	printf("%zu\n", ft_strlen("1.000000000000001"));
+		printf("%.1500f\n", d);
 }

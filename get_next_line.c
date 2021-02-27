@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 08:43:23 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/26 18:57:29 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/27 19:54:13 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		get_next_line(int fd, char **line)
 	if (BUFFER_SIZE <= 0 || BUFFER_SIZE == SIZE_MAX || !line)
 		return (-1);
 	*line = NULL;
-	if (!buf && !!(buf = malloc((uint64_t)BUFFER_SIZE + 1)))
+	if (!buf && (buf = malloc((uint64_t)BUFFER_SIZE + 1)))
 		*buf = '\0';
 	if (!buf)
 		return (-1);
@@ -66,10 +66,10 @@ int		get_next_line(int fd, char **line)
 		if ((len = read(fd, buf, BUFFER_SIZE)) < 1)
 			break ;
 		buf[len] = '\0';
-		if (!!(p = ft_strchr(buf, '\n')))
+		if ((p = ft_strchr(buf, '\n')))
 			return (check_buf(&buf, line, p));
 		if (!(*line = free_set(*line, ft_strjoin(*line, buf))))
 			return (freeturn(&buf, -1));
 	}
-	return (len ? -1 : freeturn(&buf, 0));
+	return (len ? freeturn(&buf, -1) : freeturn(&buf, 0));
 }

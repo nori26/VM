@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:50:38 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/27 09:23:13 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/27 20:34:25 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ int		read_rt(char *path, t_img *img)
 	int		fd;
 	int		res;
 	char	*data;
+	size_t	len;
 
-	//path parse
+	len = ft_strlen(path);
+	if (len < 4 || path[len - 4] == '/' || ft_strncmp(path + len - 3, ".rt", 3))
+		return (-1);
 	if ((fd = open(path, O_RDONLY)) < 0)
 		return (printf("error\n") - 10);//
 	res = 1;

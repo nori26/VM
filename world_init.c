@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/27 08:11:09 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/27 19:33:48 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,9 @@ int		cam_init(char *data, t_img *img)
 int		light1_init(char *data, t_img *img)
 {
 	if (!ft_isspace(*data))
+		return (-1);
+	if (split_comma(trim_space(&data),
+		&img->light.pos.x, &img->light.pos.y, &img->cam.z) < 0)
 		return (-1);
 	return (0);
 }
