@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/26 14:57:40 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/27 01:47:39 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_light
 {
 	t_vect		pos;
 	t_rgb		rgb;
+	double		pow;
 }				t_light;
 typedef struct	s_sp
 {
@@ -84,10 +85,13 @@ struct  s_img {
 	void		*win;
 	t_sp		sp;
 	t_rgb		rgb;
+	t_light		amb;
 	t_node		node;
 	t_lst		*lst;
 	t_lst		*start;
+	int			fov;
 	t_vect		cam;
+	t_vect		cam_normal;
 	t_vect		view;
 	t_light		light;
 };

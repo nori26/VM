@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:50:38 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/26 19:20:04 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/27 09:23:13 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ int		read_rt(char *path, t_img *img)
 	int		res;
 	char	*data;
 
+	//path parse
+	if ((fd = open(path, O_RDONLY)) < 0)
+		return (printf("error\n") - 10);//
 	res = 1;
-	fd = open(path, O_RDONLY);
 	while (res == 1)
 	{
 		res = get_next_line(fd, &data);
@@ -52,7 +54,7 @@ int		read_rt(char *path, t_img *img)
 			return (freeturn(&data, -1));
 		free(data);
 	}
-	return (-1);
+	return (0);
 }
 
 int main(int argc, char *argv[])
@@ -61,5 +63,6 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 		return (-1);
-	read_rt(argv[1], &img);
+	if (read_rt(argv[1], &img) < 0)
+		return (-1);
 }
