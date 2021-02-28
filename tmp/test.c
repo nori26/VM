@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -6,6 +7,7 @@
 #include <stdint.h>
 #include <errno.h>
 #include <string.h>
+#include <fcntl.h>
 
 typedef union u
 {
@@ -54,4 +56,9 @@ int				main()
 	printf("%-8s : %d\n", "i", i);
 	printf("%-8s : %d\n", "j", j); 
 	printf("%-8s : %d\n\n", "k", k);
+	int fd;
+	char buf[10];
+	fd = open("a.txt", O_RDONLY);
+	fd = read(fd, buf, 5);
+	buf[fd] 
 }

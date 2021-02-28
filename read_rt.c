@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:50:38 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/27 20:34:25 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/28 01:25:03 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,22 @@ int		make_obj(char *data, t_img *img)
 
 int		read_rt(char *path, t_img *img)
 {
+	int		i;
 	int		fd;
 	int		res;
+	int		tmp;
 	char	*data;
-	size_t	len;
 
-	len = ft_strlen(path);
-	if (len < 4 || path[len - 4] == '/' || ft_strncmp(path + len - 3, ".rt", 3))
-		return (-1);
 	if ((fd = open(path, O_RDONLY)) < 0)
 		return (printf("error\n") - 10);//
+	i = 0;
 	res = 1;
 	while (res == 1)
 	{
+		tmp = res;
 		res = get_next_line(fd, &data);
+		if ((tmp && !res && !*data) || (!i++ && !*data))
+			return (freeturn(&data, -1));
 		if (make_obj(data, img) < 0)
 			return (freeturn(&data, -1));
 		free(data);
@@ -63,9 +65,13 @@ int		read_rt(char *path, t_img *img)
 int main(int argc, char *argv[])
 {
 	t_img img;
+	size_t	len;
 
 	if (argc != 2)
 		return (-1);
-	if (read_rt(argv[1], &img) < 0)
+	len = ft_strlen(argv[1]);
+	if (len < 4 || argv[1][len - 4] == '/' ||
+		ft_strncmp(argv[1] + len - 3, ".rt", 3) ||
+		(read_rt(argv[1], &img) < 0))
 		return (-1);
 }

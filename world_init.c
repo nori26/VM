@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/27 19:33:48 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/28 00:01:26 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,33 @@ int		split_comma(char *s, double *a, double *b, double *c)
 	return (0);
 }
 
+int		parse_rgb(char *s, double *r, double *g, double *b)
+{
+	if (split_comma(skip_space(s), r, g, b) < 0 ||
+		*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
+		return (-1);
+	printf("%g,%g,%g\n", *r, *g, *b);
+	*r /= 255;
+	*g /= 255;
+	*b /= 255;
+	return (0);
+}
+
 int		resolution_init(char *data, t_img *img)
 {
-	int 	win_w;
-	int 	win_h;
-	char	*res;
-	double	width;
-	double	height;
+	int 		win_w;
+	int 		win_h;
+	double		width;
+	double		height;
+	static char	*res;
 
-	if (!ft_isspace(*data))
+	if (!ft_isspace(*data) || res)
 		return (-1);
 	res = trim_space(&data);
 	width = ft_mini_atoinf(res, 'd');
 	res = skip_space(data);
 	height = ft_mini_atoinf(res, 'd');
-	if (width > INT_MAX || height > INT_MAX || width < 0 || height < 0)
+	if (width > INT_MAX || height > INT_MAX || width <= 0 || height <= 0)
 		return (-1);
 	win_w = 512;
 	win_h = 512;
@@ -110,24 +122,18 @@ int		resolution_init(char *data, t_img *img)
 
 int		amb_init(char *data, t_img *img)
 {
-	char *res;
+	static int i;
 
-	if (!ft_isspace(*data))
+	if (!ft_isspace(*data) || i)
 		return (-1);
+	i++;
 	if ((img->amb.pow = ft_mini_atoinf(trim_space(&data), 'f')) < 0 ||
 		img->amb.pow > 1 || img->amb.pow == INFINITY)
 		return (-1);
 	printf("%.1f  ", img->amb.pow);
-	if (split_comma(skip_space(data),
-		&img->amb.rgb.r, &img->amb.rgb.g, &img->amb.rgb.b) < 0 ||
-		img->amb.rgb.r < 0 || img->amb.rgb.r > 255 ||
-		img->amb.rgb.g < 0 || img->amb.rgb.g > 255 ||
-		img->amb.rgb.b < 0 || img->amb.rgb.b > 255)
+	if (parse_rgb(data,
+		&img->amb.rgb.r, &img->amb.rgb.g, &img->amb.rgb.b) < 0)
 		return (-1);
-	printf("%.0f,%.0f,%.0f\n", img->amb.rgb.r, img->amb.rgb.g, img->amb.rgb.b);
-	img->amb.rgb.r /= 255;
-	img->amb.rgb.g /= 255;
-	img->amb.rgb.b /= 255;
 	return (0);
 }
 
@@ -160,7 +166,15 @@ int		light1_init(char *data, t_img *img)
 	if (!ft_isspace(*data))
 		return (-1);
 	if (split_comma(trim_space(&data),
-		&img->light.pos.x, &img->light.pos.y, &img->cam.z) < 0)
+		&img->light.pos.x, &img->light.pos.y, &img->light.pos.z) < 0)
+		return (-1);
+	printf("%g,%g,%g  ", img->light.pos.x,img->light.pos.y,img->light.pos.z);
+	if ((img->light.pow = ft_mini_atoinf(trim_space(&data), 'f')) < 0 ||
+		img->light.pow > 1 || img->light.pow == INFINITY)
+		return (-1);
+	printf("%g  ", img->light.pow);
+	if (parse_rgb
+		(data, &img->light.rgb.r, &img->light.rgb.g, &img->light.rgb.b) < 0)
 		return (-1);
 	return (0);
 }
