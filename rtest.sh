@@ -1,19 +1,16 @@
-clang -g -fsanitize=address world_init.c read_rt.c object_init.c  get_next_line.c libft.a
+clang -g -fsanitize=address world_init.c read_rt.c object_init.c  get_next_line.c libft.a #-Werror -Wall -Wextra
 
-echo "============================================"
-echo "==================invalid==================="
-echo -e "============================================\n"
+run=./a.out
+path_ko=rt/invalid
+path_ok=rt/valid
 
 result=0
-cases=0;
+cases=0
 ko[0]=KO
 k=1
 
-for i in {1..100}
-do
-	echo "file : $i.rt"
-	./a.out rt/invalid/$i.rt
-	if [ $? != 0 ]; then
+print_result() {
+	if [ $1 == 0 ]; then
 		let result++
 		printf '\n\033[32m%s\033[m\n' '[OK]'
 		echo -e "============================================\n"
@@ -23,41 +20,37 @@ do
 		printf '\n\033[31m%s\033[m\n' '[KO]'
 		echo -e "============================================\n"
 	fi
-	FILE="rt/invalid/$i.rt"
+}
+
+file_test() {
+	echo "file : $1"
+	# $run $2/$1 > /dev/null &
+	$run $2/$1 &
+	sleep 0.1
+	kill $! > /dev/null 2>&1
+	test "$?" $3 "0"
+	print_result $?
+	wait $! 2>/dev/null
+}
+
+echo "============================================"
+echo "==================invalid==================="
+echo -e "============================================\n"
+
+for i in {1..100}
+do
+	file_test $i.rt $path_ko !=
+	FILE="$path_ko/$i.rt"
 	if [ ! -e $FILE ]; then
 		cases=$i
 		break
 	fi
 done
 
-echo "file : .rt"
-./a.out rt/invalid/.rt 
-if [ $? != 0 ]; then
-	let result++
-	printf '\n\033[32m%s\033[m\n' '[OK]'
-	echo -e "============================================\n"
-else
-	ko[k]=$i
-	let k++
-	printf '\n\033[31m%s\033[m\n' '[KO]'
-	echo -e "============================================\n"
-fi
-
+file_test .rt $path_ko !=
 let cases++
 
-echo "file : a"
-./a.out rt/invalid/a 
-if [ $? != 0 ]; then
-	let result++
-	printf '\n\033[32m%s\033[m\n' '[OK]'
-	echo -e "============================================\n"
-else
-	ko[k]=$i
-	let k++
-	printf '\n\033[31m%s\033[m\n' '[KO]'
-	echo -e "============================================\n"
-fi
-
+file_test a $path_ko !=
 let cases++
 
 echo -e "\n============================================"
@@ -66,26 +59,19 @@ echo -e "============================================\n"
 
 for i in {1..100}
 do
-	FILE="rt/valid/$i.rt"
+	FILE="$path_ok/$i.rt"
 	if [ ! -e $FILE ]; then
 		break
 	fi
 	let cases++
-	echo "file : $i.rt"
-	./a.out rt/valid/$i.rt
-	if [ $? == 0 ]; then
-		let result++
-		printf '\n\033[32m%s\033[m\n' '[OK]'
-		echo -e "============================================\n"
-	else
-		ko[k]=$i
-		let k++
-		printf '\n\033[31m%s\033[m\n' '[KO]'
-		echo -e "============================================\n"
-	fi
+	file_test $i.rt $path_ok =
 done
 
-echo OK $result / $cases
+file_test --save.rt $path_ok =
+let cases++
+
+ps
+echo -e "\n"OK $result / $cases
 for i in "${ko[@]}"
 do
 	echo -n "$i "

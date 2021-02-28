@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/27 01:47:39 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/28 22:30:49 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,15 +117,25 @@ t_lst			*ft_lstnew_rt(void *obj, void *func);
 t_lst			*ft_lstadd_front_rt(t_lst **lst, t_lst *new);
 t_rgb			rgb_init(int r, int g, int b);
 int				color(t_rgb obj, t_light light, double ref);
-double			ft_mini_atoinf(const char *s, char type);
 int				pl_init(char *data, t_img *img);
 int				sp1_init(char *data, t_img *img);
 int				sq_init(char *data, t_img *img);
 int				cy_init(char *data, t_img *img);
 int				tr_init(char *data, t_img *img);
 int				parse_resolution(char *start, t_img *img);
-int				resolution_init(char *data, t_img *img);
-int				amb_init(char *data, t_img *img);
-int				cam_init(char *data, t_img *img);
-int				light1_init(char *data, t_img *img);
+int				resolution_init(char *data, t_img *img, int64_t *flag);
+int				amb_init(char *data, t_img *img, int64_t *flag);
+int				cam_init(char *data, t_img *img, int64_t *flag);
+int				light1_init(char *data, t_img *img, int64_t *flag);
+int				ft_isspace(int c);
+char			*skip_space(char *s);
+char			*skip_not_space(char *s);
+char			*trim_space(char **s);
+int				comma_count(char *s);
+int				split_count(char **s);
+int				split_comma(char *s, double *a, double *b, double *c);
+int				parse_rgb(char *s, double *r, double *g, double *b);
+double			ft_mini_atoinf(const char *s, char type);
+int				split_comma_normal(char *s, double *a, double *b, double *c);
+int				check_range(char *s, char c);
 #endif

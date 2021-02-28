@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:57:47 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/27 11:02:07 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/28 15:23:50 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int main()
 	sprintf(buf2, "%d", INT_MIN);
 	atof_test(15, buf2);
 	// printf("%d\n", INT_MIN);
+	atof_test(16, "0.0");
 
 	puts("\n\n=====================================");
 	puts("===============error=================");
@@ -136,7 +137,7 @@ int main()
 	atof_test(17, "+");
 	atof_test(18, "...");
 	atof_test(19, "00");
-	atof_test(20, "0.0");
+	atof_test(20, "");
 	atof_test(21, "-0.0");
 	atof_test(22, "-0");
 	atof_test(23, "-00");
@@ -160,9 +161,8 @@ int main()
 	atof_test(41, "\"");
 	atof_test(42, "\'");
 	atof_test(43, "..");
-	atof_test(45, "");
-	atof_test(46, NULL);
-	atof_test(47, "1.000000000000000000000000000000001");
+	atof_test(44, NULL);
+	atof_test(45, "1.000000000000000000000000000000001");
 	double d = 1.000000000000001;
 	printf("%zu\n", ft_strlen("1.000000000000001"));
 		printf("%.1500f\n", d);

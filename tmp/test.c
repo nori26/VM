@@ -32,8 +32,8 @@ int				main()
 	printf("%f\n", h);
 	printf("%ld\n", l);
 	printf("%lu\n", m);
-	printf("%ld\n", (int)INFINITY);
-	printf("%lu\n", (int)INFINITY);
+	printf("%d\n", (int)INFINITY);
+	printf("%d\n", (int)INFINITY);
 	printf("%f\n", f);
 	printf("%f\n", d); 
 	printf("%d\n", (int)f); 
@@ -57,8 +57,9 @@ int				main()
 	printf("%-8s : %d\n", "j", j); 
 	printf("%-8s : %d\n\n", "k", k);
 	int fd;
-	char buf[10];
 	fd = open("a.txt", O_RDONLY);
-	fd = read(fd, buf, 5);
-	buf[fd] 
+	fd = read(fd, NULL, 5);
+	d = INFINITY;
+	if (d > 1)
+		printf("aaa%d\n", fd);
 }

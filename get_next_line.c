@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 08:43:23 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/27 19:54:13 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/02/28 01:43:15 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ int		get_next_line(int fd, char **line)
 	*line = NULL;
 	if (!buf && (buf = malloc((uint64_t)BUFFER_SIZE + 1)))
 		*buf = '\0';
-	if (!buf)
-		return (-1);
-	if ((ret = check_buf(&buf, line, ft_strchr(buf, '\n'))))
+	if (buf && (ret = check_buf(&buf, line, ft_strchr(buf, '\n'))))
 		return (ret);
 	while (1)
 	{
