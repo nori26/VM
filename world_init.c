@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/28 22:22:45 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/01 18:31:08 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int		resolution_init(char *data, t_img *img, int64_t *flag)
 	width = ft_mini_atoinf(res, 'd');
 	res = skip_space(data);
 	height = ft_mini_atoinf(res, 'd');
-	if (width > INT_MAX || height > INT_MAX || width <= 0 || height <= 0)
+	if (width == INFINITY || height == INFINITY || width <= 0 || height <= 0)
 		return (-1);
 	win_w = 512;
 	win_h = 512;

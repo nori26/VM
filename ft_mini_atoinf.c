@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 07:06:14 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/26 15:29:50 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/01 18:10:54 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ double	ft_mini_atoinf(const char *s, char type)
 	integer = 0;
 	while ('0' <= *s && *s <= '9')
 		integer = integer * 10 + *s++ - '0';
+	if (!*s && type == 'd' && integer == INFINITY)
+		return (DBL_MAX);
 	if ((*s && (type == 'd' || (type == 'f' && *s != '.'))) ||
 		integer == INFINITY || ((len = ft_strlen(s)) == 1))
 		return (INFINITY);

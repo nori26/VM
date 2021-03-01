@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:57:47 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/28 15:23:50 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/01 18:10:25 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ double	ft_atof(const char *s, char type)
 	integer = 0;
 	while ('0' <= *s && *s <= '9')
 		integer = integer * 10 + *s++ - '0';
+	if (!*s && type == 'd' && integer == INFINITY)
+		return (DBL_MAX);
 	if ((*s && (type == 'd' || (type == 'f' && *s != '.'))) ||
 		integer == INFINITY || ((len = ft_strlen(s)) == 1))
 		return (INFINITY);
@@ -73,10 +75,11 @@ int atof_test(int i, char *s)
 
 	printf("=============%02d=============\n", i);
 	if (((d = ft_atof(s, 'f')) == INFINITY))
+	// if (!((d = ft_atof(s, 'd'))))
 		return (puts("            \x1b[32merr\x1b[39m\n"));
 	sprintf(buft, "%.1500g", d);
 	sprintf(libuf, "%.1500g", atof(s));
-	// printf("%.1500g\n", d);
+	printf("%.1500g\n", d);
 	// printf("%.1500g\n\n", atof(s));
 	if ((res = ft_strcmp(libuf, buft)) < 15 && (size_t)res < ft_strlen(libuf))
 		return (printf("result    : \x1b[31m[KO]\n\x1b[39mprecision : %3d\n\n", res));
@@ -92,7 +95,7 @@ int main()
 	atof_test(0, buf);
 	sprintf(buf, "%.1500f", DBL_MIN / 1000000);
 	atof_test(1, buf);
-	sprintf(buf, "%.1500f", DBL_MAX);
+	sprintf(buf, "%.0f", DBL_MAX);
 	atof_test(2, buf);
 	atof_test(3, "0");
 	atof_test(4, "1");

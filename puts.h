@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/28 22:30:49 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/01 20:05:46 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ typedef struct	s_sp
 	double		r;
 	t_rgb		rgb;
 }				t_sp;
+typedef struct	s_plane
+{
+	t_vect		o;
+	double		r;
+	t_rgb		rgb;
+}				t_plane;
 typedef struct	s_plane
 {
 	t_vect		o;
