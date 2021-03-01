@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/01 18:31:08 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 00:41:15 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int		split_comma_normal(char *s, double *a, double *b, double *c)
 	free_all(&res);
 	if (*a == INFINITY || *b == INFINITY || *c == INFINITY)
 		return (-1);
+	printf("%.1f,%.1f,%.1f  ", *a, *b, *c);
 	return (0);
 }
 
@@ -115,6 +116,7 @@ int		split_comma(char *s, double *a, double *b, double *c)
 	free_all(&status);
 	if (*a == INFINITY || *b == INFINITY || *c == INFINITY)
 		return (-1);
+	printf("%.1f,%.1f,%.1f  ", *a, *b, *c);
 	return (0);
 }
 
@@ -187,8 +189,6 @@ int		cam_init(char *data, t_img *img, int64_t *flag)
 		&img->cam_normal.x, &img->cam_normal.y, &img->cam_normal.z) < 0 ||
 		(!img->cam_normal.x && !img->cam_normal.y && !img->cam_normal.z))
 		return (-1);
-	printf("%.1f,%.1f,%.1f  ", img->cam.x,img->cam.y,img->cam.z);
-	printf("%.1f,%.1f,%.1f  ", img->cam_normal.x,img->cam_normal.y,img->cam_normal.z);
 	if ((fov = ft_mini_atoinf(skip_space(data), 'd')) == INFINITY ||
 		!(0 < fov && fov < 180))
 		return (-1);
@@ -207,7 +207,6 @@ int		light1_init(char *data, t_img *img, int64_t *flag)
 	if (split_comma(trim_space(&data),
 		&img->light.pos.x, &img->light.pos.y, &img->light.pos.z) < 0)
 		return (-1);
-	printf("%g,%g,%g  ", img->light.pos.x,img->light.pos.y,img->light.pos.z);
 	if (!(ratio = trim_space(&data)) ||
 		(*ratio == '-' && check_range(ratio, '0') < 0) ||
 		check_range(ratio, '1') < 0 ||
@@ -236,6 +235,8 @@ double	ft_mini_atoinf(const char *s, char type)
 	integer = 0;
 	while ('0' <= *s && *s <= '9')
 		integer = integer * 10 + *s++ - '0';
+	if (!*s && type == 'd' && integer == INFINITY)
+		return (DBL_MAX);
 	if ((*s && (type == 'd' || (type == 'f' && *s != '.'))) ||
 		integer == INFINITY || ((len = ft_strlen(s)) == 1))
 		return (INFINITY);

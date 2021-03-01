@@ -1,4 +1,4 @@
-clang -g -fsanitize=address world_init.c read_rt.c object_init.c  get_next_line.c libft.a #-Werror -Wall -Wextra
+clang -g -fsanitize=address world_init.c read_rt.c object_init.c  get_next_line.c sphere.c vector_utils.c libft.a #-Werror -Wall -Wextra
 
 run=./a.out
 path_ko=rt/invalid
@@ -24,13 +24,14 @@ print_result() {
 
 file_test() {
 	echo "file : $1"
-	# $run $2/$1 > /dev/null &
-	$run $2/$1 &
+	$run $2/$1 > /dev/null &
+	# $run $2/$1 &
 	sleep 0.1
 	kill $! > /dev/null 2>&1
 	test "$?" $3 "0"
 	print_result $?
 	wait $! 2>/dev/null
+	let cases++
 }
 
 echo "============================================"
@@ -42,16 +43,12 @@ do
 	file_test $i.rt $path_ko !=
 	FILE="$path_ko/$i.rt"
 	if [ ! -e $FILE ]; then
-		cases=$i
 		break
 	fi
 done
 
 file_test .rt $path_ko !=
-let cases++
-
 file_test a $path_ko !=
-let cases++
 
 echo -e "\n============================================"
 echo "===================valid===================="
@@ -63,12 +60,13 @@ do
 	if [ ! -e $FILE ]; then
 		break
 	fi
-	let cases++
 	file_test $i.rt $path_ok =
 done
 
-file_test --save.rt $path_ok =
-let cases++
+cp $path_ok/--save.rt .
+file_test ..rt $path_ok =
+file_test --save.rt . =
+rm ./--save.rt
 
 ps
 echo -e "\n"OK $result / $cases

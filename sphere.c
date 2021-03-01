@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/25 21:07:55 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 00:48:03 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ double			quadratic_formula(double a, double b, double d)
 	small = (-b - root_d) / (2 * a);
 	large = (-b + root_d) / (2 * a);
 	return (small > 0 ? small : (large > 0) * large);
+}
+double			plane(t_img *img, t_sp *pl)
+{
+	return (0);
+}
+
+double			square(t_img *img, t_sp *sq)
+{
+	return (0);
 }
 
 double			sphere(t_img *img, t_sp *sp)

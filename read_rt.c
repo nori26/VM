@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:50:38 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/28 19:41:55 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/01 23:14:17 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ int 	main(int argc, char *argv[])
 	if (len < 4 || argv[1][len - 4] == '/' ||
 		ft_strncmp(argv[1] + len - 3, ".rt", 3) ||
 		read_rt(argv[1], &img) < 0)
-		return (-1);
+		exit(1);
 	while (1);
 }

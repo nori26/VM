@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/01 20:05:46 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 00:48:13 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ typedef struct	s_vect
 	double		z;
 	double		len;
 }				t_vect;
+typedef struct s_cam
+{
+	t_vect		pos;
+	int			fov;
+}				t_cam;
 typedef struct s_light
 {
 	t_vect		pos;
@@ -54,18 +59,26 @@ typedef struct	s_sp
 	double		r;
 	t_rgb		rgb;
 }				t_sp;
-typedef struct	s_plane
+typedef struct	s_sq
+{
+	t_vect		p;
+	t_vect		n;
+	t_vect		my;
+	t_rgb		rgb;
+	double		size;
+}				t_sq;
+typedef struct	s_pl
+{
+	t_vect		n;
+	t_vect		p;
+	t_rgb		rgb;
+}				t_pl;
+typedef struct	s_tri
 {
 	t_vect		o;
-	double		r;
-	t_rgb		rgb;
-}				t_plane;
-typedef struct	s_plane
-{
-	t_vect		o;
-	double		r;
-	t_rgb		rgb;
-}				t_plane;
+	t_vect		p;
+	t_vect		q;
+}				t_tri;
 typedef struct	s_node
 {
 	t_vect		pos;
@@ -89,9 +102,10 @@ struct  s_img {
     int         endian;
 	void		*mlx;
 	void		*win;
-	t_sp		sp;
 	t_rgb		rgb;
+	// t_cam		cam;
 	t_light		amb;
+	t_light		light;
 	t_node		node;
 	t_lst		*lst;
 	t_lst		*start;
@@ -99,7 +113,6 @@ struct  s_img {
 	t_vect		cam;
 	t_vect		cam_normal;
 	t_vect		view;
-	t_light		light;
 };
 //win minus or int_max
 
@@ -144,4 +157,6 @@ int				parse_rgb(char *s, double *r, double *g, double *b);
 double			ft_mini_atoinf(const char *s, char type);
 int				split_comma_normal(char *s, double *a, double *b, double *c);
 int				check_range(char *s, char c);
+double			plane(t_img *img, t_sp *pl);
+double			square(t_img *img, t_sp *sq);
 #endif
