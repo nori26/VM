@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 02:51:07 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 03:02:20 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ typedef struct	s_cy
 	double		h;
 	t_rgb		rgb;
 }				t_cy;
-typedef struct	s_tri
+typedef struct	s_tr
 {
 	t_vect		o;
 	t_vect		p;
 	t_vect		q;
-}				t_tri;
+}				t_tr;
 typedef struct	s_node
 {
 	t_vect		pos;
@@ -168,4 +168,5 @@ int				check_range(char *s, char c);
 double			plane(t_img *img, t_sp *pl);
 double			square(t_img *img, t_sp *sq);
 double			cylinder(t_img *img, t_sp *cy);
+double			triangle(t_img *img, t_sp *tr);
 #endif

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 02:56:06 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 03:08:33 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	cy_init(char *data, t_img *img)
 		return (freeturn((char **)&cy, -1));
 	printf("%g  ", cy->h);
 	if (parse_rgb(data, &cy->rgb.r, &cy->rgb.g, &cy->rgb.b) < 0)
-		return (-1);
+		return (freeturn((char **)&cy, -1));
 	if (!ft_lstadd_front_rt(&img->lst, ft_lstnew_rt(cy, cylinder)))
 		return (freeturn((char **)&cy, -1));
 	return (0);
@@ -108,10 +108,18 @@ int	cy_init(char *data, t_img *img)
 
 int	tr_init(char *data, t_img *img)
 {
+	t_tr *tr;
+
 	if (!ft_isspace(*data))
 		return (-1);
-	if (split_comma(trim_space(&data),
-		&img->cam.x, &img->cam.y, &img->cam.z) < 0)
+	if (!(tr = malloc(sizeof(t_tr))))
 		return (-1);
+	if (split_comma(trim_space(&data), &tr->o.x, &tr->o.y, &tr->o.z) < 0 ||
+		split_comma(trim_space(&data), &tr->p.x, &tr->p.y, &tr->p.z) < 0 ||split_comma(trim_space(&data), &tr->q.x, &tr->q.y, &tr->q.z) < 0)
+		return (freeturn((char **)&tr, -1));
+	if (parse_rgb(data, &tr->rgb.r, &tr->rgb.g, &tr->rgb.b) < 0)
+		return (freeturn((char **)&tr, -1));
+	if (!ft_lstadd_front_rt(&img->lst, ft_lstnew_rt(tr, triangle)))
+		return (freeturn((char **)&tr, -1));
 	return (0);
 }
