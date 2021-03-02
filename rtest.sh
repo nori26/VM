@@ -24,8 +24,8 @@ print_result() {
 
 file_test() {
 	echo "file : $1"
-	$run $2/$1 > /dev/null &
-	# $run $2/$1 &
+	# $run $2/$1 > /dev/null &
+	$run $2/$1 &
 	sleep 0.1
 	kill $! > /dev/null 2>&1
 	test "$?" $3 "0"

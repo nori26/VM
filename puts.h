@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 00:48:13 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 00:56:38 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ struct  s_img {
 	t_node		node;
 	t_lst		*lst;
 	t_lst		*start;
-	int			fov;
+	double		fov;
 	t_vect		cam;
 	t_vect		cam_normal;
 	t_vect		view;

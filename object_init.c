@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 00:46:01 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 01:28:30 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	sq_init(char *data, t_img *img)
 		return (freeturn((char **)&sq, -1));
 	return (0);
 }
+
 int	cy_init(char *data, t_img *img)
 {
 	if (!ft_isspace(*data))
@@ -102,6 +103,7 @@ int	cy_init(char *data, t_img *img)
 		return (-1);
 	return (0);
 }
+
 int	tr_init(char *data, t_img *img)
 {
 	if (!ft_isspace(*data))

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 00:41:15 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 01:04:35 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		split_comma_normal(char *s, double *a, double *b, double *c)
 	free_all(&res);
 	if (*a == INFINITY || *b == INFINITY || *c == INFINITY)
 		return (-1);
-	printf("%.1f,%.1f,%.1f  ", *a, *b, *c);
+	printf("%g,%g,%g  ", *a, *b, *c);
 	return (0);
 }
 
@@ -116,7 +116,7 @@ int		split_comma(char *s, double *a, double *b, double *c)
 	free_all(&status);
 	if (*a == INFINITY || *b == INFINITY || *c == INFINITY)
 		return (-1);
-	printf("%.1f,%.1f,%.1f  ", *a, *b, *c);
+	printf("%g,%g,%g  ", *a, *b, *c);
 	return (0);
 }
 
@@ -125,7 +125,7 @@ int		parse_rgb(char *s, double *r, double *g, double *b)
 	if (split_comma(skip_space(s), r, g, b) < 0 ||
 		*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
 		return (-1);
-	printf("%g,%g,%g\n", *r, *g, *b);
+	puts("");
 	*r /= 255;
 	*g /= 255;
 	*b /= 255;
@@ -192,8 +192,8 @@ int		cam_init(char *data, t_img *img, int64_t *flag)
 	if ((fov = ft_mini_atoinf(skip_space(data), 'd')) == INFINITY ||
 		!(0 < fov && fov < 180))
 		return (-1);
-	img->fov = (int)fov; //rad
-	printf("%d\n", img->fov);
+	printf("%.1500g\n", fov);
+	img->fov = fov * PI / 180; //rad
 	return (0);
 }
 
