@@ -1,6 +1,6 @@
 NAME	= a.out
 CC		= clang
-CFLAGS	= -Wall -Werror -Wextra -lm libmlx_Linux.a -lXext -lX11 -g -fsanitize=address
+CFLAGS	=  -lm libmlx_Linux.a -lXext -lX11 -g -fsanitize=address #-Wall -Werror -Wextra
 AR		= ar
 ARFLAGS	= scr
 SRCDIR	= ./
