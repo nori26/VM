@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 03:08:33 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 03:16:24 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int	tr_init(char *data, t_img *img)
 	if (split_comma(trim_space(&data), &tr->o.x, &tr->o.y, &tr->o.z) < 0 ||
 		split_comma(trim_space(&data), &tr->p.x, &tr->p.y, &tr->p.z) < 0 ||split_comma(trim_space(&data), &tr->q.x, &tr->q.y, &tr->q.z) < 0)
 		return (freeturn((char **)&tr, -1));
+	
 	if (parse_rgb(data, &tr->rgb.r, &tr->rgb.g, &tr->rgb.b) < 0)
 		return (freeturn((char **)&tr, -1));
 	if (!ft_lstadd_front_rt(&img->lst, ft_lstnew_rt(tr, triangle)))

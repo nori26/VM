@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 03:02:20 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 03:09:07 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct	s_tr
 	t_vect		o;
 	t_vect		p;
 	t_vect		q;
+	t_rgb		rgb;
 }				t_tr;
 typedef struct	s_node
 {
