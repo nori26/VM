@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 01:28:30 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 02:56:06 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	pl_init(char *data, t_img *img)
 		&pl->n.x, &pl->n.y, &pl->n.z) < 0 ||
 		(!pl->n.x && !pl->n.y && !pl->n.z))
 		return (freeturn((char **)&pl, -1));
-	if (parse_rgb
-		(data, &pl->rgb.r, &pl->rgb.g, &pl->rgb.b) < 0)
+	if (parse_rgb(data, &pl->rgb.r, &pl->rgb.g, &pl->rgb.b) < 0)
 		return (freeturn((char **)&pl, -1));
 	if (!ft_lstadd_front_rt(&img->lst, ft_lstnew_rt(pl, plane)))
 		return (freeturn((char **)&pl, -1));
@@ -48,8 +47,8 @@ int	sp1_init(char *data, t_img *img)
 		sp->r == INFINITY)
 		return (freeturn((char **)&sp, -1));
 	printf("%g  ", sp->r);
-	if (parse_rgb
-		(data, &sp->rgb.r, &sp->rgb.g, &sp->rgb.b) < 0)
+	sp->r /= 2;
+	if (parse_rgb(data, &sp->rgb.r, &sp->rgb.g, &sp->rgb.b) < 0)
 		return (freeturn((char **)&sp, -1));
 	if (!ft_lstadd_front_rt(&img->lst, ft_lstnew_rt(sp, sphere)))
 		return (freeturn((char **)&sp, -1));
@@ -72,8 +71,7 @@ int	sq_init(char *data, t_img *img)
 		sq->size == INFINITY)
 		return (freeturn((char **)&sq, -1));
 	printf("%g  ", sq->size);
-	if (parse_rgb
-		(data, &sq->rgb.r, &sq->rgb.g, &sq->rgb.b) < 0)
+	if (parse_rgb(data, &sq->rgb.r, &sq->rgb.g, &sq->rgb.b) < 0)
 		return (freeturn((char **)&sq, -1));
 	if (!ft_lstadd_front_rt(&img->lst, ft_lstnew_rt(sq, square)))
 		return (freeturn((char **)&sq, -1));
@@ -82,25 +80,29 @@ int	sq_init(char *data, t_img *img)
 
 int	cy_init(char *data, t_img *img)
 {
+	t_cy *cy;
+
 	if (!ft_isspace(*data))
 		return (-1);
-	if (split_comma(trim_space(&data),
-		&img->cam.x, &img->cam.y, &img->cam.z) < 0 ||
+	if (!(cy = malloc(sizeof(t_cy))))
+		return (-1);
+	if (split_comma(trim_space(&data), &cy->p.x, &cy->p.y, &cy->p.z) < 0 ||
 		split_comma_normal(trim_space(&data),
-		&img->cam_normal.x, &img->cam_normal.y, &img->cam_normal.z) < 0 ||
-		(!img->cam_normal.x && !img->cam_normal.y && !img->cam_normal.z))
+		&cy->n.x, &cy->n.y, &cy->n.z) < 0 || (!cy->n.x && !cy->n.y && !cy->n.z))
+		return (freeturn((char **)&cy, -1));
+	if ((cy->r = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
+		cy->r == INFINITY)
+		return (freeturn((char **)&cy, -1));
+	printf("%g  ", cy->r);
+	cy->r /= 2;
+	if ((cy->h = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
+		cy->h == INFINITY)
+		return (freeturn((char **)&cy, -1));
+	printf("%g  ", cy->h);
+	if (parse_rgb(data, &cy->rgb.r, &cy->rgb.g, &cy->rgb.b) < 0)
 		return (-1);
-	if ((img->light.pow = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
-		img->light.pow == INFINITY)
-		return (-1);
-	printf("%g  ", img->light.pow);
-	if ((img->light.pow = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
-		img->light.pow == INFINITY)
-		return (-1);
-	printf("%g  ", img->light.pow);
-	if (parse_rgb
-		(data, &img->light.rgb.r, &img->light.rgb.g, &img->light.rgb.b) < 0)
-		return (-1);
+	if (!ft_lstadd_front_rt(&img->lst, ft_lstnew_rt(cy, cylinder)))
+		return (freeturn((char **)&cy, -1));
 	return (0);
 }
 

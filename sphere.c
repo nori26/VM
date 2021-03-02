@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 00:48:03 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 02:50:58 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ double			plane(t_img *img, t_sp *pl)
 }
 
 double			square(t_img *img, t_sp *sq)
+{
+	return (0);
+}
+
+double			cylinder(t_img *img, t_sp *cy)
 {
 	return (0);
 }

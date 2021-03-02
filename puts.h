@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 00:56:38 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 02:51:07 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,18 @@ typedef struct	s_sq
 }				t_sq;
 typedef struct	s_pl
 {
-	t_vect		n;
 	t_vect		p;
+	t_vect		n;
 	t_rgb		rgb;
 }				t_pl;
+typedef struct	s_cy
+{
+	t_vect		p;
+	t_vect		n;
+	double		r;
+	double		h;
+	t_rgb		rgb;
+}				t_cy;
 typedef struct	s_tri
 {
 	t_vect		o;
@@ -159,4 +167,5 @@ int				split_comma_normal(char *s, double *a, double *b, double *c);
 int				check_range(char *s, char c);
 double			plane(t_img *img, t_sp *pl);
 double			square(t_img *img, t_sp *sq);
+double			cylinder(t_img *img, t_sp *cy);
 #endif
