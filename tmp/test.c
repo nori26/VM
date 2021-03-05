@@ -16,6 +16,16 @@ typedef union u
 
 }t_bit;
 
+typedef struct sss
+{
+	char c;
+	short i;
+} sss;
+typedef struct ss
+{
+	char i;
+	char j;
+} ss;
 #include <stdint.h>
 #include <stdio.h>
 
@@ -120,4 +130,5 @@ int				main()
 	char *a;
 	a = malloc(1);
 	test();
+	printf("%zu\n%zu\n", sizeof(ss), sizeof(sss));
 }

@@ -1,4 +1,4 @@
-clang -g -fsanitize=address world_init.c read_rt.c object_init.c  get_next_line.c sphere.c vector_utils.c libft.a #-Werror -Wall -Wextra
+make re
 
 run=./a.out
 path_ko=rt/invalid
@@ -49,6 +49,7 @@ done
 
 file_test .rt $path_ko !=
 file_test a $path_ko !=
+file_test a.art $path_ko !=
 
 echo -e "\n============================================"
 echo "===================valid===================="

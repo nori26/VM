@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 01:04:35 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/05 09:19:25 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		split_comma_normal(char *s, double *a, double *b, double *c)
 	free_all(&res);
 	if (*a == INFINITY || *b == INFINITY || *c == INFINITY)
 		return (-1);
-	printf("%g,%g,%g  ", *a, *b, *c);
+	// printf("%g,%g,%g  ", *a, *b, *c);
 	return (0);
 }
 
@@ -125,17 +125,15 @@ int		parse_rgb(char *s, double *r, double *g, double *b)
 	if (split_comma(skip_space(s), r, g, b) < 0 ||
 		*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
 		return (-1);
-	puts("");
 	*r /= 255;
 	*g /= 255;
 	*b /= 255;
+	puts("");
 	return (0);
 }
 
 int		resolution_init(char *data, t_img *img, int64_t *flag)
 {
-	int 		win_w;
-	int 		win_h;
 	double		width;
 	double		height;
 	static char	*res;
@@ -148,74 +146,80 @@ int		resolution_init(char *data, t_img *img, int64_t *flag)
 	height = ft_mini_atoinf(res, 'd');
 	if (width == INFINITY || height == INFINITY || width <= 0 || height <= 0)
 		return (-1);
-	win_w = 512;
-	win_h = 512;
-	// mlx_get_screen_size(img->mlx, &x, &y);
-	img->w = width > win_w ? win_w : (int)width;
-	img->h = height > win_h ? win_h : (int)height;
+	img->w = width > INT_MAX ? INT_MAX : (int)width;
+	img->h = height > INT_MAX ? INT_MAX : (int)height;
+	img->bmp_w = width > BMP_MAX ? BMP_MAX : (int)width;
+	img->bmp_h = height > BMP_MAX ? BMP_MAX : (int)height;
 	printf("%d  %d\n", img->w, img->h);
 	return (0);
 }
 
 int		amb_init(char *data, t_img *img, int64_t *flag)
 {
-	char *ratio;
+	t_llist a;
+	char 	*ratio;
 
+	(void)img;
 	if (!ft_isspace(*data) || flag['A']++)
 		return (-1);
 	if (!(ratio = trim_space(&data)) ||
 		(*ratio == '-' && check_range(ratio, '0') < 0) ||
 		check_range(ratio, '1') < 0 ||
-		(img->amb.pow = ft_mini_atoinf(ratio, 'f')) < 0 ||
-		img->amb.pow > 1 || img->amb.pow == INFINITY)
+		(a.pow = ft_mini_atoinf(ratio, 'f')) < 0 ||
+		a.pow > 1 || a.pow == INFINITY)
 		return (-1);
-	printf("%.1f  ", img->amb.pow);
+	printf("%.1f  ", a.pow);
 	if (parse_rgb(data,
-		&img->amb.rgb.r, &img->amb.rgb.g, &img->amb.rgb.b) < 0)
+		&a.rgb.r, &a.rgb.g, &a.rgb.b) < 0)
 		return (-1);
 	return (0);
 }
 
 int		cam_init(char *data, t_img *img, int64_t *flag)
 {
-	double	fov;
+	t_clist	camera;
 
 	if (!ft_isspace(*data))
 		return (-1);
 	flag['c']++;
 	if (split_comma(trim_space(&data),
-		&img->cam.x, &img->cam.y, &img->cam.z) < 0 ||
+		&camera.pos.x, &camera.pos.y, &camera.pos.z) < 0 ||
 		split_comma_normal(trim_space(&data),
-		&img->cam_normal.x, &img->cam_normal.y, &img->cam_normal.z) < 0 ||
-		(!img->cam_normal.x && !img->cam_normal.y && !img->cam_normal.z))
+		&camera.n.x, &camera.n.y, &camera.n.z) < 0 ||
+		(!camera.n.x && !camera.n.y && !camera.n.z))
 		return (-1);
-	if ((fov = ft_mini_atoinf(skip_space(data), 'd')) == INFINITY ||
-		!(0 < fov && fov < 180))
+	camera.n = vect_unit(camera.n);
+	if ((camera.fov = ft_mini_atoinf(skip_space(data), 'd')) == INFINITY ||
+		!(0 <= camera.fov && camera.fov <= 180))
 		return (-1);
-	printf("%.1500g\n", fov);
-	img->fov = fov * PI / 180; //rad
+	printf("%.1500g\n", camera.fov);
+	camera.fov = camera.fov * PI / 180; //rad
+	if (!ft_lstadd_front_c(&img->cam, ft_lstnew_c(camera)))
+		return (-1);
 	return (0);
 }
 
 int		light1_init(char *data, t_img *img, int64_t *flag)
 {
-	char *ratio;
+	t_llist l;
+	char 	*ratio;
 
 	if (!ft_isspace(*data))
 		return (-1);
 	flag['l']++;
 	if (split_comma(trim_space(&data),
-		&img->light.pos.x, &img->light.pos.y, &img->light.pos.z) < 0)
+		&l.pos.x, &l.pos.y, &l.pos.z) < 0)
 		return (-1);
 	if (!(ratio = trim_space(&data)) ||
 		(*ratio == '-' && check_range(ratio, '0') < 0) ||
 		check_range(ratio, '1') < 0 ||
-		(img->light.pow = ft_mini_atoinf(ratio, 'f')) < 0 ||
-		img->light.pow > 1)
+		(l.pow = ft_mini_atoinf(ratio, 'f')) < 0 || l.pow > 1)
 		return (-1);
-	printf("%g  ", img->light.pow);
+	printf("%g  ", l.pow);
 	if (parse_rgb
-		(data, &img->light.rgb.r, &img->light.rgb.g, &img->light.rgb.b) < 0)
+		(data, &l.rgb.r, &l.rgb.g, &l.rgb.b) < 0)
+		return (-1);
+	if (!ft_lstadd_front_l(&img->light, ft_lstnew_l(l)))
 		return (-1);
 	return (0);
 }

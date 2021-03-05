@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 03:09:07 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/05 10:31:31 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@
 # include "get_next_line.h"
 # include <fcntl.h>
 # define PI 3.14159265
-# define GLOSS 8
+# define BMP_MAX 3000
 # define AMB 0.1
+# define GLOSS 8
 // # define AMB 1
 // # define DIFF 0.69 * 0.9
 # define DIFF 0.9
-# define SPEC 0.9
-// # define SPEC 0.3
-typedef struct s_lst	t_lst;
+// # define SPEC 0.9
+# define SPEC 0.3
+typedef struct s_olist	t_olist;
+typedef struct s_clist	t_clist;
+typedef struct s_llist	t_llist;
 typedef struct s_img	t_img;
 typedef struct	s_rgb
 {
@@ -42,17 +45,7 @@ typedef struct	s_vect
 	double		z;
 	double		len;
 }				t_vect;
-typedef struct s_cam
-{
-	t_vect		pos;
-	int			fov;
-}				t_cam;
-typedef struct s_light
-{
-	t_vect		pos;
-	t_rgb		rgb;
-	double		pow;
-}				t_light;
+
 typedef struct	s_sp
 {
 	t_vect		o;
@@ -95,15 +88,32 @@ typedef struct	s_node
 	t_rgb		rgb;
 	double		pos_len;
 }				t_node;
-struct  s_lst
+struct  s_olist
 {
 	void		*obj;
 	double		(*f)();
-	t_lst		*next;
+	t_olist		*next;
 };
-struct  s_img {
-    void        *img;
+struct  s_clist
+{
+	t_vect		pos;
+	t_vect		n;
+	double		fov;
     char        *addr;
+	t_vect		cent;
+	t_clist		*next;
+};
+typedef struct s_llist
+{
+	t_vect		pos;
+	t_rgb		rgb;
+	double		pow;
+	t_llist		*next;
+}				t_llist;
+struct  s_img
+{
+    void        *img;
+	int			bmp;
 	int			w;
 	int			h;
     int         bpp;
@@ -112,22 +122,26 @@ struct  s_img {
 	void		*mlx;
 	void		*win;
 	t_rgb		rgb;
-	// t_cam		cam;
-	t_light		amb;
-	t_light		light;
+	t_llist		*amb;
 	t_node		node;
-	t_lst		*lst;
-	t_lst		*start;
+	t_olist		*lst;
+	t_clist		*cam;
+	t_llist		*light;
+	t_olist		*o_start;
+	t_clist		*c_start;
+	t_llist		*l_start;
 	double		fov;
-	t_vect		cam;
+	// t_vect		cam;
 	t_vect		cam_normal;
 	t_vect		view;
+	int			bmp_w;
+	int			bmp_h;
 };
 //win minus or int_max
 
 void            my_mlx_pixel_put(t_img *data, int x, int y, int color);
+int             close1(t_img *vars);
 int             close2(int keycode, t_img *vars);
-int             close1(int keycode, t_img *vars);
 double			dot(t_vect v1, t_vect v2);
 t_vect			cross(t_vect v1, t_vect v2);
 t_vect			vect_add(t_vect v1, t_vect v2);
@@ -141,10 +155,15 @@ double			quadratic_formula(double a, double b, double d);
 t_vect			vect_unit(t_vect v);
 double			light(t_img *img);
 double			spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
-t_lst			*ft_lstnew_rt(void *obj, void *func);
-t_lst			*ft_lstadd_front_rt(t_lst **lst, t_lst *new);
+t_olist			*ft_lstadd_front_o(t_olist **lst, t_olist *new);
+t_clist			*ft_lstadd_front_c(t_clist **lst, t_clist *new);
+t_llist			*ft_lstadd_front_l(t_llist **lst, t_llist *new);
+t_olist			*ft_lstnew_o(void *obj, void *func);
+t_clist			*ft_lstnew_c(t_clist c);
+t_llist			*ft_lstnew_l(t_llist l);
 t_rgb			rgb_init(int r, int g, int b);
-int				color(t_rgb obj, t_light light, double ref);
+int				color(t_rgb obj, t_llist light, double ref);
+void			read_rt(t_img *img, char *path);
 int				pl_init(char *data, t_img *img);
 int				sp1_init(char *data, t_img *img);
 int				sq_init(char *data, t_img *img);
@@ -166,8 +185,9 @@ int				parse_rgb(char *s, double *r, double *g, double *b);
 double			ft_mini_atoinf(const char *s, char type);
 int				split_comma_normal(char *s, double *a, double *b, double *c);
 int				check_range(char *s, char c);
-double			plane(t_img *img, t_sp *pl);
-double			square(t_img *img, t_sp *sq);
-double			cylinder(t_img *img, t_sp *cy);
-double			triangle(t_img *img, t_sp *tr);
+double			plane(t_img *img, t_pl *pl);
+double			square(t_img *img, t_sq *sq);
+double			cylinder(t_img *img, t_cy *cy);
+double			triangle(t_img *img, t_tr *tr);
+int				check_parallel(t_vect a, t_vect b, t_vect c);
 #endif

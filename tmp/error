@@ -4,3 +4,5 @@ big sphere
 window not even
 multi cam
 multi light
+llight NULL
+cam 0 or 180

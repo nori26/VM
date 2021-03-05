@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 01:28:53 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/02 10:05:07 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 22:53:10 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,12 @@ double			vect_len(t_vect v)
 	return (sqrt(dot(v, v)));
 }
 
-// int			   vect_test(t_vect a, t_vect b, t_vect c)
-// {
-//     t_vect v1;
-//     t_vect v2;
-//     double cos;
+int				check_parallel(t_vect a, t_vect b, t_vect c)
+{
+    t_vect v1;
+    t_vect v2;
 
-//     v1 = vect_sub(a, b);
-//     v2 = vect_sub(a, c);
-//     if (is_vzero(v1) || is_vzero(v2))
-//         return (1);
-//     cos = vdot(vunit(v1), vunit(v2));
-//     return (cos == 1 || cos == -1);
-// }
+    v1 = vect_sub(a, b);
+    v2 = vect_sub(a, c);
+    return (!vect_len(cross(v1, v2)));
+}

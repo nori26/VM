@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:50:38 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/01 23:14:17 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/03 20:51:47 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		make_obj(char *data, t_img *img, int64_t *flag)
 	return (-1);
 }
 
-int		read_rt(char *path, t_img *img)
+int		parse_rt(t_img *img, char *path)
 {
 	int			fd;
 	int			res;
@@ -59,22 +59,25 @@ int		read_rt(char *path, t_img *img)
 			return (freeturn(&data, -1));
 		free(data);
 	}
-	if (flag['R'] != 1 || flag['A'] != 1 || !flag['c'])
+	if (flag['R'] != 1 || flag['A'] > 1)
 		return (-1);
+	if (!flag['c'])
+		return (0); //after
+	if (!flag['l'])
+		return (0); //after
 	return (0);
 }
 
-int 	main(int argc, char *argv[])
+void		read_rt(t_img *img, char *path)
 {
-	t_img img;
 	size_t	len;
 
-	if (argc != 2)
-		return (-1);
-	len = ft_strlen(argv[1]);
-	if (len < 4 || argv[1][len - 4] == '/' ||
-		ft_strncmp(argv[1] + len - 3, ".rt", 3) ||
-		read_rt(argv[1], &img) < 0)
+	len = ft_strlen(path);
+	if (len < 4 || path[len - 4] == '/' ||
+		ft_strncmp(path + len - 3, ".rt", 3) ||
+		parse_rt(img, path) < 0)
 		exit(1);
-	while (1);
+	img->o_start = img->lst;
+	img->c_start = img->cam;
+	img->l_start = img->light;
 }
