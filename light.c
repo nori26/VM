@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/05 15:30:38 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/05 20:46:03 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ double	light(t_img *img)
 		// if (i++ % 100 == 1)
 		// 	printf("aft %f\n", ret);
 	}
-	ret += (cos_nl > 0) * (cos_nl * img->light->pow);
+	ret += (cos_nl > 0) * (cos_nl * img->light->pow * DIFF);
 	// if (i++ % 5 == 1)
 	// 	printf("%f\n", ret);
 	return (ret > 1 ? 1 : ret);

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/05 15:12:12 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/05 20:36:40 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,20 +145,20 @@ void	screen_center(t_img *img)
 
 void	calc(t_img *img)
 {
-	// if (!img->lst)
-	// {
-	// 	// sp_init(img, vect_init(3, 0, 25), 1, rgb_init(255, 0, 0));
-	// 	// sp_init(img, vect_init(2, 0, 20), 1, rgb_init(0, 255, 0));
-	// 	// sp_init(img, vect_init(1, 0, 15), 1, rgb_init(0, 0, 255));
-	// 	// sp_init(img, vect_init(0, 0, 10), 1, rgb_init(255, 255, 255));
-	// 	// sp_init(img, vect_init(-1, 0, 5), 1, rgb_init(255, 0, 0));
-	// 	sp_init(img, vect_init(0, 0, 5), 1, rgb_init(200, 200, 200));
-	// 	// printf("aaa\n");
-	// 	light_init(img, vect_init(-5, 5, -5));
-	// 	// light_init(img, vect_init(150, 150, -150));
-	// 	// img->cam = vect_init(0, 0, -30);
-	// 	img->o_start = img->lst;
-	// }
+	if (!img->lst)
+	{
+		// sp_init(img, vect_init(3, 0, 25), 1, rgb_init(255, 0, 0));
+		// sp_init(img, vect_init(2, 0, 20), 1, rgb_init(0, 255, 0));
+		// sp_init(img, vect_init(1, 0, 15), 1, rgb_init(0, 0, 255));
+		// sp_init(img, vect_init(0, 0, 10), 1, rgb_init(255, 255, 255));
+		// sp_init(img, vect_init(-1, 0, 5), 1, rgb_init(255, 0, 0));
+		sp_init(img, vect_init(0, 0, 5), 1, rgb_init(255, 0, 0));
+		// printf("aaa\n");
+		light_init(img, vect_init(-5, 5, -5));
+		// light_init(img, vect_init(150, 150, -150));
+		// img->cam = vect_init(0, 0, -30);
+		img->o_start = img->lst;
+	}
 	while (img->cam)
 	{
 		screen_center(img);
