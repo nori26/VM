@@ -81,15 +81,17 @@ void	calc(t_data img)
 	draw_img(&img, sp, cam, 0);
 	cam = vect_init(0, 0, -5);
 
-	sp = vect_init(3, 0, 25);
-	draw_img(&img, sp, cam, 1);
-	sp = vect_init(2, 0, 20);
-	draw_img(&img, sp, cam, 1);
-	sp = vect_init(1, 0, 15);
-	draw_img(&img, sp, cam, 1);
-	sp = vect_init(0, 0, 10);
-	draw_img(&img, sp, cam, 1);
-	sp = vect_init(-1, 0, 5);
+	// sp = vect_init(3, 0, 25);
+	// draw_img(&img, sp, cam, 1);
+	// sp = vect_init(2, 0, 20);
+	// draw_img(&img, sp, cam, 1);
+	// sp = vect_init(1, 0, 15);
+	// draw_img(&img, sp, cam, 1);
+	// sp = vect_init(0, 0, 10);
+	// draw_img(&img, sp, cam, 1);
+	// sp = vect_init(-1, 0, 5);
+	// draw_img(&img, sp, cam, 1);
+	sp = vect_init(0, 0, 5);
 	draw_img(&img, sp, cam, 1);
 }
 
@@ -98,8 +100,8 @@ int     main(void)
 	t_vect	v;
 	t_data  img;
 
-	img.w = 512;
-	img.h = 512;
+	img.w = 511;
+	img.h = 511;
     img.mlx = mlx_init();
 	img.win = mlx_new_window(img.mlx, img.w, img.h, "Hello world!");
 	img.img = mlx_new_image(img.mlx, img.w, img.h);
