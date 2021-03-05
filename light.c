@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/05 10:34:36 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/05 10:49:03 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ double	light(t_img *img)
 	{
 		if (i++ % 5 == 1)
 		printf("bef %f\n", ret);
+		if (i++ % 5 == 1)
+			printf("u_l : %f\nn ; %f\ncos_nl : %f\n,")
 		ret += spec(vect_unit(img->view), u_light, img->node.normal, cos_nl);
 		if (i++ % 5 == 1)
 		printf("aft %f\n", ret);
