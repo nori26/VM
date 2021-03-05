@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/05 11:15:09 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/05 20:28:27 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ int	light(t_vect p_point, t_vect sp, t_vect u_view)
 	u_light = vect_unit(vect_sub(p_light, p_point));
 	cos_nl = dot(u_light, u_normal);
 	if (cos_nl > 0)
-	{
 		ret += spec(u_view, u_light, u_normal, cos_nl);
-	}
-	return (ret += (cos_nl > 0) * (int)(cos_nl * 255 * DIFF));
+	return (ret + (cos_nl > 0) * (int)(cos_nl * 255 * DIFF));
 }
 
 int spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl)
@@ -41,10 +39,5 @@ int spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl)
 
 	u_ref = vect_unit(vect_sub(vect_mult(u_normal, 2 * cos_nl), u_light));
 	cos_vr = dot(vect_mult(u_view, -1), u_ref);
-	
-	if (i++ % 5 == 1)
-	{
-		// printf("v.x %f\nv.y %f\nv.z %f\n", u_ref.x, u_ref.y, u_ref.z);
-	}
 	return (cos_vr > 0 ? 255 * SPEC * pow(cos_vr, GLOSS) : 0);
 }
