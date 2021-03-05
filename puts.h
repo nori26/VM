@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/05 10:31:31 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:14:29 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define PI 3.14159265
 # define BMP_MAX 3000
 # define AMB 0.1
-# define GLOSS 8
+# define GLOSS 20
 // # define AMB 1
 // # define DIFF 0.69 * 0.9
 # define DIFF 0.9

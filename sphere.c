@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/05 09:41:22 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/05 17:56:38 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,31 +132,44 @@ double			sphere(t_img *img, t_sp *sp)
 	return (1);
 }
 
+int ii;
 double			plane(t_img *img, t_pl *pl)
 {
 	double vn_dot;
 	double len;
 
-	printf("aaa\n");
 	if (!(vn_dot = dot(img->view, pl->n)))
 		return (0);
 	// if (!img->view.x && !img->view.y && img->view.z == 1)
 	// 	exit (!!printf("dot : %f\n", vn_dot));
-	printf("aiue\n");
-	if ((len = dot(vect_sub(pl->p, img->view), pl->n) / vn_dot) <= 0)
-		return (printf("len: %f\n", len));
+	pl->n = vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
+	// if ((len = dot(vect_sub(pl->p, img->view), pl->n) / vn_dot) <= 0)
+	// 	// return (printf("len: %f\n", len));
+	// 	return (0);
+	if ((len = -1 * dot(vect_sub(img->cam->pos, pl->p), pl->n) / vn_dot) <= 0)
+			return (0);
+	// if ((len = dot(vect_sub(pl->p, img->cam->pos), pl->n) / vn_dot) <= 0)
+	// 	return (0);
 	if (img->node.pos_len >= 0 && (len >= img->node.pos_len))
 		return (0);
 	img->node.rgb = pl->rgb;
 	img->node.pos_len = len;
 	img->node.pos = vect_add(vect_mult(img->view, len), img->cam->pos);
-	// img->node.normal = vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
+	img->node.normal = pl->n;
+	// img->node.normal = vn_dot > 0 ? vect_unit(pl->n) : vect_unit(vect_mult(pl->n, -1));
 	img->node.normal = vn_dot > 0 ? vect_mult(pl->n, -1) : pl->n;
-	if (vn_dot > 0)
-	{
-		printf("%fnode : %f\nnode : %f\nnode : f\n", img->node.normal.x, img->node.normal.y, img->node.normal.z);
-		printf("%fpl : %f\npl : %f\n", pl->n.x, pl->n.y, pl->n.z);
-	}
+
+
+	// if (ii++ % 1000 == 1)
+	// {
+	// 	printf("x %f\ny %f\ny %f\nvn_dot %f\n", pl->n.x, pl->n.y, 	pl->n.z, vn_dot);
+	// 	printf("vx %f\nvy %f\nvz %f\n", img->view.x, img->view.y, 	img->view.z);
+	// }
+	// if (vn_dot > 0)
+	// {
+	// 	printf("%fnode : %f\nnode : %f\nnode : f\n", img->node.normal.x, img->node.normal.y, img->node.normal.z);
+	// 	printf("%fpl : %f\npl : %f\n", pl->n.x, pl->n.y, pl->n.z);
+	// }
 	return (0);
 }
 
