@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 09:55:12 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 10:02:23 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,13 @@ t_vect	camera(t_img *img, int x, int y)
 	center = img->cam->cent;
 	if (img->cam->n.x && img->cam->n.y)
 	{
-		a = -center.y / sqrt(center.x * center.x + center.y * center.y);
-		b = center.x / sqrt(center.x * center.x + center.y * center.y);
-		u_x = vect_init(a, b, 0);
+		// a = -center.y / sqrt(center.x * center.x + center.y * center.y);
+		// b = center.x / sqrt(center.x * center.x + center.y * center.y);
+		// u_x = vect_init(a, b, 0);
+		// u_y = vect_unit(cross(u_x, center));
+		a = -center.z / sqrt(center.x * center.x + center.z * center.z);
+		b = center.x / sqrt(center.x * center.x + center.z * center.z);
+		u_x = vect_init(a, 0, b);
 		u_y = vect_unit(cross(u_x, center));
 		v_x = vect_mult(u_x, x - img->w / 2);
 		v_y = vect_mult(u_y, y - img->h / 2);
@@ -40,7 +44,7 @@ t_vect	camera(t_img *img, int x, int y)
 	}
 	else
 	{
-		u_x = vect_init(1, 0, 0);
+		u_x = vect_init(1, 1, 0);
 		u_y = vect_unit(cross(u_x, center));
 		v_x = vect_mult(u_x, x - img->w / 2);
 		v_y = vect_mult(u_y, y - img->h / 2);
