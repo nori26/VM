@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 16:32:00 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 16:34:16 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ double			sphere(t_img *img, t_sp *sp)
 	double c;
 	double dist;
 	t_vect cam_o;
-	// t_vect view_spatial;
 
 	cam_o = vect_sub(img->cam->pos, sp->o);
 	b = 2 * dot(img->view, cam_o);
@@ -162,26 +161,26 @@ int ii;
 double			plane(t_img *img, t_pl *pl)
 {
 	double vn_dot;
-	double len;
+	double dist;
 
 	if (!(vn_dot = dot(img->view, pl->n)))
 		return (0);
 	if (!img->view.x && !img->view.y && img->view.z == 1)
 		printf("dot : %f\n", vn_dot);
 	// pl->n = vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
-	if ((len = dot(vect_sub(pl->p, img->cam->pos), pl->n) / vn_dot) <= 0)
+	if ((dist = dot(vect_sub(pl->p, img->cam->pos), pl->n) / vn_dot) <= 0)
 		return (0);
-	// printf("%f\n", len);
-	// 	// return (printf("len: %f\n", len));
-	// if ((len = -1 * dot(vect_sub(img->cam->pos, pl->p), pl->n) / vn_dot) <= 0)
+	// printf("%f\n", dist);
+	// 	// return (printf("dist: %f\n", dist));
+	// if ((dist = -1 * dot(vect_sub(img->cam->pos, pl->p), pl->n) / vn_dot) <= 0)
 	// 		return (0);
-	// if ((len = dot(vect_sub(pl->p, img->cam->pos), pl->n) / vn_dot) <= 0)
+	// if ((dist = dot(vect_sub(pl->p, img->cam->pos), pl->n) / vn_dot) <= 0)
 	// 	return (0);
-	if (img->node.dist >= 0 && (len >= img->node.dist))
+	if (img->node.dist >= 0 && (dist >= img->node.dist))
 		return (0);
 	img->node.rgb = pl->rgb;
-	img->node.dist = len;
-	img->node.pos = vect_add(vect_mult(img->view, len), img->cam->pos);
+	img->node.dist = dist;
+	img->node.pos = vect_add(vect_mult(img->view, dist), img->cam->pos);
 	printf("%f\n", vn_dot);
 	// img->node.normal = vn_dot > 0 ? vect_unit(pl->n) : vect_unit(vect_mult(pl->n, -1));
 	img->node.normal = vn_dot > 0 ? vect_mult(pl->n, -1) : pl->n;
