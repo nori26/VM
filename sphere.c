@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 19:32:20 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 21:16:16 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,21 @@ double			cylinder(t_img *img, t_cy *cy)
 
 double			triangle(t_img *img, t_tr *tr)
 {
+	t_vect ab;
+	t_vect ac;
+	t_vect n;
+	double vn_dot;
+	double dist;
+
 	(void)img;
-	(void)tr;
+	ab = vect_sub(tr->b, tr->a);
+	ac = vect_sub(tr->c, tr->a);
+	n = cross(ab, ac);
+
+	if (!(vn_dot = dot(img->view, tr->n)))
+		return (0);
+	if ((dist = dot(vect_sub(pl->p, img->cam->pos), pl->n) / vn_dot) <= 0)
+		return (0);
 	return (0);
 }
 
@@ -159,21 +172,11 @@ double			plane(t_img *img, t_pl *pl)
 		return (0);
 	if (!(update_node(img, dist, pl->rgb)))
 		return (0);
-	// vprint(pl->n);
+	//fixed vn_dot -> -1 * vn_dot
 	img->node.normal = -vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
 	// img->node.normal = vn_dot > 0 ? vect_mult(pl->n, -1) : pl->n;
 	printf("dot : %f\n", vn_dot);
 	vprint(img->view);
-	// if (ii++ % 1000 == 1)
-	// {
-	// 	printf("x %f\ny %f\ny %f\nvn_dot %f\n", pl->n.x, pl->n.y, 	pl->n.z, vn_dot);
-	// 	printf("vx %f\nvy %f\nvz %f\n", img->view.x, img->view.y, 	img->view.z);
-	// }
-	// if (vn_dot > 0)
-	// {
-	// 	printf("%fnode : %f\nnode : %f\nnode : f\n", img->node.normal.x, img->node.normal.y, img->node.normal.z);
-	// 	printf("%fpl : %f\npl : %f\n", pl->n.x, pl->n.y, pl->n.z);
-	// }
 	return (0);
 }
 
