@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 15:17:55 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 16:11:30 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ double			cylinder(t_img *img, t_cy *cy)
 	a = pow(vect_len(vn_cross), 2);
 	b = 2 * dot(vn_cross, tmp);
 	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
-	
+	if (!(a = quadratic_formula(a, b, c)))
+		return (0);
+	if (img->node.dist >= 0 && (a >= img->node.dist))
+		return (0);
 	return (0);
 }
 
@@ -130,20 +133,20 @@ double			sphere(t_img *img, t_sp *sp)
 {
 	double b;
 	double c;
-	double pos_len;
-	t_vect tmp;
+	double dist;
+	t_vect cam_o;
 	t_vect view_spatial;
 
-	tmp = vect_sub(img->cam->pos, sp->o);
-	b = 2 * dot(img->view, tmp);
-	c = pow(vect_len(tmp), 2) - sp->r * sp->r;
-	if (!(pos_len = quadratic_formula(1, b, c)))
+	cam_o = vect_sub(img->cam->pos, sp->o);
+	b = 2 * dot(img->view, cam_o);
+	c = pow(vect_len(cam_o), 2) - sp->r * sp->r;
+	if (!(dist = quadratic_formula(1, b, c)))
 		return (0);
-	view_spatial = vect_mult(img->view, pos_len);
-	if (img->node.pos_len >= 0 && (pos_len >= img->node.pos_len))
+	view_spatial = vect_mult(img->view, dist);
+	if (img->node.dist >= 0 && (dist >= img->node.dist))
 		return (0);
 	img->node.rgb = sp->rgb;
-	img->node.pos_len = pos_len;
+	img->node.dist = dist;
 	img->node.pos = vect_add(view_spatial, img->cam->pos);
 	img->node.normal = vect_unit(vect_sub(img->node.pos, sp->o));
 	return (1);
@@ -168,10 +171,10 @@ double			plane(t_img *img, t_pl *pl)
 	// 		return (0);
 	// if ((len = dot(vect_sub(pl->p, img->cam->pos), pl->n) / vn_dot) <= 0)
 	// 	return (0);
-	if (img->node.pos_len >= 0 && (len >= img->node.pos_len))
+	if (img->node.dist >= 0 && (len >= img->node.dist))
 		return (0);
 	img->node.rgb = pl->rgb;
-	img->node.pos_len = len;
+	img->node.dist = len;
 	img->node.pos = vect_add(vect_mult(img->view, len), img->cam->pos);
 	printf("%f\n", vn_dot);
 	// img->node.normal = vn_dot > 0 ? vect_unit(pl->n) : vect_unit(vect_mult(pl->n, -1));

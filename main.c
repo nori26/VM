@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 11:22:25 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 16:11:33 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ void	draw_img(t_img *img, t_clist cam)
 			img->view = camera(img, x, y);
 			// img->view = vect_unit(vect_sub(pos, cam.pos));
 			ft_bzero(&img->node, sizeof(img->node));
-			img->node.pos_len = -1;
+			img->node.dist = -1;
 			while (img->lst)
 			{
 				img->lst->f(img, img->lst->obj);
 				img->lst = img->lst->next;
 			}
-			if (img->node.pos_len != -1)
+			if (img->node.dist != -1)
 			{
 				my_mlx_pixel_put(img, x, y,
 							color(img->node.rgb, *img->light, light(img)));

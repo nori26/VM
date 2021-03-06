@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 06:42:41 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 16:11:27 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct	s_node
 	t_vect		pos;
 	t_vect		normal;
 	t_rgb		rgb;
-	double		pos_len;
+	double		dist;
 }				t_node;
 struct  s_olist
 {
