@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/05 17:56:38 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 07:58:37 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,16 +138,18 @@ double			plane(t_img *img, t_pl *pl)
 	double vn_dot;
 	double len;
 
-	if (!(vn_dot = dot(img->view, pl->n)))
+	if (!(vn_dot = dot(vect_mult(img->view, -1), pl->n)))
 		return (0);
-	// if (!img->view.x && !img->view.y && img->view.z == 1)
-	// 	exit (!!printf("dot : %f\n", vn_dot));
-	pl->n = vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
-	// if ((len = dot(vect_sub(pl->p, img->view), pl->n) / vn_dot) <= 0)
+	// vn_dot *= -1;
+	if (!img->view.x && !img->view.y && img->view.z == 1)
+		printf("dot : %f\n", vn_dot);
+	// pl->n = vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
+	if ((len = dot(vect_sub(pl->p, img->cam->pos), pl->n) / vn_dot) <= 0)
+		return (0);
+	// printf("%f\n", len);
 	// 	// return (printf("len: %f\n", len));
-	// 	return (0);
-	if ((len = -1 * dot(vect_sub(img->cam->pos, pl->p), pl->n) / vn_dot) <= 0)
-			return (0);
+	// if ((len = -1 * dot(vect_sub(img->cam->pos, pl->p), pl->n) / vn_dot) <= 0)
+	// 		return (0);
 	// if ((len = dot(vect_sub(pl->p, img->cam->pos), pl->n) / vn_dot) <= 0)
 	// 	return (0);
 	if (img->node.pos_len >= 0 && (len >= img->node.pos_len))
@@ -155,9 +157,8 @@ double			plane(t_img *img, t_pl *pl)
 	img->node.rgb = pl->rgb;
 	img->node.pos_len = len;
 	img->node.pos = vect_add(vect_mult(img->view, len), img->cam->pos);
-	img->node.normal = pl->n;
-	// img->node.normal = vn_dot > 0 ? vect_unit(pl->n) : vect_unit(vect_mult(pl->n, -1));
-	img->node.normal = vn_dot > 0 ? vect_mult(pl->n, -1) : pl->n;
+	img->node.normal = vn_dot > 0 ? vect_unit(pl->n) : vect_unit(vect_mult(pl->n, -1));
+	// img->node.normal = vn_dot > 0 ? vect_mult(pl->n, -1) : pl->n;
 
 
 	// if (ii++ % 1000 == 1)

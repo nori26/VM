@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/03 16:32:50 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 07:00:15 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	pl_init(char *data, t_img *img)
 		return (-1);
 	if (!(pl = malloc(sizeof(t_pl))))
 		return (-1);
-	if (split_comma(trim_space(&data),
-		&pl->p.x, &pl->p.y, &pl->p.z) < 0 ||
+	if (split_comma(trim_space(&data), &pl->p.x, &pl->p.y, &pl->p.z) < 0 ||
 		split_comma_normal(trim_space(&data),
 		&pl->n.x, &pl->n.y, &pl->n.z) < 0 ||
 		(!pl->n.x && !pl->n.y && !pl->n.z))
 		return (freeturn((char **)&pl, -1));
+	pl->n = vect_unit(pl->n);
 	if (parse_rgb(data, &pl->rgb.r, &pl->rgb.g, &pl->rgb.b) < 0)
 		return (freeturn((char **)&pl, -1));
 	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_o(pl, plane)))
@@ -67,6 +67,7 @@ int	sq_init(char *data, t_img *img)
 		split_comma_normal(trim_space(&data),
 		&sq->n.x, &sq->n.y, &sq->n.z) < 0 || (!sq->n.x && !sq->n.y && !sq->n.z))
 		return (freeturn((char **)&sq, -1));
+	sq->n = vect_unit(sq->n);
 	if ((sq->size = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
 		sq->size == INFINITY)
 		return (freeturn((char **)&sq, -1));
@@ -90,6 +91,7 @@ int	cy_init(char *data, t_img *img)
 		split_comma_normal(trim_space(&data),
 		&cy->n.x, &cy->n.y, &cy->n.z) < 0 || (!cy->n.x && !cy->n.y && !cy->n.z))
 		return (freeturn((char **)&cy, -1));
+	cy->n = vect_unit(cy->n);
 	if ((cy->r = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
 		cy->r == INFINITY)
 		return (freeturn((char **)&cy, -1));
