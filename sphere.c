@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 12:36:46 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 14:57:12 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,15 @@ t_llist	*ft_lstnew_l(t_llist l)
 	return (light);
 }
 
-double			quadratic_formula(double a, double b, double d)
+double			quadratic_formula(double a, double b, double c)
 {
+	double d;
 	double small;
 	double large;
 	double root_d;
 
+	if ((d = b * b - 4 * c) < 0)
+		return (0);
 	root_d = sqrt(d);
 	small = (-b - root_d) / (2 * a);
 	large = (-b + root_d) / (2 * a);
@@ -96,8 +99,17 @@ double			square(t_img *img, t_sq *sq)
 
 double			cylinder(t_img *img, t_cy *cy)
 {
-	(void)img;
-	(void)cy;
+	t_vect vn_cross;
+	t_vect tmp;
+	double a;
+	double b;
+	double c;
+
+	vn_cross = cross(cross(img->view, cy->n));
+	tmp = cross(vect_sub(img->cam->pos, cy->p), cy->n);
+	a = pow(vect_len(vn_cross), 2);
+	b = 2 * dot(vn_cross, tmp);
+	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
 	return (0);
 }
 
@@ -113,15 +125,15 @@ double			sphere(t_img *img, t_sp *sp)
 {
 	double b;
 	double c;
-	double d;
 	double pos_len;
+	t_vect tmp;
 	t_vect view_spatial;
 
-	b = 2 * dot(img->view, vect_sub(img->cam->pos, sp->o));
-	c = pow(vect_len(vect_sub(img->cam->pos, sp->o)), 2) - sp->r * sp->r;
-	if ((d = b * b - 4 * c) < 0)
+	tmp = vect_sub(img->cam->pos, sp->o)
+	b = 2 * dot(img->view, tmp);
+	c = pow(vect_len(tmp), 2) - sp->r * sp->r;
+	if (!(pos_len = quadratic_formula(1, b, c)))
 		return (0);
-	pos_len = quadratic_formula(1, b, d);
 	view_spatial = vect_mult(img->view, pos_len);
 	if (img->node.pos_len >= 0 && (pos_len >= img->node.pos_len))
 		return (0);
