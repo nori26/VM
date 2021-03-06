@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 14:57:12 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 15:05:00 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,16 @@ double			quadratic_formula(double a, double b, double c)
 	double large;
 	double root_d;
 
-	if ((d = b * b - 4 * c) < 0)
+	if ((d = b * b - 4 * a * c) < 0)
 		return (0);
 	root_d = sqrt(d);
 	small = (-b - root_d) / (2 * a);
+	if (small > 0)
+		return (small);
 	large = (-b + root_d) / (2 * a);
-	return (small > 0 ? small : (large > 0) * large);
+	if (large > 0)
+		return (large);
+	return (0);
 }
 
 double			square(t_img *img, t_sq *sq)
@@ -105,7 +109,7 @@ double			cylinder(t_img *img, t_cy *cy)
 	double b;
 	double c;
 
-	vn_cross = cross(cross(img->view, cy->n));
+	vn_cross = cross(img->view, cy->n);
 	tmp = cross(vect_sub(img->cam->pos, cy->p), cy->n);
 	a = pow(vect_len(vn_cross), 2);
 	b = 2 * dot(vn_cross, tmp);
@@ -129,7 +133,7 @@ double			sphere(t_img *img, t_sp *sp)
 	t_vect tmp;
 	t_vect view_spatial;
 
-	tmp = vect_sub(img->cam->pos, sp->o)
+	tmp = vect_sub(img->cam->pos, sp->o);
 	b = 2 * dot(img->view, tmp);
 	c = pow(vect_len(tmp), 2) - sp->r * sp->r;
 	if (!(pos_len = quadratic_formula(1, b, c)))
