@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 15:05:00 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 15:17:55 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ double			cylinder(t_img *img, t_cy *cy)
 	a = pow(vect_len(vn_cross), 2);
 	b = 2 * dot(vn_cross, tmp);
 	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
+	
 	return (0);
 }
 
