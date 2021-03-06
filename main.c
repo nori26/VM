@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 07:58:57 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 09:55:12 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_vect	camera(t_img *img, int x, int y)
 	center = img->cam->cent;
 	if (img->cam->n.x && img->cam->n.y)
 	{
-		a = -center.y / sqrt(center.x * center.x + center.z * center.y);
-		b = center.x / sqrt(center.x * center.x + center.z * center.y);
+		a = -center.y / sqrt(center.x * center.x + center.y * center.y);
+		b = center.x / sqrt(center.x * center.x + center.y * center.y);
 		u_x = vect_init(a, b, 0);
 		u_y = vect_unit(cross(u_x, center));
 		v_x = vect_mult(u_x, x - img->w / 2);
@@ -80,7 +80,7 @@ void	draw_img(t_img *img, t_clist cam)
 			pos = vect_init(2.0 * x / (img->w - 1) - 1,
 							-2.0 * y / (img->h - 1) + 1, 0);
 			img->view = camera(img, x, y);
-			img->view = vect_unit(vect_sub(pos, cam.pos));
+			// img->view = vect_unit(vect_sub(pos, cam.pos));
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.pos_len = -1;
 			while (img->lst)

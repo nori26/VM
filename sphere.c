@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 07:58:37 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 09:37:19 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ double			sphere(t_img *img, t_sp *sp)
 	img->node.pos_len = pos_len;
 	img->node.pos = vect_add(view_spatial, img->cam->pos);
 	img->node.normal = vect_unit(vect_sub(img->node.pos, sp->o));
+	// img->node.normal = vect_mult(img->node.normal, -1);
 	return (1);
 }
 
@@ -138,9 +139,8 @@ double			plane(t_img *img, t_pl *pl)
 	double vn_dot;
 	double len;
 
-	if (!(vn_dot = dot(vect_mult(img->view, -1), pl->n)))
+	if (!(vn_dot = dot(img->view, pl->n)))
 		return (0);
-	// vn_dot *= -1;
 	if (!img->view.x && !img->view.y && img->view.z == 1)
 		printf("dot : %f\n", vn_dot);
 	// pl->n = vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
@@ -157,8 +157,9 @@ double			plane(t_img *img, t_pl *pl)
 	img->node.rgb = pl->rgb;
 	img->node.pos_len = len;
 	img->node.pos = vect_add(vect_mult(img->view, len), img->cam->pos);
-	img->node.normal = vn_dot > 0 ? vect_unit(pl->n) : vect_unit(vect_mult(pl->n, -1));
-	// img->node.normal = vn_dot > 0 ? vect_mult(pl->n, -1) : pl->n;
+	// img->node.normal = vn_dot > 0 ? vect_unit(pl->n) : vect_unit(vect_mult(pl->n, -1));
+	printf("%f\n", vn_dot);
+	img->node.normal = vn_dot > 0 ? vect_mult(pl->n, -1) : pl->n;
 
 
 	// if (ii++ % 1000 == 1)
@@ -174,4 +175,8 @@ double			plane(t_img *img, t_pl *pl)
 	return (0);
 }
 
+// void	update_node(t_img *img)
+// {
+// 	img->node.rgb = img->
+// }
 // double		plane()

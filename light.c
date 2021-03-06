@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/05 20:46:03 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 09:10:16 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,8 @@ double	light(t_img *img)
 	u_light = vect_unit(vect_sub(img->light->pos, img->node.pos));
 	cos_nl = dot(u_light, img->node.normal);
 	if (cos_nl > 0)
-	{
-		// if (i % 100 == 1)
-		// 	printf("bef %f\n", ret);
 		ret += spec(img->view, u_light, img->node.normal, cos_nl);
-		// if (i++ % 100 == 1)
-		// 	printf("aft %f\n", ret);
-	}
 	ret += (cos_nl > 0) * (cos_nl * img->light->pow * DIFF);
-	// if (i++ % 5 == 1)
-	// 	printf("%f\n", ret);
 	return (ret > 1 ? 1 : ret);
 }
 
@@ -46,11 +38,7 @@ double spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl)
 
 	u_ref = vect_unit(vect_sub(vect_mult(u_normal, 2 * cos_nl), u_light));
 	cos_vr = dot(vect_mult(u_view, -1), u_ref);
-	// if (j++ % 100 == 1)
-	// printf("cos_vr %f\n", cos_vr);
-		// printf("v.x %f\nv.y %f\nv.z %f\n", u_ref.x, u_ref.y, u_ref.z);
 	return (cos_vr > 0 ? SPEC * pow(cos_vr, GLOSS) : 0);
-	// return (0);
 }
 
 int		color(t_rgb obj, t_llist light, double ref)
