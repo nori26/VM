@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 10:21:18 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 11:16:41 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,43 +25,26 @@ t_vect	camera(t_img *img, int x, int y)
 	t_vect view;
 
 	center = img->cam->cent;
-	if (img->cam->n.x || img->cam->n.z)
+	if (!img->cam->n.x && !img->cam->n.z)
+		u_x = vect_init(1, 0, 0);
+	else
 	{
-		// a = -center.y / sqrt(center.x * center.x + center.y * center.y);
-		// b = center.x / sqrt(center.x * center.x + center.y * center.y);
-		// u_x = vect_init(a, b, 0);
-		// u_y = vect_unit(cross(u_x, center));
 		a = -center.z / sqrt(center.x * center.x + center.z * center.z);
 		b = center.x / sqrt(center.x * center.x + center.z * center.z);
 		u_x = vect_init(a, 0, b);
-		printf("x   %f\ny   %f\n", u_x.x, u_x.z);
-		u_y = vect_unit(cross(u_x, center));
-		v_x = vect_mult(u_x, x - img->w / 2);
-		v_y = vect_mult(u_y, y - img->h / 2);
-		view = vect_add(vect_sub(v_x, v_y), center);
-		if (!x && !y)
-			printf("len %f\n", vect_len(center));
-		view = vect_unit(view);
 	}
-	else
-	{
-		u_x = vect_init(1, 0, 0);
-		// u_x = vect_init(1, 1, 0);
-		u_y = vect_unit(cross(u_x, center));
-		v_x = vect_mult(u_x, x - img->w / 2);
-		v_y = vect_mult(u_y, y - img->h / 2);
-		view = vect_add(vect_sub(v_x, v_y), center);
-		// if (!x && !y)
-		// 	printf("dot1 : %f\ndot2 : f\ndot3 : f\n", dot(center, v_x), dot(center, v_y), dot(v_y, v_x));
-		view = vect_unit(view);
-	}
-	if (!x && !y)
-	{
-		printf("x.x : %f\nx.y : %f\nx.z : %f\n", v_x.x,  v_x.y, v_x.z);
-		printf("root : %f\n", sqrt(center.x * center.x + center.y * center.y));
-		printf("xlen : %f\nylen : %f\n", vect_len(v_x), vect_len(v_y));
-		printf("centlen : %f\n", vect_len(center));
-	}
+	u_y = vect_unit(cross(u_x, center));
+	v_x = vect_mult(u_x, x - img->w / 2);
+	v_y = vect_mult(u_y, y - img->h / 2);
+	view = vect_add(vect_sub(v_x, v_y), center);
+	view = vect_unit(view);
+	// if (!x && !y)
+	// {
+	// 	printf("x.x : %f\nx.y : %f\nx.z : %f\n", v_x.x,  v_x.y, v_x.z);
+	// 	printf("root : %f\n", sqrt(center.x * center.x + center.y * center.y));
+	// 	printf("xlen : %f\nylen : %f\n", vect_len(v_x), vect_len(v_y));
+	// 	printf("centlen : %f\n", vect_len(center));
+	// }
 	// printf("%f\n", vect_len(view));
 	// if (!x && !y)
 		// printf("dot1 : %f\ndot2 : %f\ndot3 : %f\n", dot(center, v_x), dot(center, v_y), dot(v_y, v_x));
