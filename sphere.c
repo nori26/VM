@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 09:37:19 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 12:36:46 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ double			sphere(t_img *img, t_sp *sp)
 	img->node.pos_len = pos_len;
 	img->node.pos = vect_add(view_spatial, img->cam->pos);
 	img->node.normal = vect_unit(vect_sub(img->node.pos, sp->o));
-	// img->node.normal = vect_mult(img->node.normal, -1);
 	return (1);
 }
 
@@ -157,8 +156,8 @@ double			plane(t_img *img, t_pl *pl)
 	img->node.rgb = pl->rgb;
 	img->node.pos_len = len;
 	img->node.pos = vect_add(vect_mult(img->view, len), img->cam->pos);
-	// img->node.normal = vn_dot > 0 ? vect_unit(pl->n) : vect_unit(vect_mult(pl->n, -1));
 	printf("%f\n", vn_dot);
+	// img->node.normal = vn_dot > 0 ? vect_unit(pl->n) : vect_unit(vect_mult(pl->n, -1));
 	img->node.normal = vn_dot > 0 ? vect_mult(pl->n, -1) : pl->n;
 
 
