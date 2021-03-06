@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 10:18:41 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 10:21:18 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_vect	camera(t_img *img, int x, int y)
 		a = -center.z / sqrt(center.x * center.x + center.z * center.z);
 		b = center.x / sqrt(center.x * center.x + center.z * center.z);
 		u_x = vect_init(a, 0, b);
-		printf("len %f\n", vect_len(u_x));
+		printf("x   %f\ny   %f\n", u_x.x, u_x.z);
 		u_y = vect_unit(cross(u_x, center));
 		v_x = vect_mult(u_x, x - img->w / 2);
 		v_y = vect_mult(u_y, y - img->h / 2);
