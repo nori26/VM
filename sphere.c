@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 16:11:30 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 16:32:00 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,18 @@ double			triangle(t_img *img, t_tr *tr)
 	return (0);
 }
 
+void			update_node(t_img *img, double dist, t_vect o, t_rgb rgb)
+{
+	t_vect view_spatial;
+
+	if (img->node.dist >= 0 && (dist >= img->node.dist))
+		return ;
+	view_spatial = vect_mult(img->view, dist);
+	img->node.rgb = rgb;
+	img->node.dist = dist;
+	img->node.pos = vect_add(view_spatial, img->cam->pos);
+	img->node.normal = vect_unit(vect_sub(img->node.pos, o));
+}
 
 double			sphere(t_img *img, t_sp *sp)
 {
@@ -135,21 +147,15 @@ double			sphere(t_img *img, t_sp *sp)
 	double c;
 	double dist;
 	t_vect cam_o;
-	t_vect view_spatial;
+	// t_vect view_spatial;
 
 	cam_o = vect_sub(img->cam->pos, sp->o);
 	b = 2 * dot(img->view, cam_o);
 	c = pow(vect_len(cam_o), 2) - sp->r * sp->r;
 	if (!(dist = quadratic_formula(1, b, c)))
 		return (0);
-	view_spatial = vect_mult(img->view, dist);
-	if (img->node.dist >= 0 && (dist >= img->node.dist))
-		return (0);
-	img->node.rgb = sp->rgb;
-	img->node.dist = dist;
-	img->node.pos = vect_add(view_spatial, img->cam->pos);
-	img->node.normal = vect_unit(vect_sub(img->node.pos, sp->o));
-	return (1);
+	update_node(img, dist, sp->o, sp->rgb);
+	return (0);
 }
 
 int ii;
