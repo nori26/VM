@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 16:48:43 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/06 19:32:20 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,18 +128,6 @@ double			triangle(t_img *img, t_tr *tr)
 	return (0);
 }
 
-int			update_node(t_img *img, double dist, t_rgb rgb)
-{
-	t_vect view_spatial;
-
-	if (img->node.dist >= 0 && (dist >= img->node.dist))
-		return (0);
-	view_spatial = vect_mult(img->view, dist);
-	img->node.rgb = rgb;
-	img->node.dist = dist;
-	img->node.pos = vect_add(view_spatial, img->cam->pos);
-	return (1);
-}
 
 double			sphere(t_img *img, t_sp *sp)
 {
@@ -167,24 +155,15 @@ double			plane(t_img *img, t_pl *pl)
 
 	if (!(vn_dot = dot(img->view, pl->n)))
 		return (0);
-	if (!img->view.x && !img->view.y && img->view.z == 1)
-		printf("dot : %f\n", vn_dot);
 	if ((dist = dot(vect_sub(pl->p, img->cam->pos), pl->n) / vn_dot) <= 0)
 		return (0);
-	// if (vn_dot < 0)
-	// 	pl->n = vect_mult(pl->n, -1);
 	if (!(update_node(img, dist, pl->rgb)))
 		return (0);
-	// if (img->node.dist >= 0 && (dist >= img->node.dist))
-	// 	return (0);
-	// img->node.rgb = pl->rgb;
-	// img->node.dist = dist;
-	// img->node.pos = vect_add(vect_mult(img->view, dist), img->cam->pos);
-	// printf("%f\n", vn_dot);
-	// img->node.normal = vn_dot > 0 ? vect_unit(pl->n) : vect_unit(vect_mult(pl->n, -1));
-	img->node.normal = vn_dot > 0 ? vect_mult(pl->n, -1) : pl->n;
-
-
+	// vprint(pl->n);
+	img->node.normal = -vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
+	// img->node.normal = vn_dot > 0 ? vect_mult(pl->n, -1) : pl->n;
+	printf("dot : %f\n", vn_dot);
+	vprint(img->view);
 	// if (ii++ % 1000 == 1)
 	// {
 	// 	printf("x %f\ny %f\ny %f\nvn_dot %f\n", pl->n.x, pl->n.y, 	pl->n.z, vn_dot);
@@ -198,8 +177,20 @@ double			plane(t_img *img, t_pl *pl)
 	return (0);
 }
 
-// void	update_node(t_img *img)
-// {
-// 	img->node.rgb = img->
-// }
-// double		plane()
+int			update_node(t_img *img, double dist, t_rgb rgb)
+{
+	t_vect view_spatial;
+
+	if (img->node.dist >= 0 && (dist >= img->node.dist))
+		return (0);
+	view_spatial = vect_mult(img->view, dist);
+	img->node.rgb = rgb;
+	img->node.dist = dist;
+	img->node.pos = vect_add(view_spatial, img->cam->pos);
+	return (1);
+}
+
+void	vprint(t_vect v)
+{
+	printf("x : %f\ny : %f\nz : %f\n", v.x, v.y, v.z);
+}
