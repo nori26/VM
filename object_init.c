@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 10:08:24 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 21:26:18 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,6 @@ int	tr_init(char *data, t_img *img)
 		return (freeturn((char **)&tr, -1));
 	if (check_parallel(tr->a, tr->b, tr->c))
 		return (freeturn((char **)&tr, -1));
-	// tr->a = vect_unit(tr->a);
-	// tr->b = vect_unit(tr->b);
-	// tr->c = vect_unit(tr->c);
 	tr->ab = vect_sub(tr->b, tr->a);
 	tr->bc = vect_sub(tr->c, tr->b);
 	tr->ca = vect_sub(tr->a, tr->c);

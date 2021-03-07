@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 20:52:05 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 21:06:30 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,12 @@ int	sp_init(t_img *img, t_vect o, double r, t_rgb rgb)
 void light_init(t_img *img, t_vect l)
 {
 	t_llist light;
+
 	light.pos = l;
 	light.rgb = rgb_init(255, 255, 255);
 	light.pow = 1;
 	img->light = ft_lstnew_l(light);
 }
-
 
 void	calc(t_img *img)
 {
