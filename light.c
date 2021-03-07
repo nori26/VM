@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 20:39:44 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 20:40:04 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		color(t_rgb obj, t_llist light, double ref)
 	int g;
 	int b;
 
+	//amb
 	r = 255 * obj.r * light.rgb.r * ref;
 	g = 255 * obj.g * light.rgb.g * ref;
 	b = 255 * obj.b * light.rgb.b * ref;

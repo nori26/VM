@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 20:27:33 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 20:52:05 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ t_vect	camera(t_img *img, int x, int y)
 	return (img->u_view);
 }
 
+void	screen_center(t_img *img)
+{
+	double distance;
+
+	distance = img->w / (2 * tan(img->cam->fov / 2));
+	img->cam->cent = vect_mult(img->cam->n, distance);
+	printf("dist : %f\n", distance);
+}
+
 void	draw_img(t_img *img)
 {
 	int		x;
@@ -31,6 +40,7 @@ void	draw_img(t_img *img)
 	t_vect	pos;
 
 	y = 0;
+	screen_center(img);
 	while (y < img->h)
 	{
 		x = 0;
@@ -43,11 +53,11 @@ void	draw_img(t_img *img)
 			// img->u_view = vect_unit(vect_sub(pos, img->cam->pos));
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
-			while (img->lst)
+			img->lst->f(img, img->lst->obj);
+			while ((img->lst = img->lst->next))
 			{
 				// if (x >= 254 && y >= 254)
 				img->lst->f(img, img->lst->obj);
-				img->lst = img->lst->next;
 			}
 			if (img->node.dist != -1)
 			{
@@ -95,14 +105,6 @@ void light_init(t_img *img, t_vect l)
 	img->light = ft_lstnew_l(light);
 }
 
-void	screen_center(t_img *img)
-{
-	double distance;
-
-	distance = img->w / (2 * tan(img->cam->fov / 2));
-	img->cam->cent = vect_mult(img->cam->n, distance);
-	printf("dist : %f\n", distance);
-}
 
 void	calc(t_img *img)
 {
@@ -122,7 +124,6 @@ void	calc(t_img *img)
 	}
 	while (img->cam)
 	{
-		screen_center(img);
 		draw_img(img);
 		img->cam = img->cam->next;
 	}
