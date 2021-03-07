@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 18:55:32 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 22:01:26 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void			vprint(t_vect v)
 {
-	printf("x : %f\ny : %f\nz : %f\n", v.x, v.y, v.z);
+	printf("x : % .30f\ny : % .30f\nz : % .30f\n", v.x, v.y, v.z);
 }
 
 int				update_node(t_img *img, double dist, t_rgb rgb)

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 21:44:53 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 00:07:45 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,31 @@ double			plane(t_img *img, t_pl *pl)
 
 double			square(t_img *img, t_sq *sq)
 {
+	t_vect node;
+	t_vect o_p;
+	double dist;
+	double vn_dot;
 
-	(void)img;
-	(void)sq;
+	if (!(vn_dot = dot(img->u_view, sq->n)))
+		return (0);
+	if ((dist = dot(vect_sub(sq->p, img->cam->pos), sq->n) / vn_dot) <= 0)
+		return (0);
+	img->v_view = vect_mult(img->u_view, dist);
+	node = vect_add(img->v_view, img->cam->pos);
+	o_p = vect_sub(node, sq->p);
+	if (!sq->n.x && !sq->n.z)
+		sq->u_x = vect_init(1, 0, 0);
+	else
+		sq->u_x = vect_init(
+						-sq->n.z / sqrt(sq->n.x * sq->n.x + sq->n.z * sq->n.z),
+						0,
+						sq->n.x / sqrt(sq->n.x * sq->n.x + sq->n.z * sq->n.z));
+	sq->u_y = vect_unit(cross(sq->u_x, sq->n));
+	if (fabs(dot(o_p, sq->u_x)) > sq->size / 2 ||
+		fabs(dot(o_p, sq->u_y)) > sq->size / 2)
+		return (0);
+	update_node(img, dist, sq->rgb);
+	img->node.normal = -vn_dot > 0 ? sq->n : vect_mult(sq->n, -1);
 	return (0);
 }
 

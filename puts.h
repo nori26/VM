@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 20:25:55 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 23:54:13 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ typedef struct	s_sq
 {
 	t_vect		p;
 	t_vect		n;
-	t_vect		my;
+	t_vect		u_x;
+	t_vect		u_y;
 	t_rgb		rgb;
 	double		size;
 }				t_sq;

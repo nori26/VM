@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 21:06:30 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 00:03:34 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,28 @@
 
 t_vect	camera(t_img *img, int x, int y)
 {
+	t_vect center;
 	t_vect v_x;
 	t_vect v_y;
+	t_vect u_x;
+	t_vect u_y;
 
-	v_x = vect_init(x - img->w / 2, 0, 0);
-	v_y = vect_init(0, img->h / 2 - y, 0);
-	img->u_view = vect_unit(vect_add(vect_add(v_x, v_y), img->cam->cent));
+	center = img->cam->cent;
+	if (!img->cam->n.x && !img->cam->n.z)
+		u_x = vect_init(1, 0, 0);
+	else
+	{
+		u_x = vect_init(
+			-center.z / sqrt(center.x * center.x + center.z * center.z),
+			0,
+			center.x / sqrt(center.x * center.x + center.z * center.z));
+	}
+	u_y = vect_unit(cross(u_x, center));
+	v_x = vect_mult(u_x, x - img->w / 2);
+	v_y = vect_mult(u_y, img->h / 2 - y);
+	img->u_view = vect_unit(vect_add(vect_add(v_x, v_y), center));
+	// if (!y)
+	// 	vprint(center);
 	return (img->u_view);
 }
 
