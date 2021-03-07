@@ -6,39 +6,36 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 20:29:29 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 20:39:44 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-int i;
-int j;
-
 double	light(t_img *img)
 {
 	double	ret;
-	double	cos_nl;
+	double	nl_dot;
 	t_vect	u_light;
 
 	ret = 0;
 	ret = AMB; //amb
 	u_light = vect_unit(vect_sub(img->light->pos, img->node.pos));
-	cos_nl = dot(u_light, img->node.normal);
-	if (cos_nl > 0)
+	nl_dot = dot(u_light, img->node.normal);
+	if (nl_dot > 0)
 	{
-		ret = cos_nl * img->light->pow * DIFF;
-		ret += spec(img->u_view, u_light, img->node.normal, cos_nl);
+		ret += nl_dot * img->light->pow * DIFF;
+		ret += spec(img->u_view, u_light, img->node.normal, nl_dot);
 	}
 	return (ret > 1 ? 1 : ret);
 }
 
-double spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl)
+double spec(t_vect u_view, t_vect u_light, t_vect u_normal, double nl_dot)
 {
 	t_vect u_ref;
 	double cos_vr;
 
-	u_ref = vect_unit(vect_sub(vect_mult(u_normal, 2 * cos_nl), u_light));
+	u_ref = vect_unit(vect_sub(vect_mult(u_normal, 2 * nl_dot), u_light));
 	cos_vr = dot(vect_mult(u_view, -1), u_ref);
 	return (cos_vr > 0 ? SPEC * pow(cos_vr, GLOSS) : 0);
 }
