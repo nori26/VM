@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 18:55:40 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 21:02:46 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ t_clist	*ft_lstnew_c(t_clist c)
 
 	if (!(cam = malloc(sizeof(t_clist))))
 		return (NULL);
-	cam->pos = c.pos;
-	cam->n = c.n;
-	cam->fov = c.fov;
-	cam->addr = c.addr;
+	*cam = c;
 	cam->next = NULL;
 	return (cam);
 }
@@ -68,9 +65,7 @@ t_llist	*ft_lstnew_l(t_llist l)
 
 	if (!(light = malloc(sizeof(t_llist))))
 		return (NULL);
-	light->pos = l.pos;
-	light->rgb = l.rgb;
-	light->pow = l.pow;
+	*light = l;
 	light->next = NULL;
 	return (light);
 }
