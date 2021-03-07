@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 10:19:53 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 18:05:56 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,32 +121,50 @@ double			cylinder(t_img *img, t_cy *cy)
 	return (0);
 }
 
-int ii;
+int				is_inside(t_tr tr, t_vect node)
+{
+	int8_t	result_ab;
+	int8_t	result_bc;
+	int8_t	result_ca;
+
+	tr.ap = vect_sub(node, tr.a);
+	tr.bp = vect_sub(node, tr.b);
+	tr.cp = vect_sub(node, tr.c);
+	tr.cross_a = vect_unit(cross(tr.ap, tr.ab));
+	tr.cross_b = vect_unit(cross(tr.bp, tr.bc));
+	tr.cross_c = vect_unit(cross(tr.cp, tr.ca));
+	result_ab = dot(tr.cross_a, tr.cross_b) > 0;
+	result_bc = dot(tr.cross_b, tr.cross_c) > 0;
+	result_ca = dot(tr.cross_c, tr.cross_a) > 0;
+	return ((result_ab + result_bc + result_ca) % 3);
+}
+
 double			triangle(t_img *img, t_tr *tr)
 {
 	double dist;
 	double vn_dot;
-	int8_t dot_result_ab;
-	int8_t dot_result_bc;
-	int8_t dot_result_ca;
+	// int8_t result_ab;
+	// int8_t result_bc;
+	// int8_t result_ca;
 	t_vect node;
 
-	if (!(vn_dot = dot(img->u_view, tr->n)))
-		return (0);
-	if ((dist = dot(vect_sub(tr->a, img->cam->pos), tr->n) / vn_dot) <= 0)
+	if (!(vn_dot = dot(img->u_view, tr->n)) ||
+		((dist = dot(vect_sub(tr->a, img->cam->pos), tr->n) / vn_dot) <= 0))
 		return (0);
 	img->v_view = vect_mult(img->u_view, dist);
 	node = vect_add(img->v_view, img->cam->pos);
-	tr->ap = vect_sub(node, tr->a);
-	tr->bp = vect_sub(node, tr->b);
-	tr->cp = vect_sub(node, tr->c);
-	tr->cross_a = vect_unit(cross(tr->ap, tr->ab));
-	tr->cross_b = vect_unit(cross(tr->bp, tr->bc));
-	tr->cross_c = vect_unit(cross(tr->cp, tr->ca));
-	dot_result_ab = dot(tr->cross_a, tr->cross_b) > 0;
-	dot_result_bc = dot(tr->cross_b, tr->cross_c) > 0;
-	dot_result_ca = dot(tr->cross_c, tr->cross_a) > 0;
-	if (((dot_result_ab + dot_result_bc + dot_result_ca) % 3))
+	// tr->ap = vect_sub(node, tr->a);
+	// tr->bp = vect_sub(node, tr->b);
+	// tr->cp = vect_sub(node, tr->c);
+	// tr->cross_a = vect_unit(cross(tr->ap, tr->ab));
+	// tr->cross_b = vect_unit(cross(tr->bp, tr->bc));
+	// tr->cross_c = vect_unit(cross(tr->cp, tr->ca));
+	// result_ab = dot(tr->cross_a, tr->cross_b) > 0;
+	// result_bc = dot(tr->cross_b, tr->cross_c) > 0;
+	// result_ca = dot(tr->cross_c, tr->cross_a) > 0;
+	// if (((result_ab + result_bc + result_ca) % 3))
+		// return (0);
+	if (is_inside(*tr, node))
 		return (0);
 	update_node(img, dist, tr->rgb);
 	img->node.normal = -vn_dot > 0 ? tr->n : vect_mult(tr->n, -1);
