@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 19:47:09 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 20:23:25 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,51 +15,21 @@
 
 t_vect	camera(t_img *img, int x, int y)
 {
-	t_vect center;
 	t_vect v_x;
 	t_vect v_y;
-	t_vect u_x;
-	t_vect u_y;
 
-	center = img->cam->cent;
-	// if (!img->cam->n.x && !img->cam->n.z)
-		u_x = vect_init(1, 0, 0);
-		u_y = vect_init(0, 1, 0);
-
-	// else
-	// {
-	// 	u_x = vect_init(
-	// 		center.z / sqrt(center.x * center.x + center.z * center.z),
-	// 		0,
-	// 		center.x / sqrt(center.x * center.x + center.z * center.z));
-	// }
-	// u_y = vect_unit(cross(u_x, center));
-	v_x = vect_mult(u_x, x - img->w / 2);
-	v_y = vect_mult(u_y, y - img->h / 2);
-	img->u_view = vect_unit(vect_add(vect_sub(v_x, v_y), center));
-	if (!y)
-		vprint(u_x);
-	// if (!x && !y)
-	// {
-	// 	printf("x.x : %f\nx.y : %f\nx.z : %f\n", v_x.x,  v_x.y, v_x.z);
-	// 	printf("root : %f\n", sqrt(center.x * center.x + center.y * center.y));
-	// 	printf("xlen : %f\nylen : %f\n", vect_len(v_x), vect_len(v_y));
-	// 	printf("centlen : %f\n", vect_len(center));
-	// }
-	// printf("%f\n", vect_len(view));
-	// if (!x && !y)
-		// printf("dot1 : %f\ndot2 : %f\ndot3 : %f\n", dot(center, v_x), dot(center, v_y), dot(v_y, v_x));
-		// printf("dot1 : %f\ndot2 : %f\n", vect_len(u_x),vect_len(u_y));
+	v_x = vect_init(x - img->w / 2, 0, 0);
+	v_y = vect_init(0, img->h / 2 - y, 0);
+	img->u_view = vect_unit(vect_add(vect_add(v_x, v_y), img->cam->cent));
 	return (img->u_view);
 }
 
-void	draw_img(t_img *img, t_clist cam)
+void	draw_img(t_img *img)
 {
 	int		x;
 	int		y;
 	t_vect	pos;
 
-	(void)cam;
 	y = 0;
 	while (y < img->h)
 	{
@@ -67,10 +37,10 @@ void	draw_img(t_img *img, t_clist cam)
 		while (x < img->w)
 		{
 			img->lst = img->o_start;
+			img->u_view = camera(img, x, y);
 			pos = vect_init(2.0 * x / (img->w - 1) - 1,
 							-2.0 * y / (img->h - 1) + 1, 0);
-			img->u_view = camera(img, x, y);
-			// img->u_view = vect_unit(vect_sub(pos, cam.pos));
+			// img->u_view = vect_unit(vect_sub(pos, img->cam->pos));
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
 			while (img->lst)
@@ -154,7 +124,7 @@ void	calc(t_img *img)
 	while (img->cam)
 	{
 		screen_center(img);
-		draw_img(img, *img->cam);
+		draw_img(img);
 		img->cam = img->cam->next;
 	}
 	img->cam = img->c_start;
