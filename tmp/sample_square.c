@@ -11,7 +11,7 @@ typedef struct  s_img {
 	void		*mlx;
 	void		*win;
 }               t_img;
-void            my_mlx_pixel_put(t_img *data, int x, int y, int color)
+void            pixel_put(t_img *data, int x, int y, int color)
 {
     char    *dst;
 
@@ -36,7 +36,7 @@ int             main(void)
 	{
 		i = 0;
 		while (i < j)
-			my_mlx_pixel_put(&img, 100 / 2 - j / 2 + 5 + i++, 5 + j, 0x00FF0000);
+			pixel_put(&img, 100 / 2 - j / 2 + 5 + i++, 5 + j, 0x00FF0000);
 		j++;
 	}
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);

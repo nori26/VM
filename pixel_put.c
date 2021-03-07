@@ -1,7 +1,7 @@
 #include "puts.h"
 #include "mlx.h"
 
-void            my_mlx_pixel_put(t_img *data, int x, int y, int color)
+void            pixel_put(t_img *data, int x, int y, int color)
 {
     char    *dst;
 

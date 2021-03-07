@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 18:55:20 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 20:25:55 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ struct  s_img
 };
 //win minus or int_max
 
-void            my_mlx_pixel_put(t_img *data, int x, int y, int color);
+void            pixel_put(t_img *data, int x, int y, int color);
 int             close1(t_img *vars);
 int             close2(int keycode, t_img *vars);
 double			dot(t_vect v1, t_vect v2);
