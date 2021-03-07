@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 19:18:49 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 08:52:07 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	draw_img(t_img *img, t_clist cam)
 			img->lst = img->o_start;
 			pos = vect_init(2.0 * x / (img->w - 1) - 1,
 							-2.0 * y / (img->h - 1) + 1, 0);
-			// img->view = camera(img, x, y);
-			img->view = vect_unit(vect_sub(pos, cam.pos));
+			img->u_view = camera(img, x, y);
+			// img->view = vect_unit(vect_sub(pos, cam.pos));
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
 			while (img->lst)

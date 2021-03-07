@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 21:21:56 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 10:08:24 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,13 @@ int	tr_init(char *data, t_img *img)
 		return (freeturn((char **)&tr, -1));
 	if (check_parallel(tr->a, tr->b, tr->c))
 		return (freeturn((char **)&tr, -1));
-	tr->a = vect_unit(tr->a);
-	tr->b = vect_unit(tr->b);
-	tr->c = vect_unit(tr->c);
-	tr->n = cross(vect_sub(tr-c, tr->a), vect_sub(tr-b, tr->a));
+	// tr->a = vect_unit(tr->a);
+	// tr->b = vect_unit(tr->b);
+	// tr->c = vect_unit(tr->c);
+	tr->ab = vect_sub(tr->b, tr->a);
+	tr->bc = vect_sub(tr->c, tr->b);
+	tr->ca = vect_sub(tr->a, tr->c);
+	tr->n = vect_unit(cross(tr->ab, tr->bc));
 	if (parse_rgb(data, &tr->rgb.r, &tr->rgb.g, &tr->rgb.b) < 0)
 		return (freeturn((char **)&tr, -1));
 	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_o(tr, triangle)))

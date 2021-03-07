@@ -18,18 +18,19 @@ void putnbr(uint64_t n)
 
 int main()
 {
-	t_bit d;
-	double dd;
-	dd = 0;
-	d.d = DBL_MAX;
-	// if (d.u & (uint64_t)0x7ff << 52)
-	// 	printf("%d\n", 1);
-	// putnbr(d.u);
-	// puts("");
-	// putnbr((uint64_t)0x7ff << 52);
-	// puts("");
-	// uint64_t i = d.d;
-	printf("%f\n", DBL_MAX);
-	printf("%ld\n", d.u);
-	// printf("%ld\n", i);
+	// t_bit d;
+	// double dd;
+	// dd = 0;
+	// d.d = DBL_MAX;
+	// // if (d.u & (uint64_t)0x7ff << 52)
+	// // 	printf("%d\n", 1);
+	// // putnbr(d.u);
+	// // puts("");
+	// // putnbr((uint64_t)0x7ff << 52);
+	// // puts("");
+	// // uint64_t i = d.d;
+	// printf("%f\n", DBL_MAX);
+	// printf("%ld\n", d.u);
+	// // printf("%ld\n", i);
+	printf("%d", 3 % 3);
 }

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 21:20:07 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 10:12:58 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define GLOSS 8
 // # define AMB 1
 // # define DIFF 0.69 * 0.9
-# define DIFF 0.5
+# define DIFF 0.7
 // # define SPEC 0.9
 # define SPEC 0.3
 typedef struct s_olist	t_olist;
@@ -79,7 +79,16 @@ typedef struct	s_tr
 	t_vect		a;
 	t_vect		b;
 	t_vect		c;
+	t_vect		ab;
+	t_vect		bc;
+	t_vect		ca;
+	t_vect		ap;
+	t_vect		bp;
+	t_vect		cp;
 	t_vect		n;
+	t_vect		cross_a;
+	t_vect		cross_b;
+	t_vect		cross_c;
 	t_rgb		rgb;
 }				t_tr;
 typedef struct	s_node
@@ -132,9 +141,9 @@ struct  s_img
 	t_clist		*c_start;
 	t_llist		*l_start;
 	double		fov;
-	// t_vect		cam;
 	t_vect		cam_normal;
-	t_vect		view;
+	t_vect		u_view;
+	t_vect		v_view;
 	int			bmp_w;
 	int			bmp_h;
 };

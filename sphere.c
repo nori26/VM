@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 21:16:16 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 10:19:53 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ double			cylinder(t_img *img, t_cy *cy)
 	double b;
 	double c;
 
-	vn_cross = cross(img->view, cy->n);
+	vn_cross = cross(img->u_view, cy->n);
 	tmp = cross(vect_sub(img->cam->pos, cy->p), cy->n);
 	a = pow(vect_len(vn_cross), 2);
 	b = 2 * dot(vn_cross, tmp);
@@ -121,37 +121,48 @@ double			cylinder(t_img *img, t_cy *cy)
 	return (0);
 }
 
+int ii;
 double			triangle(t_img *img, t_tr *tr)
 {
-	t_vect ab;
-	t_vect ac;
-	t_vect n;
-	double vn_dot;
 	double dist;
+	double vn_dot;
+	int8_t dot_result_ab;
+	int8_t dot_result_bc;
+	int8_t dot_result_ca;
+	t_vect node;
 
-	(void)img;
-	ab = vect_sub(tr->b, tr->a);
-	ac = vect_sub(tr->c, tr->a);
-	n = cross(ab, ac);
-
-	if (!(vn_dot = dot(img->view, tr->n)))
+	if (!(vn_dot = dot(img->u_view, tr->n)))
 		return (0);
-	if ((dist = dot(vect_sub(pl->p, img->cam->pos), pl->n) / vn_dot) <= 0)
+	if ((dist = dot(vect_sub(tr->a, img->cam->pos), tr->n) / vn_dot) <= 0)
 		return (0);
+	img->v_view = vect_mult(img->u_view, dist);
+	node = vect_add(img->v_view, img->cam->pos);
+	tr->ap = vect_sub(node, tr->a);
+	tr->bp = vect_sub(node, tr->b);
+	tr->cp = vect_sub(node, tr->c);
+	tr->cross_a = vect_unit(cross(tr->ap, tr->ab));
+	tr->cross_b = vect_unit(cross(tr->bp, tr->bc));
+	tr->cross_c = vect_unit(cross(tr->cp, tr->ca));
+	dot_result_ab = dot(tr->cross_a, tr->cross_b) > 0;
+	dot_result_bc = dot(tr->cross_b, tr->cross_c) > 0;
+	dot_result_ca = dot(tr->cross_c, tr->cross_a) > 0;
+	if (((dot_result_ab + dot_result_bc + dot_result_ca) % 3))
+		return (0);
+	update_node(img, dist, tr->rgb);
+	img->node.normal = -vn_dot > 0 ? tr->n : vect_mult(tr->n, -1);
 	return (0);
 }
-
 
 double			sphere(t_img *img, t_sp *sp)
 {
 	double b;
 	double c;
 	double dist;
-	t_vect cam_o;
+	t_vect o_cam;
 
-	cam_o = vect_sub(img->cam->pos, sp->o);
-	b = 2 * dot(img->view, cam_o);
-	c = pow(vect_len(cam_o), 2) - sp->r * sp->r;
+	o_cam = vect_sub(img->cam->pos, sp->o);
+	b = 2 * dot(img->u_view, o_cam);
+	c = pow(vect_len(o_cam), 2) - sp->r * sp->r;
 	if (!(dist = quadratic_formula(1, b, c)))
 		return (0);
 	if (!(update_node(img, dist, sp->rgb)))
@@ -160,13 +171,12 @@ double			sphere(t_img *img, t_sp *sp)
 	return (0);
 }
 
-int ii;
 double			plane(t_img *img, t_pl *pl)
 {
-	double vn_dot;
 	double dist;
+	double vn_dot;
 
-	if (!(vn_dot = dot(img->view, pl->n)))
+	if (!(vn_dot = dot(img->u_view, pl->n)))
 		return (0);
 	if ((dist = dot(vect_sub(pl->p, img->cam->pos), pl->n) / vn_dot) <= 0)
 		return (0);
@@ -175,21 +185,19 @@ double			plane(t_img *img, t_pl *pl)
 	//fixed vn_dot -> -1 * vn_dot
 	img->node.normal = -vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
 	// img->node.normal = vn_dot > 0 ? vect_mult(pl->n, -1) : pl->n;
-	printf("dot : %f\n", vn_dot);
-	vprint(img->view);
+	// printf("dot : %f\n", vn_dot);
+	// vprint(img->u_view);
 	return (0);
 }
 
 int			update_node(t_img *img, double dist, t_rgb rgb)
 {
-	t_vect view_spatial;
-
 	if (img->node.dist >= 0 && (dist >= img->node.dist))
 		return (0);
-	view_spatial = vect_mult(img->view, dist);
+	img->v_view = vect_mult(img->u_view, dist);
 	img->node.rgb = rgb;
 	img->node.dist = dist;
-	img->node.pos = vect_add(view_spatial, img->cam->pos);
+	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	return (1);
 }
 
