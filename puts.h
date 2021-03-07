@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 10:12:58 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/07 18:55:20 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,4 +202,5 @@ double			triangle(t_img *img, t_tr *tr);
 int				check_parallel(t_vect a, t_vect b, t_vect c);
 int				update_node(t_img *img, double dist, t_rgb rgb);
 void			vprint(t_vect v);
+int				is_inside(t_tr tr, t_vect node);
 #endif

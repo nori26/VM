@@ -6,7 +6,7 @@ ARFLAGS = scr
 SRCDIR  = ./
 SRCS    = $(addprefix $(SRCDIR), $(SRCNAME))
 OBJS    = $(SRCS:.c=.o)
-SRCNAME = main.c pixel_put.c light.c vector_utils.c sphere.c get_next_line.c world_init.c read_rt.c object_init.c
+SRCNAME = main.c pixel_put.c light.c vector_utils.c object.c object_utils.c get_next_line.c world_init.c read_rt.c object_init.c
 
 all     : $(NAME)
 
