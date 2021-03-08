@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 20:11:05 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:12:21 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	draw_img(t_img *img)
 				// if (x >= 254 && y >= 254)
 				img->lst->f(img, img->lst->obj);
 			}
-			img->lst = img->o_start;
+			// img->lst = img->o_start;
 			shadow(img);
 			if (img->node.dist != -1)
 			{
@@ -99,20 +99,20 @@ void	draw_img(t_img *img)
 
 void	calc(t_img *img)
 {
-	if (!img->lst)
-	{
-		// sp_init(img, vect_init(3, 0, 25), 1, rgb_init(255, 0, 0));
-		// sp_init(img, vect_init(2, 0, 20), 1, rgb_init(0, 255, 0));
-		// sp_init(img, vect_init(1, 0, 15), 1, rgb_init(0, 0, 255));
-		// sp_init(img, vect_init(0, 0, 10), 1, rgb_init(255, 255, 255));
-		// sp_init(img, vect_init(-1, 0, 5), 1, rgb_init(255, 0, 0));
-		sp_init(img, vect_init(0, 0, 5), 1, rgb_init(255, 0, 0));
-		// printf("aaa\n");
-		light_init(img, vect_init(-5, 5, -5));
-		// light_init(img, vect_init(150, 150, -150));
-		// img->cam = vect_init(0, 0, -30);
-		img->o_start = img->lst;
-	}
+	// if (!img->lst)
+	// {
+	// 	// sp_init(img, vect_init(3, 0, 25), 1, rgb_init(255, 0, 0));
+	// 	// sp_init(img, vect_init(2, 0, 20), 1, rgb_init(0, 255, 0));
+	// 	// sp_init(img, vect_init(1, 0, 15), 1, rgb_init(0, 0, 255));
+	// 	// sp_init(img, vect_init(0, 0, 10), 1, rgb_init(255, 255, 255));
+	// 	// sp_init(img, vect_init(-1, 0, 5), 1, rgb_init(255, 0, 0));
+	// 	sp_init(img, vect_init(0, 0, 5), 1, rgb_init(255, 0, 0));
+	// 	// printf("aaa\n");
+	// 	light_init(img, vect_init(-5, 5, -5));
+	// 	// light_init(img, vect_init(150, 150, -150));
+	// 	// img->cam = vect_init(0, 0, -30);
+	// 	img->o_start = img->lst;
+	// }
 	while (img->cam)
 	{
 		draw_img(img);
