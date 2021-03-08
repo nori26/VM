@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 01:28:53 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/02/22 00:49:37 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/02 22:53:10 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_vect			vect_init(double x, double y, double z)
 	ret.x = x;
 	ret.y = y;
 	ret.z = z;
-	ret.len = sqrt(x * x + y * y + z * z);
 	return (ret);
 }
 
@@ -51,22 +50,35 @@ t_vect			cross(t_vect v1, t_vect v2)
 			v1.x * v2.y - v1.y * v2.x));
 }
 
-t_vect			point_to_vect(double x, double y, t_data img)
-{
-	t_vect ret;
+// t_vect			point_to_vect(double x, double y, t_img img)
+// {
+// 	t_vect ret;
 
-	ret.x = 2 * x / (img.w - 1) - 1;
-	ret.y = -2 * y / (img.h - 1) + 1;
-	ret.z = 0;
-	return (ret);
-}
+// 	ret.x = 2 * x / (img.w - 1) - 1;
+// 	ret.y = -2 * y / (img.h - 1) + 1;
+// 	ret.z = 0;
+// 	return (ret);
+// }
 
 t_vect			vect_unit(t_vect v)
 {
-	return (vect_init(v.x / v.len, v.y / v.len, v.z / v.len));
+	double len;
+
+	len = vect_len(v);
+	return (vect_init(v.x / len, v.y / len, v.z / len));
 }
 
 double			vect_len(t_vect v)
 {
-	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
+	return (sqrt(dot(v, v)));
+}
+
+int				check_parallel(t_vect a, t_vect b, t_vect c)
+{
+    t_vect v1;
+    t_vect v2;
+
+    v1 = vect_sub(a, b);
+    v2 = vect_sub(a, c);
+    return (!vect_len(cross(v1, v2)));
 }
