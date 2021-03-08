@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 12:03:26 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 14:36:56 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ double			quadratic_formula(double a, double b, double d);
 double			quadratic_formularge(double a, double b, double c);
 t_vect			vect_unit(t_vect v);
 double			light(t_img *img);
-double			spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
+// double			spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
 t_olist			*ft_lstadd_front_o(t_olist **lst, t_olist *new);
 t_clist			*ft_lstadd_front_c(t_clist **lst, t_clist *new);
 t_llist			*ft_lstadd_front_l(t_llist **lst, t_llist *new);
