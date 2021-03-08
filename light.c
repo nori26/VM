@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 15:34:00 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 15:38:34 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,12 @@ double	light_diff(t_img *img)
 
 	u_light = vect_unit(vect_sub(img->light->pos, img->node.pos));
 	nl_dot = dot(u_light, img->node.normal);
-	printf("%.20f\n", vect_len(img->node.normal));
-	if (nl_dot <= 0)
-		return (0);
-	return (nl_dot);
+	return (nl_dot > 0 ? nl_dot : 0);
 }
 
 double light_spec(t_img *img)
 {
-	t_vect u_ref;
+	t_vect ref;
 	double cos_vr;
 	double	nl_dot;
 	t_vect	u_light;
@@ -35,9 +32,9 @@ double light_spec(t_img *img)
 	u_light = vect_unit(vect_sub(img->light->pos, img->node.pos));
 	if ((nl_dot = dot(u_light, img->node.normal)) <= 0)
 		return (0);
-	u_ref = vect_unit(vect_sub(vect_mult(img->node.normal, 2 * nl_dot), u_light));
-	cos_vr = dot(vect_mult(img->u_view, -1), u_ref);
-	return (cos_vr < 0 ? 0 : pow(cos_vr, GLOSS) );
+	ref = vect_unit(vect_sub(vect_mult(img->node.normal, 2 * nl_dot), u_light));
+	cos_vr = dot(vect_mult(img->u_view, -1), ref);
+	return (cos_vr < 0 ? 0 : pow(cos_vr, GLOSS));
 }
 
 double		primary_colors(t_img *img, double diff, double spec, char rgb)
@@ -49,14 +46,12 @@ double		primary_colors(t_img *img, double diff, double spec, char rgb)
 		ret = img->node.rgb.r * img->amb->rgb.r * img->amb->pow;
 		ret += diff * img->light->rgb.r * img->light->pow * img->node.rgb.r;
 		ret = (spec * img->light->rgb.r * img->light->pow * SPEC + ret) * 255;
-
 	}
 	if (rgb == 'g')
 	{
 		ret = img->node.rgb.g * img->amb->rgb.g * img->amb->pow;
 		ret += diff * img->light->rgb.g * img->light->pow * img->node.rgb.g;
 		ret = (spec * img->light->rgb.g * img->light->pow * SPEC + ret) * 255;
-
 	}
 	if (rgb == 'b')
 	{
@@ -94,4 +89,3 @@ int		color(t_img *img)
 		rgb.b = 255;
 	return ((((int)rgb.r << 16) + ((int)rgb.g << 8) + (int)rgb.b));
 }
-

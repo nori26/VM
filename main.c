@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 10:16:32 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:11:05 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 t_vect	camera(t_img *img, int x, int y)
 {
-	t_vect center;
 	t_vect v_x;
 	t_vect v_y;
 	t_vect u_x;
 	t_vect u_y;
+	t_vect center;
 
 	center = img->cam->cent;
 	if (!img->cam->n.x && !img->cam->n.z)
@@ -47,6 +47,15 @@ void	screen_center(t_img *img)
 	printf("dist : %f\n", distance);
 }
 
+void		shadow(t_img *img)
+{
+	t_vect u_light;
+
+	u_light = vect_unit(vect_sub(img->light->pos, img->node.pos));
+}
+
+
+
 void	draw_img(t_img *img)
 {
 	int		x;
@@ -73,6 +82,8 @@ void	draw_img(t_img *img)
 				// if (x >= 254 && y >= 254)
 				img->lst->f(img, img->lst->obj);
 			}
+			img->lst = img->o_start;
+			shadow(img);
 			if (img->node.dist != -1)
 			{
 				// if (x == 254 && y == 254)
@@ -84,40 +95,6 @@ void	draw_img(t_img *img)
 		}
 		y++;
 	}
-}
-
-t_rgb	rgb_init(int r, int g, int b)
-{
-	t_rgb color;
-
-	color.r = r / 255.0;
-	color.g = g / 255.0;
-	color.b = b / 255.0;
-	return (color);
-}
-
-int	sp_init(t_img *img, t_vect o, double r, t_rgb rgb)
-{
-	t_sp	*sp;
-
-	if (!(sp = malloc(sizeof(t_sp))))
-		return (-1);
-	sp->o = o;
-	sp->r = r;
-	sp->rgb = rgb;
-	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_o(sp, sphere)))
-		return (-1);
-	return (0);
-}
-
-void light_init(t_img *img, t_vect l)
-{
-	t_llist light;
-
-	light.pos = l;
-	light.rgb = rgb_init(255, 255, 255);
-	light.pow = 1;
-	img->light = ft_lstnew_l(light);
 }
 
 void	calc(t_img *img)
@@ -176,4 +153,38 @@ int     main(int argc, char *argv[])
 		return 0;
 	read_rt(&img, argv[1]);
 	make_img(&img);
+}
+
+t_rgb	rgb_init(int r, int g, int b)
+{
+	t_rgb color;
+
+	color.r = r / 255.0;
+	color.g = g / 255.0;
+	color.b = b / 255.0;
+	return (color);
+}
+
+int	sp_init(t_img *img, t_vect o, double r, t_rgb rgb)
+{
+	t_sp	*sp;
+
+	if (!(sp = malloc(sizeof(t_sp))))
+		return (-1);
+	sp->o = o;
+	sp->r = r;
+	sp->rgb = rgb;
+	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_o(sp, sphere)))
+		return (-1);
+	return (0);
+}
+
+void light_init(t_img *img, t_vect l)
+{
+	t_llist light;
+
+	light.pos = l;
+	light.rgb = rgb_init(255, 255, 255);
+	light.pow = 1;
+	img->light = ft_lstnew_l(light);
 }

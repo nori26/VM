@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 14:59:09 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:11:00 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define BMP_MAX 3000
 # define AMB 0.1
 # define GLOSS 30
+# define EPSILON 1.0 / 512
 // # define AMB 1
 // # define DIFF 0.69 * 0.9
 # define DIFF 0.9
@@ -99,13 +100,13 @@ typedef struct	s_node
 	t_rgb		rgb;
 	double		dist;
 }				t_node;
-struct  s_olist
+struct			s_olist
 {
 	void		*obj;
 	double		(*f)();
 	t_olist		*next;
 };
-struct  s_clist
+struct			s_clist
 {
 	t_vect		pos;
 	t_vect		n;
@@ -121,7 +122,7 @@ typedef struct s_llist
 	double		pow;
 	t_llist		*next;
 }				t_llist;
-struct  s_img
+struct  		s_img
 {
     void        *img;
 	int			bmp;
@@ -166,7 +167,6 @@ double			quadratic_formula(double a, double b, double d);
 double			quadratic_formularge(double a, double b, double c);
 t_vect			vect_unit(t_vect v);
 double			light_diff(t_img *img);
-// double			spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
 t_olist			*ft_lstadd_front_o(t_olist **lst, t_olist *new);
 t_clist			*ft_lstadd_front_c(t_clist **lst, t_clist *new);
 t_llist			*ft_lstadd_front_l(t_llist **lst, t_llist *new);
@@ -205,4 +205,5 @@ int				check_parallel(t_vect a, t_vect b, t_vect c);
 int				update_node(t_img *img, double dist, t_rgb rgb);
 void			vprint(t_vect v);
 int				is_inside(t_tr tr, t_vect node);
+double			primary_colors(t_img *img, double diff, double spec, char rgb);
 #endif
