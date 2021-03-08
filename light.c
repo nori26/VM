@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 09:56:21 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 12:20:23 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ double	light(t_img *img)
 	ret = 0;
 	u_light = vect_unit(vect_sub(img->light->pos, img->node.pos));
 	nl_dot = dot(u_light, img->node.normal);
+	printf("%.20f\n", vect_len(img->node.normal));
 	if (nl_dot > 0)
 	{
-		ret += nl_dot /** DIFF*/;
+		ret += nl_dot /* DIFF*/;
 		ret += spec(img->u_view, u_light, img->node.normal, nl_dot);
 		ret *= img->light->pow;
 	}
-	return (ret > 1 ? 1 : ret);
+	return (ret);
 }
 
 double spec(t_vect u_view, t_vect u_light, t_vect u_normal, double nl_dot)
@@ -37,7 +38,7 @@ double spec(t_vect u_view, t_vect u_light, t_vect u_normal, double nl_dot)
 
 	u_ref = vect_unit(vect_sub(vect_mult(u_normal, 2 * nl_dot), u_light));
 	cos_vr = dot(vect_mult(u_view, -1), u_ref);
-	return (cos_vr > 0 ? /*SPEC * */pow(cos_vr, GLOSS) : 0);
+	return (cos_vr < 0 ? 0 : /*SPEC * */pow(cos_vr, GLOSS));
 }
 
 int		color(t_img *img)
@@ -47,10 +48,10 @@ int		color(t_img *img)
 	double	b;
 	double	ref;
 
-	img->light = img->l_start;
 	r = 0;
 	g = 0;
 	b = 0;
+	img->light = img->l_start;
 	while (img->light)
 	{
 		ref = light(img);
@@ -62,8 +63,16 @@ int		color(t_img *img)
 	r += img->amb->rgb.r * img->amb->pow;
 	g += img->amb->rgb.g * img->amb->pow;
 	b += img->amb->rgb.b * img->amb->pow;
-	r = img->node.rgb.r * 255 * (r > 1 ? 1 : r);
-	g = img->node.rgb.g * 255 * (g > 1 ? 1 : g);
-	b = img->node.rgb.b * 255 * (b > 1 ? 1 : b);
+	r = img->node.rgb.r * 255.0 * r;
+	g = img->node.rgb.g * 255.0 * g;
+	b = img->node.rgb.b * 255.0 * b;
+	if (r > 255)
+		r = 255;
+	if (g > 255)
+		g = 255;
+	if (b > 255)
+		b = 255;
 	return ((((int)r << 16) + ((int)g << 8) + (int)b));
 }
+
+obj r * (拡散反射 * r + 鏡面反射 * r + 環境 * r)
