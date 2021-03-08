@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 00:05:29 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 23:35:21 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	sp1_init(char *data, t_img *img)
 	sp->r /= 2;
 	if (parse_rgb(data, &sp->rgb.r, &sp->rgb.g, &sp->rgb.b) < 0)
 		return (freeturn((char **)&sp, -1));
-	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_o(sp, sphere)))
+	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(sp, SP)))
 		return (freeturn((char **)&sp, -1));
 	return (0);
 }

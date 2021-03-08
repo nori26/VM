@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 22:42:17 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 23:55:32 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ struct  		s_img
 	t_vect		cam_normal;
 	t_vect		u_view;
 	t_vect		v_view;
+	double		(*f[5])();
 	int			bmp_w;
 	int			bmp_h;
 };
@@ -214,4 +215,6 @@ int				update_node(t_img *img, double dist, t_rgb rgb);
 void			vprint(t_vect v);
 int				is_inside(t_tr tr, t_vect node);
 double			primary_colors(t_img *img, double diff, double spec, char rgb);
+void			func_ary_init(t_img *img);
+t_idlst			*ft_lstnew_id(void *obj, int id);
 #endif
