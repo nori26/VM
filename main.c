@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 20:27:46 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 22:01:01 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,12 @@ void	screen_center(t_img *img)
 
 void		shadow(t_img *img)
 {
-	vprint(img->light->pos);
 	t_vect u_light;
+	t_vect injection;
 
 	u_light = vect_unit(vect_sub(img->light->pos, img->node.pos));
+	injection = vect_add(img->light->pos, vect_mult(u_light, EPSILON));
+	
 }
 
 void		injection_judge(t_img *img)
@@ -81,13 +83,12 @@ void	draw_img(t_img *img)
 		while (x < img->w)
 		{
 			img->u_view = camera(img, x, y);
-			pos = vect_init(2.0 * x / (img->w - 1) - 1,
-							-2.0 * y / (img->h - 1) + 1, 0);
+			// pos = vect_init(2.0 * x / (img->w - 1) - 1,
+			// 				-2.0 * y / (img->h - 1) + 1, 0);
 			// img->u_view = vect_unit(vect_sub(pos, img->cam->pos));
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
 			injection_judge(img);
-			// img->lst = img->o_start;
 			// shadow(img);
 			if (img->node.dist != -1)
 			{
