@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 22:01:01 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 22:15:43 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,27 +105,6 @@ void	draw_img(t_img *img)
 
 void	calc(t_img *img)
 {
-<<<<<<< HEAD
-	t_vect	cam;
-	t_vect	sp;
-	t_vect	ray;
-
-	draw_img(&img, sp, cam, 0);
-	cam = vect_init(0, 0, -5);
-
-	// sp = vect_init(3, 0, 25);
-	// draw_img(&img, sp, cam, 1);
-	// sp = vect_init(2, 0, 20);
-	// draw_img(&img, sp, cam, 1);
-	// sp = vect_init(1, 0, 15);
-	// draw_img(&img, sp, cam, 1);
-	// sp = vect_init(0, 0, 10);
-	// draw_img(&img, sp, cam, 1);
-	// sp = vect_init(-1, 0, 5);
-	// draw_img(&img, sp, cam, 1);
-	sp = vect_init(0, 0, 5);
-	draw_img(&img, sp, cam, 1);
-=======
 	// if (!img->lst)
 	// {
 	// 	// sp_init(img, vect_init(3, 0, 25), 1, rgb_init(255, 0, 0));
@@ -146,26 +125,10 @@ void	calc(t_img *img)
 		img->cam = img->cam->next;
 	}
 	img->cam = img->c_start;
->>>>>>> refact
 }
 
 void		make_img(t_img *img)
 {
-<<<<<<< HEAD
-	t_vect	v;
-	t_data  img;
-
-	img.w = 511;
-	img.h = 511;
-    img.mlx = mlx_init();
-	img.win = mlx_new_window(img.mlx, img.w, img.h, "Hello world!");
-	img.img = mlx_new_image(img.mlx, img.w, img.h);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length, &img.endian);
-	// mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
-	// img.img = mlx_xpm_file_to_image(img.mlx, "./test.xpm", &img_width, &img_height);
-    // mlx_loop_hook(img.mlx, render_next_frame, &img);
-	// printf("%d\n", img.line_length / 4);
-=======
 	int w = 0;
 	int h = 0;
 
@@ -178,7 +141,6 @@ void		make_img(t_img *img)
 	img->w = img->w > w ? w : img->w;
 	img->h = img->h > h ? h : img->h;
 	printf("%d\n%d\n", w, h);
->>>>>>> refact
 	calc(img);
 	mlx_hook(img->win, 2, 1, close2, img);
 	mlx_hook(img->win, 33, 1 << 17, close1, img);
