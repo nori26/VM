@@ -6,13 +6,25 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 22:05:12 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 23:01:42 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-t_olist	*ft_lstadd_front_o(t_olist **lst, t_olist *new)
+t_idlst	*ft_lstnew_id(void *obj, int id)
+{
+	t_idlst *lst;
+
+	if (!(lst = malloc(sizeof(t_idlst))))
+		return (NULL);
+	lst->id = id;
+	lst->obj = obj;
+	lst->next = NULL;
+	return (lst);
+}
+
+t_idlst	*ft_lstadd_front_o(t_idlst **lst, t_idlst *new)
 {
 	if (*lst && new)
 		new->next = *lst;
@@ -36,11 +48,11 @@ t_llist	*ft_lstadd_front_l(t_llist **lst, t_llist *new)
 	return (new);
 }
 
-t_olist	*ft_lstnew_o(void *obj, void *func)
+t_idlst	*ft_lstnew_o(void *obj, void *func)
 {
-	t_olist *lst;
+	t_idlst *lst;
 
-	if (!(lst = malloc(sizeof(t_olist))))
+	if (!(lst = malloc(sizeof(t_idlst))))
 		return (NULL);
 	lst->obj = obj;
 	lst->f = func;

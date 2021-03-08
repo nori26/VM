@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 20:11:00 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 22:42:17 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,18 @@
 # define DIFF 0.9
 // # define SPEC 0.9
 # define SPEC 0.9
-typedef struct s_olist	t_olist;
+typedef struct s_idlst	t_idlst;
 typedef struct s_clist	t_clist;
 typedef struct s_llist	t_llist;
 typedef struct s_img	t_img;
+enum			e_id
+{
+				SP,
+				PL,
+				SQ,
+				CY,
+				TR,
+};
 typedef struct	s_rgb
 {
 	double		r;
@@ -44,7 +52,6 @@ typedef struct	s_vect
 	double		x;
 	double		y;
 	double		z;
-	double		len;
 }				t_vect;
 
 typedef struct	s_sp
@@ -100,11 +107,12 @@ typedef struct	s_node
 	t_rgb		rgb;
 	double		dist;
 }				t_node;
-struct			s_olist
+struct			s_idlst
 {
+	int			id;
 	void		*obj;
 	double		(*f)();
-	t_olist		*next;
+	t_idlst		*next;
 };
 struct			s_clist
 {
@@ -136,10 +144,10 @@ struct  		s_img
 	t_rgb		rgb;
 	t_llist		*amb;
 	t_node		node;
-	t_olist		*lst;
+	t_idlst		*lst;
 	t_clist		*cam;
 	t_llist		*light;
-	t_olist		*o_start;
+	t_idlst		*o_start;
 	t_clist		*c_start;
 	t_llist		*l_start;
 	double		fov;
@@ -167,10 +175,10 @@ double			quadratic_formula(double a, double b, double d);
 double			quadratic_formularge(double a, double b, double c);
 t_vect			vect_unit(t_vect v);
 double			light_diff(t_img *img);
-t_olist			*ft_lstadd_front_o(t_olist **lst, t_olist *new);
+t_idlst			*ft_lstadd_front_o(t_idlst **lst, t_idlst *new);
 t_clist			*ft_lstadd_front_c(t_clist **lst, t_clist *new);
 t_llist			*ft_lstadd_front_l(t_llist **lst, t_llist *new);
-t_olist			*ft_lstnew_o(void *obj, void *func);
+t_idlst			*ft_lstnew_o(void *obj, void *func);
 t_clist			*ft_lstnew_c(t_clist c);
 t_llist			*ft_lstnew_l(t_llist l);
 t_rgb			rgb_init(int r, int g, int b);
