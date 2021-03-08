@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 00:03:34 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 09:03:58 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,14 @@ t_vect	camera(t_img *img, int x, int y)
 	else
 	{
 		u_x = vect_init(
-			-center.z / sqrt(center.x * center.x + center.z * center.z),
+			center.z / sqrt(center.x * center.x + center.z * center.z),
 			0,
-			center.x / sqrt(center.x * center.x + center.z * center.z));
+			-center.x / sqrt(center.x * center.x + center.z * center.z));
 	}
-	u_y = vect_unit(cross(u_x, center));
+	u_y = vect_unit(cross(u_x, vect_mult(center, -1)));
 	v_x = vect_mult(u_x, x - img->w / 2);
 	v_y = vect_mult(u_y, img->h / 2 - y);
 	img->u_view = vect_unit(vect_add(vect_add(v_x, v_y), center));
-	// if (!y)
-	// 	vprint(center);
 	return (img->u_view);
 }
 
@@ -78,7 +76,7 @@ void	draw_img(t_img *img)
 			if (img->node.dist != -1)
 			{
 				// if (x >= 254 && y >= 254)
-				pixel_put(img, x, y, color(img->node.rgb, *img->light, light(img)));
+				pixel_put(img, x, y, color(img));
 			}
 			else
 				pixel_put(img, x, y, (50 << 8) + 100);

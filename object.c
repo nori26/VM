@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 00:07:45 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 02:47:47 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ double			sphere(t_img *img, t_sp *sp)
 	double c;
 	double dist;
 	t_vect o_cam;
+	t_vect norm;
 
 	o_cam = vect_sub(img->cam->pos, sp->o);
 	b = 2 * dot(img->u_view, o_cam);
@@ -84,7 +85,8 @@ double			sphere(t_img *img, t_sp *sp)
 		return (0);
 	if (!(update_node(img, dist, sp->rgb)))
 		return (0);
-	img->node.normal = vect_unit(vect_sub(img->node.pos, sp->o));
+	norm = vect_unit(vect_sub(img->node.pos, sp->o));
+	img->node.normal = vect_len(o_cam) > sp->r ? norm : vect_mult(norm, -1);
 	return (0);
 }
 
@@ -148,9 +150,6 @@ double			cylinder(t_img *img, t_cy *cy)
 	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
 	if (!(a = quadratic_formula(a, b, c)))
 		return (0);
-	if (img->node.dist >= 0 && (a >= img->node.dist))
-		return (0);
-	//
 	return (0);
 }
 

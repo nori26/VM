@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/06 06:50:56 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 09:15:21 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ int		amb_init(char *data, t_img *img, int64_t *flag)
 	t_llist a;
 	char 	*ratio;
 
-	(void)img;
 	if (!ft_isspace(*data) || flag['A']++)
 		return (-1);
 	if (!(ratio = trim_space(&data)) ||
@@ -171,6 +170,8 @@ int		amb_init(char *data, t_img *img, int64_t *flag)
 	printf("%.1f  ", a.pow);
 	if (parse_rgb(data,
 		&a.rgb.r, &a.rgb.g, &a.rgb.b) < 0)
+		return (-1);
+	if (!ft_lstadd_front_l(&img->amb, ft_lstnew_l(a)))
 		return (-1);
 	return (0);
 }

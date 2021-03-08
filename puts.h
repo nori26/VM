@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/07 23:54:13 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 08:24:11 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # define PI 3.14159265
 # define BMP_MAX 3000
 # define AMB 0.1
-# define GLOSS 8
+# define GLOSS 20
 // # define AMB 1
 // # define DIFF 0.69 * 0.9
-# define DIFF 0.7
+# define DIFF 0.6
 // # define SPEC 0.9
 # define SPEC 0.3
 typedef struct s_olist	t_olist;
@@ -163,6 +163,7 @@ t_vect			vect_init(double x, double y, double z);
 double			vect_len(t_vect v);
 double			sphere(t_img *img, t_sp *sp);
 double			quadratic_formula(double a, double b, double d);
+double			quadratic_formularge(double a, double b, double c);
 t_vect			vect_unit(t_vect v);
 double			light(t_img *img);
 double			spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
@@ -173,7 +174,7 @@ t_olist			*ft_lstnew_o(void *obj, void *func);
 t_clist			*ft_lstnew_c(t_clist c);
 t_llist			*ft_lstnew_l(t_llist l);
 t_rgb			rgb_init(int r, int g, int b);
-int				color(t_rgb obj, t_llist light, double ref);
+int				color(t_img *img);
 void			read_rt(t_img *img, char *path);
 int				pl_init(char *data, t_img *img);
 int				sp1_init(char *data, t_img *img);
