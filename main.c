@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 20:12:21 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:27:46 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,23 @@ void	screen_center(t_img *img)
 
 void		shadow(t_img *img)
 {
+	vprint(img->light->pos);
 	t_vect u_light;
 
 	u_light = vect_unit(vect_sub(img->light->pos, img->node.pos));
 }
 
-
+void		injection_judge(t_img *img)
+{
+	img->lst = img->o_start;
+	while ((img->lst))
+	{
+		// if (x >= 254 && y >= 254)
+		img->lst->f(img, img->lst->obj);
+		img->lst = img->lst->next;
+	}
+	img->lst = img->o_start;
+}
 
 void	draw_img(t_img *img)
 {
@@ -69,21 +80,15 @@ void	draw_img(t_img *img)
 		x = 0;
 		while (x < img->w)
 		{
-			img->lst = img->o_start;
 			img->u_view = camera(img, x, y);
 			pos = vect_init(2.0 * x / (img->w - 1) - 1,
 							-2.0 * y / (img->h - 1) + 1, 0);
 			// img->u_view = vect_unit(vect_sub(pos, img->cam->pos));
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
-			img->lst->f(img, img->lst->obj);
-			while ((img->lst = img->lst->next))
-			{
-				// if (x >= 254 && y >= 254)
-				img->lst->f(img, img->lst->obj);
-			}
+			injection_judge(img);
 			// img->lst = img->o_start;
-			shadow(img);
+			// shadow(img);
 			if (img->node.dist != -1)
 			{
 				// if (x == 254 && y == 254)
