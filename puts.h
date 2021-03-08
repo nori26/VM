@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 14:36:56 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 14:59:09 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define GLOSS 30
 // # define AMB 1
 // # define DIFF 0.69 * 0.9
-# define DIFF 0.8
+# define DIFF 0.9
 // # define SPEC 0.9
-# define SPEC 0.6
+# define SPEC 0.9
 typedef struct s_olist	t_olist;
 typedef struct s_clist	t_clist;
 typedef struct s_llist	t_llist;
@@ -165,7 +165,7 @@ double			sphere(t_img *img, t_sp *sp);
 double			quadratic_formula(double a, double b, double d);
 double			quadratic_formularge(double a, double b, double c);
 t_vect			vect_unit(t_vect v);
-double			light(t_img *img);
+double			light_diff(t_img *img);
 // double			spec(t_vect u_view, t_vect u_light, t_vect u_normal, double cos_nl);
 t_olist			*ft_lstadd_front_o(t_olist **lst, t_olist *new);
 t_clist			*ft_lstadd_front_c(t_clist **lst, t_clist *new);
