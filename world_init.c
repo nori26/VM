@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 09:15:21 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 14:01:01 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ int		parse_rgb(char *s, double *r, double *g, double *b)
 	if (split_comma(skip_space(s), r, g, b) < 0 ||
 		*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
 		return (-1);
-	*r /= 255;
-	*g /= 255;
-	*b /= 255;
+	// *r /= 255;
+	// *g /= 255;
+	// *b /= 255;
 	puts("");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 12:20:23 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 14:08:38 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int		color(t_img *img)
 	double	b;
 	double	ref;
 
-	r = 0;
-	g = 0;
-	b = 0;
+	r = img->amb->rgb.r * img->amb->pow;
+	g = img->amb->rgb.g * img->amb->pow;
+	b = img->amb->rgb.b * img->amb->pow;
 	img->light = img->l_start;
 	while (img->light)
 	{
@@ -59,13 +59,16 @@ int		color(t_img *img)
 		g += img->light->rgb.g * ref;
 		b += img->light->rgb.b * ref;
 		img->light = img->light->next;
+		if (r > 255)
+			r = 255;
+		if (g > 255)
+			g = 255;
+		if (b > 255)
+			b = 255;
 	}
-	r += img->amb->rgb.r * img->amb->pow;
-	g += img->amb->rgb.g * img->amb->pow;
-	b += img->amb->rgb.b * img->amb->pow;
-	r = img->node.rgb.r * 255.0 * r;
-	g = img->node.rgb.g * 255.0 * g;
-	b = img->node.rgb.b * 255.0 * b;
+	r = img->node.rgb.r + r;
+	g = img->node.rgb.g + g;
+	b = img->node.rgb.b + b;
 	if (r > 255)
 		r = 255;
 	if (g > 255)
@@ -75,4 +78,3 @@ int		color(t_img *img)
 	return ((((int)r << 16) + ((int)g << 8) + (int)b));
 }
 
-obj r * (拡散反射 * r + 鏡面反射 * r + 環境 * r)
