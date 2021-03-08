@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 22:15:43 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/08 22:16:36 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	draw_img(t_img *img)
 {
 	int		x;
 	int		y;
-	t_vect	pos;
+	// t_vect	pos;
 
 	y = 0;
 	screen_center(img);
