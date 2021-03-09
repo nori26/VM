@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 15:31:42 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 17:17:29 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,22 @@ void		shadow(t_img *img)
 	ray_start = vect_add(img->node.pos, vect_mult(u_shadow_ray, EPSILON));
 	dist_from_light = vect_len(vect_sub(img->light->pos, ray_start)); 
 	img->lst = img->o_start;
-	while ((img->lst))
+	while (img->light)
 	{
-		dist = img->f_node_judge[img->lst->id]
-			(img, img->lst->obj, u_shadow_ray,
-			img->f_ret_to_raystart[img->lst->id](img->lst->obj));
-		// printf("dist %f\n",dist);
-		// printf("light %f\n",dist_from_light);
-		if (dist < dist_from_light)
+		while ((img->lst))
 		{
-			img->light->on = OFF;
-			// printf("aaaa\n");
-			break ;
+			dist = img->f_node_judge[img->lst->id]
+				(img, img->lst->obj, u_shadow_ray,
+				img->f_ret_to_raystart[img->lst->id](img->lst->obj, ray_start));
+			printf("dist   %f\n",dist);
+			if (dist != -1 && dist < dist_from_light)
+			{
+				img->light->on = OFF;
+				break ;
+			}
+			img->lst = img->lst->next;
 		}
-		img->lst = img->lst->next;
+		img->light = img->light->next;
 	}
 }
 
@@ -132,9 +134,8 @@ void	draw_img(t_img *img)
 			// if (x == 255 && y == 255)
 			node_judge(img);
 			if (img->node.dist != -1)
-				shadow(img);
-			if (img->node.dist != -1)
 			{
+				shadow(img);
 				// if (x == 254 && y == 254)
 				// if (img->light->on == OFF)
 				pixel_put(img, x, y, color(img));

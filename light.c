@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 15:25:02 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 16:39:07 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ int		color(t_img *img)
 			rgb.g += primary_colors(img, diff, spec, 'g');
 			rgb.b += primary_colors(img, diff, spec, 'b');
 		}
-		else
-			rgb.r = 255;
 		img->light = img->light->next;
 	}
 	if (rgb.r > 255)
