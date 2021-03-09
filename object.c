@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 12:54:21 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 13:03:31 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ double		sphere(t_img *img, t_sp *sp, t_vect u_view, t_vect to_cam)
 	double c;
 	double dist;
 
+	(void)img;
 	b = 2 * dot(u_view, to_cam);
 	c = pow(vect_len(to_cam), 2) - sp->r * sp->r;
 	if (!(dist = quadratic_formula(1, b, c)))
@@ -88,13 +89,14 @@ double		plane(t_img *img, t_pl *pl, t_vect u_view, t_vect to_cam)
 	double dist;
 	double vn_dot;
 
+	(void)img;
 	if ((dist = dist_to_plane(&vn_dot, u_view, to_cam, pl->n)) == -1)
 		return (-1);
 	pl->n = vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
 	return (dist);
 }
 
-double			square(t_img *img, t_sq *sq, t_vect u_view, t_vect to_cam)
+double		square(t_img *img, t_sq *sq, t_vect u_view, t_vect to_cam)
 {
 	t_vect node;
 	t_vect o_p;
@@ -121,7 +123,7 @@ double			square(t_img *img, t_sq *sq, t_vect u_view, t_vect to_cam)
 	return (dist);
 }
 
-double			cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_cam)
+double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_cam)
 {
 	double a;
 	double b;
@@ -129,7 +131,8 @@ double			cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_cam)
 	t_vect tmp;
 	t_vect vn_cross;
 
-	vn_cross = cross(img->u_view, cy->n);
+	(void)to_cam;
+	vn_cross = cross(u_view, cy->n);
 	tmp = cross(vect_sub(img->ray_start, cy->p), cy->n);
 	a = pow(vect_len(vn_cross), 2);
 	b = 2 * dot(vn_cross, tmp);
@@ -140,15 +143,15 @@ double			cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_cam)
 	return (0);
 }
 
-double			triangle(t_img *img, t_tr *tr, t_vect u_view, t_vect to_cam)
+double		triangle(t_img *img, t_tr *tr, t_vect u_view, t_vect to_cam)
 {
 	double dist;
 	double vn_dot;
 	t_vect node;
 
-	if ((dist = dist_to_plane(&vn_dot, img->u_view, tr->to_cam, tr->n)) == -1)
+	if ((dist = dist_to_plane(&vn_dot, u_view, to_cam, tr->n)) == -1)
 		return (-1);
-	img->v_view = vect_mult(img->u_view, dist);
+	img->v_view = vect_mult(u_view, dist);
 	node = vect_add(img->v_view, img->ray_start);
 	if (is_inside(*tr, node))
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 12:53:02 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 13:00:44 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void		node_judge(t_img *img)
 	}
 }
 
-void	object_to_cam(t_img *img, t_vect *to_cam)
+void	object_to_cam(t_img *img)
 {
 	img->lst = img->o_start;
 	while (img->lst)
@@ -98,10 +98,9 @@ void	draw_img(t_img *img)
 {
 	int		x;
 	int		y;
-	t_vect	to_cam[5];
 
 	screen_center(img);
-	object_to_cam(img, to_cam);
+	object_to_cam(img);
 	y = 0;
 	while (y < img->h)
 	{
