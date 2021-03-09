@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 09:12:38 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 09:55:07 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,40 @@ void			func_ary_init(t_img *img)
 	img->f_update_node[SQ] = update_node_sq;
 	img->f_update_node[CY] = update_node_cy;
 	img->f_update_node[TR] = update_node_tr;
+	img->f_to_cam_vect[SP] = to_cam_vect_sp;
+	img->f_to_cam_vect[PL] = to_cam_vect_pl;
+	img->f_to_cam_vect[SQ] = to_cam_vect_sq;
+	img->f_to_cam_vect[CY] = to_cam_vect_cy;
+	img->f_to_cam_vect[TR] = to_cam_vect_tr;
 }
-
+void			to_cam_vect_sp(t_img *img, t_sp *sp)
+{
+	sp->to_cam = vect_sub(img->cam->pos, sp->o);
+}
+void			to_cam_vect_pl(t_img *img, t_pl *pl)
+{
+	pl->to_cam = vect_sub(img->cam->pos, pl->p);
+}
+void			to_cam_vect_sq(t_img *img, t_sq *sq)
+{
+	sq->to_cam = vect_sub(img->cam->pos, sq->p);
+}
+void			to_cam_vect_cy(t_img *img, t_cy *cy)
+{
+	cy->to_cam = vect_sub(img->cam->pos, cy->p);
+}
+void			to_cam_vect_tr(t_img *img, t_tr *tr)
+{
+	tr->to_cam = vect_sub(img->cam->pos, tr->a);
+}
 void			update_node_sp(t_img *img, double dist, t_sp *sp)
 {
 	t_vect norm;
-	t_vect o_cam;
 
 	img->v_view = vect_mult(img->u_view, dist);
 	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	norm = vect_unit(vect_sub(img->node.pos, sp->o));
-	o_cam = vect_sub(img->cam->pos, sp->o);
-	sp->n = vect_len(o_cam) > sp->r ? norm : vect_mult(norm, -1);
+	sp->n = vect_len(sp->to_cam) > sp->r ? norm : vect_mult(norm, -1);
 	update_node(img, dist, sp->rgb, sp->n);
 }
 void			update_node_pl(t_img *img, double dist, t_pl *pl)

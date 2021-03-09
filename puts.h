@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 09:26:11 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 09:45:13 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct	s_sp
 	t_rgb		rgb;
 	t_vect		o;
 	t_vect		n;
+	t_vect		to_cam;
 	double		r;
 }				t_sp;
 typedef struct	s_sq
@@ -71,12 +72,14 @@ typedef struct	s_sq
 	t_vect		u_x;
 	t_vect		u_y;
 	double		size;
+	t_vect		to_cam;
 }				t_sq;
 typedef struct	s_pl
 {
 	t_rgb		rgb;
 	t_vect		p;
 	t_vect		n;
+	t_vect		to_cam;
 }				t_pl;
 typedef struct	s_cy
 {
@@ -86,6 +89,7 @@ typedef struct	s_cy
 	t_vect		node_n;
 	double		r;
 	double		h;
+	t_vect		to_cam;
 }				t_cy;
 typedef struct	s_tr
 {
@@ -103,6 +107,7 @@ typedef struct	s_tr
 	t_vect		cross_a;
 	t_vect		cross_b;
 	t_vect		cross_c;
+	t_vect		to_cam;
 }				t_tr;
 typedef struct	s_node
 {
@@ -160,7 +165,7 @@ struct  		s_img
 	t_vect		v_view;
 	double		(*f_crossing_judge[5])();
 	void		(*f_update_node[5])();
-	// t_vect		(*f_update_node[5])();
+	void		(*f_to_cam_vect[5])();
 	int			bmp_w;
 	int			bmp_h;
 };
@@ -228,5 +233,9 @@ void			update_node_pl(t_img *img, double dist, t_pl *pl);
 void			update_node_sq(t_img *img, double dist, t_sq *sq);
 void			update_node_cy(t_img *img, double dist, t_cy *cy);
 void			update_node_tr(t_img *img, double dist, t_tr *tr);
-
+void			to_cam_vect_sp(t_img *img, t_sp *sp);
+void			to_cam_vect_pl(t_img *img, t_pl *pl);
+void			to_cam_vect_sq(t_img *img, t_sq *sq);
+void			to_cam_vect_cy(t_img *img, t_cy *cy);
+void			to_cam_vect_tr(t_img *img, t_tr *tr);
 #endif

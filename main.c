@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 09:12:56 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 09:56:53 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,26 @@ void		crossing_judge(t_img *img)
 			img->f_update_node[img->lst->id](img, dist, img->lst->obj);
 		img->lst = img->lst->next;
 	}
-	img->lst = img->o_start;
 }
 
+void	object_to_cam(t_img *img)
+{
+	img->lst = img->o_start;
+	while (img->lst)
+	{
+		img->f_to_cam_vect[img->lst->id](img, img->lst->obj);
+		img->lst = img->lst->next;
+	}
+}
 void	draw_img(t_img *img)
 {
 	int		x;
 	int		y;
 	// t_vect	pos;
 
-	y = 0;
 	screen_center(img);
+	object_to_cam(img);
+	y = 0;
 	while (y < img->h)
 	{
 		x = 0;
