@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 09:55:56 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 10:27:08 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_clist	*ft_lstnew_c(t_clist c)
 	return (cam);
 }
 
-t_llist	*ft_lstnew_l(t_llist l)
+t_llist		*ft_lstnew_l(t_llist l)
 {
 	t_llist *light;
 
@@ -70,33 +70,36 @@ t_llist	*ft_lstnew_l(t_llist l)
 	return (light);
 }
 
-double			sphere(t_img *img, t_sp *sp)
+double		sphere(t_img *img, t_sp *sp)
 {
 	double b;
 	double c;
 	double dist;
-	t_vect o_cam;
-	// t_vect norm;
 
-	o_cam = vect_sub(img->cam->pos, sp->o);
-	b = 2 * dot(img->u_view, o_cam);
-	c = pow(vect_len(o_cam), 2) - sp->r * sp->r;
+	b = 2 * dot(img->u_view, sp->to_cam);
+	c = pow(vect_len(sp->to_cam), 2) - sp->r * sp->r;
 	if (!(dist = quadratic_formula(1, b, c)))
 		return (-1);
-	// norm = vect_unit(vect_sub(img->node.pos, sp->o));
-	// vprint(sp->n);
-	// sp->n = vect_len(o_cam) > sp->r ? norm : vect_mult(norm, -1);
 	return (dist);
 }
 
-double			plane(t_img *img, t_pl *pl)
+double		dist_to_plane(double *vndot, t_vect u_view, t_vect to_cam, t_vect n)
+{
+	double dist;
+
+	if (!(*vndot = dot(vect_mult(u_view, -1), n)))
+		return (-1);
+	if ((dist = dot(to_cam, n) / *vndot) <= 0)
+		return (-1);
+	return (dist);
+}
+
+double		plane(t_img *img, t_pl *pl)
 {
 	double dist;
 	double vn_dot;
 
-	if (!(vn_dot = dot(vect_mult(img->u_view, -1), pl->n)))
-		return (-1);
-	if ((dist = dot(pl->to_cam, pl->n) / vn_dot) <= 0)
+	if ((dist = dist_to_plane(&vn_dot, img->u_view, pl->to_cam, pl->n)) == -1)
 		return (-1);
 	pl->n = vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
 	return (dist);
@@ -109,9 +112,7 @@ double			square(t_img *img, t_sq *sq)
 	double dist;
 	double vn_dot;
 
-	if (!(vn_dot = dot(vect_mult(img->u_view, -1), sq->n)))
-		return (-1);
-	if ((dist = dot(sq->to_cam, sq->n) / vn_dot) <= 0)
+	if ((dist = dist_to_plane(&vn_dot, img->u_view, sq->to_cam, sq->n)) == -1)
 		return (-1);
 	img->v_view = vect_mult(img->u_view, dist);
 	node = vect_add(img->v_view, img->cam->pos);
@@ -120,9 +121,9 @@ double			square(t_img *img, t_sq *sq)
 		sq->u_x = vect_init(1, 0, 0);
 	else
 		sq->u_x = vect_init(
-						-sq->n.z / sqrt(sq->n.x * sq->n.x + sq->n.z * sq->n.z),
-						0,
-						sq->n.x / sqrt(sq->n.x * sq->n.x + sq->n.z * sq->n.z));
+					-sq->n.z / sqrt(sq->n.x * sq->n.x + sq->n.z * sq->n.z),
+					0,
+					sq->n.x / sqrt(sq->n.x * sq->n.x + sq->n.z * sq->n.z));
 	sq->u_y = vect_unit(cross(sq->u_x, sq->n));
 	if (fabs(dot(o_p, sq->u_x)) > sq->size / 2 ||
 		fabs(dot(o_p, sq->u_y)) > sq->size / 2)
@@ -155,9 +156,7 @@ double			triangle(t_img *img, t_tr *tr)
 	double vn_dot;
 	t_vect node;
 
-	if (!(vn_dot = dot(vect_mult(img->u_view, -1), tr->n)))
-		return (-1);
-	if ((dist = dot(tr->to_cam, tr->n) / vn_dot) <= 0)
+	if ((dist = dist_to_plane(&vn_dot, img->u_view, tr->to_cam, tr->n)) == -1)
 		return (-1);
 	img->v_view = vect_mult(img->u_view, dist);
 	node = vect_add(img->v_view, img->cam->pos);

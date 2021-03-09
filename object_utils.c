@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 09:55:07 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 10:06:47 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void			vprint(t_vect v)
 
 void			func_ary_init(t_img *img)
 {
-	img->f_crossing_judge[SP] = sphere;
-	img->f_crossing_judge[PL] = plane;
-	img->f_crossing_judge[SQ] = square;
-	img->f_crossing_judge[CY] = cylinder;
-	img->f_crossing_judge[TR] = triangle;
+	img->f_node_judge[SP] = sphere;
+	img->f_node_judge[PL] = plane;
+	img->f_node_judge[SQ] = square;
+	img->f_node_judge[CY] = cylinder;
+	img->f_node_judge[TR] = triangle;
 	img->f_update_node[SP] = update_node_sp;
 	img->f_update_node[PL] = update_node_pl;
 	img->f_update_node[SQ] = update_node_sq;
@@ -97,7 +97,6 @@ void			update_node(t_img *img, double dist, t_rgb rgb, t_vect n)
 {
 	img->node.rgb = rgb;
 	img->node.dist = dist;
-	// img->node.pos = vect_add(img->v_view, img->cam->pos);
 	img->node.normal = n;
 }
 

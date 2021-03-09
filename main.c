@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 09:56:53 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 10:01:52 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		shadow(t_img *img)
 	
 }
 
-void		crossing_judge(t_img *img)
+void		node_judge(t_img *img)
 {
 	double dist;
 
@@ -66,14 +66,11 @@ void		crossing_judge(t_img *img)
 	{
 		// if (x >= 254 && y >= 254)
 		// img->lst->f(img, img->lst->obj);
-		if((dist = img->f_crossing_judge[img->lst->id](img, img->lst->obj)) < 0)
+		if ((dist = img->f_node_judge[img->lst->id](img, img->lst->obj)) == -1)
 		{
 			img->lst = img->lst->next;
 			continue ;
 		}
-			printf("dist %f\n", dist);
-		// if (img->node.dist >= 0 && (dist >= img->node.dist))
-		// 	return (0);
 		if (img->node.dist == -1 || (dist < img->node.dist))
 			img->f_update_node[img->lst->id](img, dist, img->lst->obj);
 		img->lst = img->lst->next;
@@ -110,7 +107,7 @@ void	draw_img(t_img *img)
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
 			// if (x == 255 && y == 255)
-			crossing_judge(img);
+			node_judge(img);
 			// shadow(img);
 			if (img->node.dist != -1)
 			{

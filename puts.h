@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 09:45:13 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 10:06:44 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ struct  		s_img
 	t_vect		cam_normal;
 	t_vect		u_view;
 	t_vect		v_view;
-	double		(*f_crossing_judge[5])();
+	double		(*f_node_judge[5])();
 	void		(*f_update_node[5])();
 	void		(*f_to_cam_vect[5])();
 	int			bmp_w;
