@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 10:27:08 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 10:29:08 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,6 @@ double		sphere(t_img *img, t_sp *sp)
 	return (dist);
 }
 
-double		dist_to_plane(double *vndot, t_vect u_view, t_vect to_cam, t_vect n)
-{
-	double dist;
-
-	if (!(*vndot = dot(vect_mult(u_view, -1), n)))
-		return (-1);
-	if ((dist = dot(to_cam, n) / *vndot) <= 0)
-		return (-1);
-	return (dist);
-}
-
 double		plane(t_img *img, t_pl *pl)
 {
 	double dist;
@@ -147,6 +136,7 @@ double			cylinder(t_img *img, t_cy *cy)
 	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
 	if (!(a = quadratic_formula(a, b, c)))
 		return (-1);
+	//half
 	return (0);
 }
 

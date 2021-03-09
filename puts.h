@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 10:06:44 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 11:57:02 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define AMB 0.1
 # define GLOSS 30
 # define EPSILON 1.0 / 512
+# define ON  1
+# define oFF 0
 // # define AMB 1
 // # define DIFF 0.69 * 0.9
 # define DIFF 0.9
@@ -136,6 +138,7 @@ typedef struct s_llist
 {
 	t_vect		pos;
 	t_rgb		rgb;
+	int			on;
 	double		pow;
 	t_llist		*next;
 }				t_llist;
@@ -238,4 +241,7 @@ void			to_cam_vect_pl(t_img *img, t_pl *pl);
 void			to_cam_vect_sq(t_img *img, t_sq *sq);
 void			to_cam_vect_cy(t_img *img, t_cy *cy);
 void			to_cam_vect_tr(t_img *img, t_tr *tr);
+double			dist_to_plane
+				(double *vndot, t_vect u_view, t_vect to_cam, t_vect n);
+
 #endif

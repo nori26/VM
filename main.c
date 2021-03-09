@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 10:01:52 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 11:58:21 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	screen_center(t_img *img)
 void		shadow(t_img *img)
 {
 	t_vect u_light;
-	t_vect injection;
+	t_vect ray_start;
 
 	u_light = vect_unit(vect_sub(img->light->pos, img->node.pos));
-	injection = vect_add(img->light->pos, vect_mult(u_light, EPSILON));
+	ray_start = vect_add(img->light->pos, vect_mult(u_light, EPSILON));
 	
 }
 
@@ -77,7 +77,7 @@ void		node_judge(t_img *img)
 	}
 }
 
-void	object_to_cam(t_img *img)
+void	object_to_cam(t_img *img, t_vect *to_cam)
 {
 	img->lst = img->o_start;
 	while (img->lst)
@@ -86,24 +86,31 @@ void	object_to_cam(t_img *img)
 		img->lst = img->lst->next;
 	}
 }
+void	light_on(t_img *img)
+{
+	img->light = img->l_start;
+	while (img->light)
+	{
+		img->light->on = ON;
+		img->light = img->light->next;
+	}
+}
 void	draw_img(t_img *img)
 {
 	int		x;
 	int		y;
-	// t_vect	pos;
+	t_vect	to_cam[5];
 
 	screen_center(img);
-	object_to_cam(img);
+	object_to_cam(img, to_cam);
 	y = 0;
 	while (y < img->h)
 	{
 		x = 0;
 		while (x < img->w)
 		{
+
 			img->u_view = camera(img, x, y);
-			// pos = vect_init(2.0 * x / (img->w - 1) - 1,
-			// 				-2.0 * y / (img->h - 1) + 1, 0);
-			// img->u_view = vect_unit(vect_sub(pos, img->cam->pos));
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
 			// if (x == 255 && y == 255)
