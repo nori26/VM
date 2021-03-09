@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 08:21:50 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 09:26:11 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ struct  		s_img
 	t_vect		v_view;
 	double		(*f_crossing_judge[5])();
 	void		(*f_update_node[5])();
+	// t_vect		(*f_update_node[5])();
 	int			bmp_w;
 	int			bmp_h;
 };

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 08:44:09 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 09:09:38 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,6 @@ double			triangle(t_img *img, t_tr *tr)
 	node = vect_add(img->v_view, img->cam->pos);
 	if (is_inside(*tr, node))
 		return (-1);
-	img->node.normal = -vn_dot > 0 ? tr->n : vect_mult(tr->n, -1);
+	tr->n = -vn_dot > 0 ? tr->n : vect_mult(tr->n, -1);
 	return (dist);
 }

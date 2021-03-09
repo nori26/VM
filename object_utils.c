@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 08:39:54 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 09:12:38 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,49 @@ void			func_ary_init(t_img *img)
 
 void			update_node_sp(t_img *img, double dist, t_sp *sp)
 {
+	t_vect norm;
+	t_vect o_cam;
+
+	img->v_view = vect_mult(img->u_view, dist);
+	img->node.pos = vect_add(img->v_view, img->cam->pos);
+	norm = vect_unit(vect_sub(img->node.pos, sp->o));
+	o_cam = vect_sub(img->cam->pos, sp->o);
+	sp->n = vect_len(o_cam) > sp->r ? norm : vect_mult(norm, -1);
 	update_node(img, dist, sp->rgb, sp->n);
 }
 void			update_node_pl(t_img *img, double dist, t_pl *pl)
 {
+	img->v_view = vect_mult(img->u_view, dist);
+	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	update_node(img, dist, pl->rgb, pl->n);
 }
 
 void			update_node_sq(t_img *img, double dist, t_sq *sq)
 {
+	img->v_view = vect_mult(img->u_view, dist);
+	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	update_node(img, dist, sq->rgb, sq->n);
 }
 
 void			update_node_cy(t_img *img, double dist, t_cy *cy)
 {
+	img->v_view = vect_mult(img->u_view, dist);
+	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	update_node(img, dist, cy->rgb, cy->n);
 }
 
 void			update_node_tr(t_img *img, double dist, t_tr *tr)
 {
+	img->v_view = vect_mult(img->u_view, dist);
+	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	update_node(img, dist, tr->rgb, tr->n);
 }
 
 void			update_node(t_img *img, double dist, t_rgb rgb, t_vect n)
 {
-	img->v_view = vect_mult(img->u_view, dist);
 	img->node.rgb = rgb;
 	img->node.dist = dist;
-	img->node.pos = vect_add(img->v_view, img->cam->pos);
+	// img->node.pos = vect_add(img->v_view, img->cam->pos);
 	img->node.normal = n;
 }
 

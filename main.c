@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 08:43:57 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 09:12:56 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	draw_img(t_img *img)
 			// img->u_view = vect_unit(vect_sub(pos, img->cam->pos));
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
-			if (x == 255 && y == 255)
+			// if (x == 255 && y == 255)
 			crossing_judge(img);
 			// shadow(img);
 			if (img->node.dist != -1)
