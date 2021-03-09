@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 12:41:01 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:54:21 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ double			square(t_img *img, t_sq *sq, t_vect u_view, t_vect to_cam)
 	if ((dist = dist_to_plane(&vn_dot, u_view, to_cam, sq->n)) == -1)
 		return (-1);
 	img->v_view = vect_mult(u_view, dist);
-	node = vect_add(img->v_view, img->cam->pos);
+	node = vect_add(img->v_view, img->ray_start);
 	o_p = vect_sub(node, sq->p);
 	if (!sq->n.x && !sq->n.z)
 		sq->u_x = vect_init(1, 0, 0);
@@ -130,7 +130,7 @@ double			cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_cam)
 	t_vect vn_cross;
 
 	vn_cross = cross(img->u_view, cy->n);
-	tmp = cross(vect_sub(img->cam->pos, cy->p), cy->n);
+	tmp = cross(vect_sub(img->ray_start, cy->p), cy->n);
 	a = pow(vect_len(vn_cross), 2);
 	b = 2 * dot(vn_cross, tmp);
 	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
@@ -149,7 +149,7 @@ double			triangle(t_img *img, t_tr *tr, t_vect u_view, t_vect to_cam)
 	if ((dist = dist_to_plane(&vn_dot, img->u_view, tr->to_cam, tr->n)) == -1)
 		return (-1);
 	img->v_view = vect_mult(img->u_view, dist);
-	node = vect_add(img->v_view, img->cam->pos);
+	node = vect_add(img->v_view, img->ray_start);
 	if (is_inside(*tr, node))
 		return (-1);
 	tr->n = vn_dot > 0 ? tr->n : vect_mult(tr->n, -1);

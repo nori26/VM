@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 12:43:56 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:53:02 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	draw_img(t_img *img)
 		{
 
 			img->u_view = camera(img, x, y);
+			img->ray_start = img->cam->pos;
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
 			// if (x == 255 && y == 255)

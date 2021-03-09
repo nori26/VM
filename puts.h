@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 12:30:10 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:52:33 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ struct  		s_img
     int         endian;
 	void		*mlx;
 	void		*win;
+	t_vect		ray_start;
 	t_rgb		rgb;
 	t_llist		*amb;
 	t_node		node;
