@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 11:57:02 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:30:10 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ struct  		s_img
 	double		(*f_node_judge[5])();
 	void		(*f_update_node[5])();
 	void		(*f_to_cam_vect[5])();
+	t_vect		(*f_ret_to_cam[5])();
 	int			bmp_w;
 	int			bmp_h;
 };
@@ -185,7 +186,6 @@ t_vect			vect_sub(t_vect v1, t_vect v2);
 t_vect			point_to_vect(double x, double y, t_img img);
 t_vect			vect_init(double x, double y, double z);
 double			vect_len(t_vect v);
-double			sphere(t_img *img, t_sp *sp);
 double			quadratic_formula(double a, double b, double d);
 double			quadratic_formularge(double a, double b, double c);
 t_vect			vect_unit(t_vect v);
@@ -220,10 +220,11 @@ int				parse_rgb(char *s, double *r, double *g, double *b);
 double			ft_mini_atoinf(const char *s, char type);
 int				split_comma_normal(char *s, double *a, double *b, double *c);
 int				check_range(char *s, char c);
-double			plane(t_img *img, t_pl *pl);
-double			square(t_img *img, t_sq *sq);
-double			cylinder(t_img *img, t_cy *cy);
-double			triangle(t_img *img, t_tr *tr);
+double			sphere(t_img *img, t_sp *sp, t_vect u_view, t_vect to_cam);
+double			plane(t_img *img, t_pl *pl, t_vect u_view, t_vect to_cam);
+double			square(t_img *img, t_sq *sq, t_vect u_view, t_vect to_cam);
+double			cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_cam);
+double			triangle(t_img *img, t_tr *tr, t_vect u_view, t_vect to_cam);
 int				check_parallel(t_vect a, t_vect b, t_vect c);
 void			vprint(t_vect v);
 int				is_inside(t_tr tr, t_vect node);
@@ -243,5 +244,9 @@ void			to_cam_vect_cy(t_img *img, t_cy *cy);
 void			to_cam_vect_tr(t_img *img, t_tr *tr);
 double			dist_to_plane
 				(double *vndot, t_vect u_view, t_vect to_cam, t_vect n);
-
+t_vect			ret_to_cam_sp(t_sp *sp);
+t_vect			ret_to_cam_pl(t_pl *pl);
+t_vect			ret_to_cam_sq(t_sq *sq);
+t_vect			ret_to_cam_cy(t_cy *cy);
+t_vect			ret_to_cam_tr(t_tr *tr);
 #endif

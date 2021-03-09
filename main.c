@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 11:58:21 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:43:56 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,11 @@ void	screen_center(t_img *img)
 
 void		shadow(t_img *img)
 {
-	t_vect u_light;
+	t_vect u_shadow_ray;
 	t_vect ray_start;
 
-	u_light = vect_unit(vect_sub(img->light->pos, img->node.pos));
-	ray_start = vect_add(img->light->pos, vect_mult(u_light, EPSILON));
-	
+	u_shadow_ray = vect_unit(vect_sub(img->light->pos, img->node.pos));
+	ray_start = vect_add(img->light->pos, vect_mult(u_shadow_ray, EPSILON));
 }
 
 void		node_judge(t_img *img)
@@ -64,9 +63,9 @@ void		node_judge(t_img *img)
 	img->lst = img->o_start;
 	while ((img->lst))
 	{
-		// if (x >= 254 && y >= 254)
-		// img->lst->f(img, img->lst->obj);
-		if ((dist = img->f_node_judge[img->lst->id](img, img->lst->obj)) == -1)
+		if ((dist = img->f_node_judge[img->lst->id]
+			(img, img->lst->obj, img->u_view, img->f_ret_to_cam[img->lst->id]))
+			== -1)
 		{
 			img->lst = img->lst->next;
 			continue ;

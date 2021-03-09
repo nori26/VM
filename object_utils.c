@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 10:29:18 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:23:16 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,63 @@ void			func_ary_init(t_img *img)
 	img->f_to_cam_vect[SQ] = to_cam_vect_sq;
 	img->f_to_cam_vect[CY] = to_cam_vect_cy;
 	img->f_to_cam_vect[TR] = to_cam_vect_tr;
+	img->f_ret_to_cam[SP] = ret_to_cam_sp;
+	img->f_ret_to_cam[PL] = ret_to_cam_pl;
+	img->f_ret_to_cam[SQ] = ret_to_cam_sq;
+	img->f_ret_to_cam[CY] = ret_to_cam_cy;
+	img->f_ret_to_cam[TR] = ret_to_cam_tr;
 }
+
+t_vect			ret_to_cam_sp(t_sp *sp)
+{
+	return (sp->to_cam);
+}
+
+t_vect			ret_to_cam_pl(t_pl *pl)
+{
+	return (pl->to_cam);
+}
+
+t_vect			ret_to_cam_sq(t_sq *sq)
+{
+	return (sq->to_cam);
+}
+
+t_vect			ret_to_cam_cy(t_cy *cy)
+{
+	return (cy->to_cam);
+}
+
+t_vect			ret_to_cam_tr(t_tr *tr)
+{
+	return (tr->to_cam);
+}
+
 void			to_cam_vect_sp(t_img *img, t_sp *sp)
 {
 	sp->to_cam = vect_sub(img->cam->pos, sp->o);
 }
+
 void			to_cam_vect_pl(t_img *img, t_pl *pl)
 {
 	pl->to_cam = vect_sub(img->cam->pos, pl->p);
 }
+
 void			to_cam_vect_sq(t_img *img, t_sq *sq)
 {
 	sq->to_cam = vect_sub(img->cam->pos, sq->p);
 }
+
 void			to_cam_vect_cy(t_img *img, t_cy *cy)
 {
 	cy->to_cam = vect_sub(img->cam->pos, cy->p);
 }
+
 void			to_cam_vect_tr(t_img *img, t_tr *tr)
 {
 	tr->to_cam = vect_sub(img->cam->pos, tr->a);
 }
+
 void			update_node_sp(t_img *img, double dist, t_sp *sp)
 {
 	t_vect norm;
@@ -65,6 +101,7 @@ void			update_node_sp(t_img *img, double dist, t_sp *sp)
 	sp->n = vect_len(sp->to_cam) > sp->r ? norm : vect_mult(norm, -1);
 	update_node(img, dist, sp->rgb, sp->n);
 }
+
 void			update_node_pl(t_img *img, double dist, t_pl *pl)
 {
 	img->v_view = vect_mult(img->u_view, dist);
