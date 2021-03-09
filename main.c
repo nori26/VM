@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 13:00:44 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 13:20:43 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ void		node_judge(t_img *img)
 	img->lst = img->o_start;
 	while ((img->lst))
 	{
-		if ((dist = img->f_node_judge[img->lst->id]
-			(img, img->lst->obj, img->u_view, img->f_ret_to_cam[img->lst->id]))
-			== -1)
+		dist = img->f_node_judge[img->lst->id]
+			(img, img->lst->obj, img->u_view,
+			img->f_ret_to_cam[img->lst->id](img->lst->obj));
+		if (dist == -1)
 		{
 			img->lst = img->lst->next;
 			continue ;
@@ -101,6 +102,7 @@ void	draw_img(t_img *img)
 
 	screen_center(img);
 	object_to_cam(img);
+	img->ray_start = img->cam->pos;
 	y = 0;
 	while (y < img->h)
 	{
@@ -109,7 +111,6 @@ void	draw_img(t_img *img)
 		{
 
 			img->u_view = camera(img, x, y);
-			img->ray_start = img->cam->pos;
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
 			// if (x == 255 && y == 255)
