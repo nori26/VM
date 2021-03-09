@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 06:54:04 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 07:29:57 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,30 @@ int	pl_init(char *data, t_img *img)
 	pl->n = vect_unit(pl->n);
 	if (parse_rgb(data, &pl->rgb.r, &pl->rgb.g, &pl->rgb.b) < 0)
 		return (freeturn((char **)&pl, -1));
-	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_o(pl, plane)))
+	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(pl, PL)))
 		return (freeturn((char **)&pl, -1));
 	return (0);
 }
 int	sp1_init(char *data, t_img *img)
 {
-	t_union	type;
+	t_sp	*sp;
 
 	if (!ft_isspace(*data))
 		return (-1);
+	if (!(sp = malloc(sizeof(t_sp))))
+		return (-1);
 	if (split_comma(trim_space(&data),
-		&type.sp.o.x, &type.sp.o.y, &type.sp.o.z) < 0)
-		return (-1);
-	if ((type.sp.r = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
-		type.sp.r == INFINITY)
-		return (-1);
-	printf("%g  ", type.sp.r);
-	type.sp.r /= 2;
-	if (parse_rgb(data, &type.sp.rgb.r, &type.sp.rgb.g, &type.sp.rgb.b) < 0)
-		return (-1);
-	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(type, SP)))
-		return (-1);
+		&sp->o.x, &sp->o.y, &sp->o.z) < 0)
+		return (freeturn((char **)&sp, -1));
+	if ((sp->r = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
+		sp->r == INFINITY)
+		return (freeturn((char **)&sp, -1));
+	printf("%g  ", sp->r);
+	sp->r /= 2;
+	if (parse_rgb(data, &sp->rgb.r, &sp->rgb.g, &sp->rgb.b) < 0)
+		return (freeturn((char **)&sp, -1));
+	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(sp, SP)))
+		return (freeturn((char **)&sp, -1));
 	return (0);
 }
 
@@ -72,7 +74,7 @@ int	sq_init(char *data, t_img *img)
 	printf("%g  ", sq->size);
 	if (parse_rgb(data, &sq->rgb.r, &sq->rgb.g, &sq->rgb.b) < 0)
 		return (freeturn((char **)&sq, -1));
-	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_o(sq, square)))
+	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(sq, SQ)))
 		return (freeturn((char **)&sq, -1));
 	return (0);
 }
@@ -101,7 +103,7 @@ int	cy_init(char *data, t_img *img)
 	printf("%g  ", cy->h);
 	if (parse_rgb(data, &cy->rgb.r, &cy->rgb.g, &cy->rgb.b) < 0)
 		return (freeturn((char **)&cy, -1));
-	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_o(cy, cylinder)))
+	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(cy, CY)))
 		return (freeturn((char **)&cy, -1));
 	return (0);
 }
@@ -124,7 +126,7 @@ int	tr_init(char *data, t_img *img)
 	tr->n = vect_unit(cross(tr->ab, tr->bc));
 	if (parse_rgb(data, &tr->rgb.r, &tr->rgb.g, &tr->rgb.b) < 0)
 		return (freeturn((char **)&tr, -1));
-	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_o(tr, triangle)))
+	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(tr, TR)))
 		return (freeturn((char **)&tr, -1));
 	return (0);
 }

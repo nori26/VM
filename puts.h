@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 07:00:51 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 08:21:50 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct	s_sp
 {
 	t_rgb		rgb;
 	t_vect		o;
+	t_vect		n;
 	double		r;
 }				t_sp;
 typedef struct	s_sq
@@ -82,6 +83,7 @@ typedef struct	s_cy
 	t_rgb		rgb;
 	t_vect		p;
 	t_vect		n;
+	t_vect		node_n;
 	double		r;
 	double		h;
 }				t_cy;
@@ -109,19 +111,9 @@ typedef struct	s_node
 	t_vect		normal;
 	double		dist;
 }				t_node;
-typedef union   u_union
-{
-    t_sp    	sp;
-	t_pl		pl;
-	t_sq		sq;
-	t_cy		cy;
-    t_tr    	tr;
-	t_rgb		rgb;
-}				t_union;
 struct			s_idlst
 {
 	int			id;
-	t_union		*type;
 	void		*obj;
 	double		(*f)();
 	t_idlst		*next;
@@ -166,7 +158,8 @@ struct  		s_img
 	t_vect		cam_normal;
 	t_vect		u_view;
 	t_vect		v_view;
-	double		(*f[5])();
+	double		(*f_crossing_judge[5])();
+	void		(*f_update_node[5])();
 	int			bmp_w;
 	int			bmp_h;
 };
@@ -183,7 +176,7 @@ t_vect			vect_sub(t_vect v1, t_vect v2);
 t_vect			point_to_vect(double x, double y, t_img img);
 t_vect			vect_init(double x, double y, double z);
 double			vect_len(t_vect v);
-double			sphere(t_img *img, t_union *type);
+double			sphere(t_img *img, t_sp *sp);
 double			quadratic_formula(double a, double b, double d);
 double			quadratic_formularge(double a, double b, double c);
 t_vect			vect_unit(t_vect v);
@@ -223,10 +216,16 @@ double			square(t_img *img, t_sq *sq);
 double			cylinder(t_img *img, t_cy *cy);
 double			triangle(t_img *img, t_tr *tr);
 int				check_parallel(t_vect a, t_vect b, t_vect c);
-int				update_node(t_img *img, double dist, t_rgb rgb);
 void			vprint(t_vect v);
 int				is_inside(t_tr tr, t_vect node);
 double			primary_colors(t_img *img, double diff, double spec, char rgb);
 void			func_ary_init(t_img *img);
-t_idlst			*ft_lstnew_id(t_union type, int id);
+t_idlst			*ft_lstnew_id(void *obj, int id);
+void			update_node(t_img *img, double dist, t_rgb rgb, t_vect n);
+void			update_node_sp(t_img *img, double dist, t_sp *sp);
+void			update_node_pl(t_img *img, double dist, t_pl *pl);
+void			update_node_sq(t_img *img, double dist, t_sq *sq);
+void			update_node_cy(t_img *img, double dist, t_cy *cy);
+void			update_node_tr(t_img *img, double dist, t_tr *tr);
+
 #endif

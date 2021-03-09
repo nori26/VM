@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 23:53:29 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 08:39:54 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,49 @@ void			vprint(t_vect v)
 
 void			func_ary_init(t_img *img)
 {
-	img->f[SP] = sphere;
-	img->f[PL] = plane;
-	img->f[SQ] = square;
-	img->f[CY] = cylinder;
-	img->f[TR] = triangle;
+	img->f_crossing_judge[SP] = sphere;
+	img->f_crossing_judge[PL] = plane;
+	img->f_crossing_judge[SQ] = square;
+	img->f_crossing_judge[CY] = cylinder;
+	img->f_crossing_judge[TR] = triangle;
+	img->f_update_node[SP] = update_node_sp;
+	img->f_update_node[PL] = update_node_pl;
+	img->f_update_node[SQ] = update_node_sq;
+	img->f_update_node[CY] = update_node_cy;
+	img->f_update_node[TR] = update_node_tr;
 }
 
-int				update_node(t_img *img, double dist, t_rgb rgb)
+void			update_node_sp(t_img *img, double dist, t_sp *sp)
 {
-	if (img->node.dist >= 0 && (dist >= img->node.dist))
-		return (0);
+	update_node(img, dist, sp->rgb, sp->n);
+}
+void			update_node_pl(t_img *img, double dist, t_pl *pl)
+{
+	update_node(img, dist, pl->rgb, pl->n);
+}
+
+void			update_node_sq(t_img *img, double dist, t_sq *sq)
+{
+	update_node(img, dist, sq->rgb, sq->n);
+}
+
+void			update_node_cy(t_img *img, double dist, t_cy *cy)
+{
+	update_node(img, dist, cy->rgb, cy->n);
+}
+
+void			update_node_tr(t_img *img, double dist, t_tr *tr)
+{
+	update_node(img, dist, tr->rgb, tr->n);
+}
+
+void			update_node(t_img *img, double dist, t_rgb rgb, t_vect n)
+{
 	img->v_view = vect_mult(img->u_view, dist);
 	img->node.rgb = rgb;
 	img->node.dist = dist;
 	img->node.pos = vect_add(img->v_view, img->cam->pos);
-	return (1);
+	img->node.normal = n;
 }
 
 double			quadratic_formula(double a, double b, double c)
