@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 23:55:32 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 07:00:51 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ enum			e_id
 				SQ,
 				CY,
 				TR,
+				CAM,
+				LIGHT,
 };
 typedef struct	s_rgb
 {
@@ -56,35 +58,36 @@ typedef struct	s_vect
 
 typedef struct	s_sp
 {
+	t_rgb		rgb;
 	t_vect		o;
 	double		r;
-	t_rgb		rgb;
 }				t_sp;
 typedef struct	s_sq
 {
+	t_rgb		rgb;
 	t_vect		p;
 	t_vect		n;
 	t_vect		u_x;
 	t_vect		u_y;
-	t_rgb		rgb;
 	double		size;
 }				t_sq;
 typedef struct	s_pl
 {
+	t_rgb		rgb;
 	t_vect		p;
 	t_vect		n;
-	t_rgb		rgb;
 }				t_pl;
 typedef struct	s_cy
 {
+	t_rgb		rgb;
 	t_vect		p;
 	t_vect		n;
 	double		r;
 	double		h;
-	t_rgb		rgb;
 }				t_cy;
 typedef struct	s_tr
 {
+	t_rgb		rgb;
 	t_vect		a;
 	t_vect		b;
 	t_vect		c;
@@ -98,18 +101,27 @@ typedef struct	s_tr
 	t_vect		cross_a;
 	t_vect		cross_b;
 	t_vect		cross_c;
-	t_rgb		rgb;
 }				t_tr;
 typedef struct	s_node
 {
+	t_rgb		rgb;
 	t_vect		pos;
 	t_vect		normal;
-	t_rgb		rgb;
 	double		dist;
 }				t_node;
+typedef union   u_union
+{
+    t_sp    	sp;
+	t_pl		pl;
+	t_sq		sq;
+	t_cy		cy;
+    t_tr    	tr;
+	t_rgb		rgb;
+}				t_union;
 struct			s_idlst
 {
 	int			id;
+	t_union		*type;
 	void		*obj;
 	double		(*f)();
 	t_idlst		*next;
@@ -171,7 +183,7 @@ t_vect			vect_sub(t_vect v1, t_vect v2);
 t_vect			point_to_vect(double x, double y, t_img img);
 t_vect			vect_init(double x, double y, double z);
 double			vect_len(t_vect v);
-double			sphere(t_img *img, t_sp *sp);
+double			sphere(t_img *img, t_union *type);
 double			quadratic_formula(double a, double b, double d);
 double			quadratic_formularge(double a, double b, double c);
 t_vect			vect_unit(t_vect v);
@@ -216,5 +228,5 @@ void			vprint(t_vect v);
 int				is_inside(t_tr tr, t_vect node);
 double			primary_colors(t_img *img, double diff, double spec, char rgb);
 void			func_ary_init(t_img *img);
-t_idlst			*ft_lstnew_id(void *obj, int id);
+t_idlst			*ft_lstnew_id(t_union type, int id);
 #endif

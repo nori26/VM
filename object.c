@@ -6,20 +6,22 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 23:06:12 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 07:00:41 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-t_idlst	*ft_lstnew_id(void *obj, int id)
+t_idlst	*ft_lstnew_id(t_union type, int id)
 {
 	t_idlst *lst;
 
 	if (!(lst = malloc(sizeof(t_idlst))))
 		return (NULL);
+	if (!(lst->type = malloc(sizeof(t_union))))
+		return (NULL);
+	*lst->type = type;
 	lst->id = id;
-	lst->obj = obj;
 	lst->next = NULL;
 	return (lst);
 }
@@ -82,7 +84,7 @@ t_llist	*ft_lstnew_l(t_llist l)
 	return (light);
 }
 
-double			sphere(t_img *img, t_sp *sp)
+double			sphere(t_img *img, t_union *type)
 {
 	double b;
 	double c;
@@ -90,15 +92,15 @@ double			sphere(t_img *img, t_sp *sp)
 	t_vect o_cam;
 	t_vect norm;
 
-	o_cam = vect_sub(img->cam->pos, sp->o);
+	o_cam = vect_sub(img->cam->pos, type->sp.o);
 	b = 2 * dot(img->u_view, o_cam);
-	c = pow(vect_len(o_cam), 2) - sp->r * sp->r;
+	c = pow(vect_len(o_cam), 2) - type->sp.r * type->sp.r;
 	if (!(dist = quadratic_formula(1, b, c)))
 		return (0);
-	if (!(update_node(img, dist, sp->rgb)))
+	if (!(update_node(img, dist, type->sp.rgb)))
 		return (0);
-	norm = vect_unit(vect_sub(img->node.pos, sp->o));
-	img->node.normal = vect_len(o_cam) > sp->r ? norm : vect_mult(norm, -1);
+	norm = vect_unit(vect_sub(img->node.pos, type->sp.o));
+	img->node.normal = vect_len(o_cam) > type->sp.r ? norm : vect_mult(norm, -1);
 	return (0);
 }
 

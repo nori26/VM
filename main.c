@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 22:19:58 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 06:58:13 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void		injection_judge(t_img *img)
 	while ((img->lst))
 	{
 		// if (x >= 254 && y >= 254)
-		img->lst->f(img, img->lst->obj);
+		// img->lst->f(img, img->lst->obj);
+		img->f[img->lst->id](img, img->lst->type);
 		img->lst = img->lst->next;
 	}
 	img->lst = img->o_start;
@@ -141,6 +142,7 @@ void		make_img(t_img *img)
 	img->w = img->w > w ? w : img->w;
 	img->h = img->h > h ? h : img->h;
 	printf("%d\n%d\n", w, h);
+	func_ary_init(img);
 	calc(img);
 	mlx_hook(img->win, 2, 1, close2, img);
 	mlx_hook(img->win, 33, 1 << 17, close1, img);

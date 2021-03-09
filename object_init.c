@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 23:35:21 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 06:54:04 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,22 @@ int	pl_init(char *data, t_img *img)
 }
 int	sp1_init(char *data, t_img *img)
 {
-	t_sp	*sp;
+	t_union	type;
 
 	if (!ft_isspace(*data))
 		return (-1);
-	if (!(sp = malloc(sizeof(t_sp))))
-		return (-1);
 	if (split_comma(trim_space(&data),
-		&sp->o.x, &sp->o.y, &sp->o.z) < 0)
-		return (freeturn((char **)&sp, -1));
-	if ((sp->r = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
-		sp->r == INFINITY)
-		return (freeturn((char **)&sp, -1));
-	printf("%g  ", sp->r);
-	sp->r /= 2;
-	if (parse_rgb(data, &sp->rgb.r, &sp->rgb.g, &sp->rgb.b) < 0)
-		return (freeturn((char **)&sp, -1));
-	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(sp, SP)))
-		return (freeturn((char **)&sp, -1));
+		&type.sp.o.x, &type.sp.o.y, &type.sp.o.z) < 0)
+		return (-1);
+	if ((type.sp.r = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
+		type.sp.r == INFINITY)
+		return (-1);
+	printf("%g  ", type.sp.r);
+	type.sp.r /= 2;
+	if (parse_rgb(data, &type.sp.rgb.r, &type.sp.rgb.g, &type.sp.rgb.b) < 0)
+		return (-1);
+	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(type, SP)))
+		return (-1);
 	return (0);
 }
 
