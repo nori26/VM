@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 15:38:34 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:25:02 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,16 @@ int		color(t_img *img)
 	img->light = img->l_start;
 	while (img->light)
 	{
-		diff = light_diff(img);
-		spec = light_spec(img);
-		rgb.r += primary_colors(img, diff, spec, 'r');
-		rgb.g += primary_colors(img, diff, spec, 'g');
-		rgb.b += primary_colors(img, diff, spec, 'b');
+		if (img->light->on == ON)
+		{
+			diff = light_diff(img);
+			spec = light_spec(img);
+			rgb.r += primary_colors(img, diff, spec, 'r');
+			rgb.g += primary_colors(img, diff, spec, 'g');
+			rgb.b += primary_colors(img, diff, spec, 'b');
+		}
+		else
+			rgb.r = 255;
 		img->light = img->light->next;
 	}
 	if (rgb.r > 255)

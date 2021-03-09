@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 13:20:43 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:31:42 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,34 @@ void	screen_center(t_img *img)
 	printf("dist : %f\n", distance);
 }
 
+int i;
 void		shadow(t_img *img)
 {
+	double dist;
+	double dist_from_light;
 	t_vect u_shadow_ray;
 	t_vect ray_start;
 
+	img->light = img->l_start;
 	u_shadow_ray = vect_unit(vect_sub(img->light->pos, img->node.pos));
-	ray_start = vect_add(img->light->pos, vect_mult(u_shadow_ray, EPSILON));
+	ray_start = vect_add(img->node.pos, vect_mult(u_shadow_ray, EPSILON));
+	dist_from_light = vect_len(vect_sub(img->light->pos, ray_start)); 
+	img->lst = img->o_start;
+	while ((img->lst))
+	{
+		dist = img->f_node_judge[img->lst->id]
+			(img, img->lst->obj, u_shadow_ray,
+			img->f_ret_to_raystart[img->lst->id](img->lst->obj));
+		// printf("dist %f\n",dist);
+		// printf("light %f\n",dist_from_light);
+		if (dist < dist_from_light)
+		{
+			img->light->on = OFF;
+			// printf("aaaa\n");
+			break ;
+		}
+		img->lst = img->lst->next;
+	}
 }
 
 void		node_judge(t_img *img)
@@ -66,12 +87,7 @@ void		node_judge(t_img *img)
 		dist = img->f_node_judge[img->lst->id]
 			(img, img->lst->obj, img->u_view,
 			img->f_ret_to_cam[img->lst->id](img->lst->obj));
-		if (dist == -1)
-		{
-			img->lst = img->lst->next;
-			continue ;
-		}
-		if (img->node.dist == -1 || (dist < img->node.dist))
+		if (dist != -1 && (img->node.dist == -1 || (dist < img->node.dist)))
 			img->f_update_node[img->lst->id](img, dist, img->lst->obj);
 		img->lst = img->lst->next;
 	}
@@ -109,17 +125,21 @@ void	draw_img(t_img *img)
 		x = 0;
 		while (x < img->w)
 		{
-
+			light_on(img);
 			img->u_view = camera(img, x, y);
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
 			// if (x == 255 && y == 255)
 			node_judge(img);
-			// shadow(img);
+			if (img->node.dist != -1)
+				shadow(img);
 			if (img->node.dist != -1)
 			{
 				// if (x == 254 && y == 254)
+				// if (img->light->on == OFF)
 				pixel_put(img, x, y, color(img));
+				// else
+				// pixel_put(img, x, y, (255 << 16) + (255 << 8) + 255);
 			}
 			else
 				pixel_put(img, x, y, 0);

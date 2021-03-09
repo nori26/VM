@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 12:52:33 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:00:56 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # define BMP_MAX 3000
 # define AMB 0.1
 # define GLOSS 30
-# define EPSILON 1.0 / 512
+# define EPSILON 1.0 / 1024
 # define ON  1
-# define oFF 0
+# define OFF 0
 // # define AMB 1
 // # define DIFF 0.69 * 0.9
 # define DIFF 0.9
@@ -171,6 +171,7 @@ struct  		s_img
 	void		(*f_update_node[5])();
 	void		(*f_to_cam_vect[5])();
 	t_vect		(*f_ret_to_cam[5])();
+	t_vect		(*f_ret_to_raystart[5])();
 	int			bmp_w;
 	int			bmp_h;
 };
@@ -250,4 +251,9 @@ t_vect			ret_to_cam_pl(t_pl *pl);
 t_vect			ret_to_cam_sq(t_sq *sq);
 t_vect			ret_to_cam_cy(t_cy *cy);
 t_vect			ret_to_cam_tr(t_tr *tr);
+t_vect			ret_to_raystart_sp(t_sp *sp, t_vect ray_start);
+t_vect			ret_to_raystart_pl(t_pl *pl, t_vect ray_start);
+t_vect			ret_to_raystart_sq(t_sq *sq, t_vect ray_start);
+t_vect			ret_to_raystart_cy(t_cy *cy, t_vect ray_start);
+t_vect			ret_to_raystart_tr(t_tr *tr, t_vect ray_start);
 #endif

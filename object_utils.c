@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 12:23:16 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:59:44 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,37 @@ void			func_ary_init(t_img *img)
 	img->f_ret_to_cam[SQ] = ret_to_cam_sq;
 	img->f_ret_to_cam[CY] = ret_to_cam_cy;
 	img->f_ret_to_cam[TR] = ret_to_cam_tr;
+	img->f_ret_to_raystart[SP] = ret_to_raystart_sp;
+	img->f_ret_to_raystart[PL] = ret_to_raystart_pl;
+	img->f_ret_to_raystart[SQ] = ret_to_raystart_sq;
+	img->f_ret_to_raystart[CY] = ret_to_raystart_cy;
+	img->f_ret_to_raystart[TR] = ret_to_raystart_tr;
+}
+
+
+t_vect			ret_to_raystart_sp(t_sp *sp, t_vect ray_start)
+{
+	return (vect_sub(ray_start, sp->o));
+}
+
+t_vect			ret_to_raystart_pl(t_pl *pl, t_vect ray_start)
+{
+	return (vect_sub(ray_start, pl->p));
+}
+
+t_vect			ret_to_raystart_sq(t_sq *sq, t_vect ray_start)
+{
+	return (vect_sub(ray_start, sq->p));
+}
+
+t_vect			ret_to_raystart_cy(t_cy *cy, t_vect ray_start)
+{
+	return (vect_sub(ray_start, cy->p));
+}
+
+t_vect			ret_to_raystart_tr(t_tr *tr, t_vect ray_start)
+{
+	return (vect_sub(ray_start, tr->a));
 }
 
 t_vect			ret_to_cam_sp(t_sp *sp)

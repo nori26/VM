@@ -6,3 +6,4 @@ multi cam
 multi light
 llight NULL
 cam 0 or 180
+light DBL_MAX cam near ? epsilon bug
