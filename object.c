@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 08:45:24 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 08:50:21 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ double		plane(t_img *img, t_pl *pl, t_vect u_view, t_vect to_cam)
 	if ((dist = dist_to_plane(&vn_dot, u_view, to_cam, pl->n)) == -1)
 		return (-1);
 	if (!img->shad)
-	pl->n = vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
+		pl->n = vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
 	return (dist);
 }
 
@@ -121,7 +121,7 @@ double		square(t_img *img, t_sq *sq, t_vect u_view, t_vect to_cam)
 		fabs(dot(o_p, sq->u_y)) > sq->size / 2)
 		return (-1);
 	if (!img->shad)
-	sq->n = vn_dot > 0 ? sq->n : vect_mult(sq->n, -1);
+		sq->n = vn_dot > 0 ? sq->n : vect_mult(sq->n, -1);
 	return (dist);
 }
 

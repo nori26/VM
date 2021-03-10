@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 08:44:40 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 08:56:35 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,9 +172,9 @@ double		dist_to_plane(double *vndot, t_vect u_view, t_vect to_cam, t_vect n)
 {
 	double dist;
 
-	if (!(*vndot = dot(vect_mult(u_view, -1), n)))
+	if (0 - EPSILON < (*vndot = dot(vect_mult(u_view, -1), n)) && *vndot < EPSILON)
 		return (-1);
-	if ((dist = dot(to_cam, n) / *vndot) <= 0)
+	if ((dist = dot(to_cam, n) / *vndot) < EPSILON)
 		return (-1);
 	return (dist);
 }

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 08:48:05 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 08:50:30 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		shadow(t_img *img)
 	{
 		u_shadow_ray = vect_unit(vect_sub(img->light->pos, img->node.pos));
 		ray_start = vect_add(img->node.pos, vect_mult(u_shadow_ray, EPSILON));
-		dist_from_light = vect_len(vect_sub(img->light->pos, ray_start)); 
+		dist_from_light = vect_len(vect_sub(img->light->pos, ray_start));
 		img->ray_start = ray_start;
 		img->lst = img->o_start;
 		while ((img->lst))
@@ -138,7 +138,7 @@ void	draw_img(t_img *img)
 			node_judge(img);
 			if (img->node.dist != -1)
 			{
-				// shadow(img);
+				shadow(img);
 				// if (x == 254 && y == 254)
 				// if (img->light->on == OFF)
 				pixel_put(img, x, y, color(img));
