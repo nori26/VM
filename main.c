@@ -6,14 +6,14 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 11:59:12 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 12:12:20 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "puts.h"
 
-t_vect	camera(t_img *img, int x, int y)
+void	vect_init_unit_view(t_img *img, int x, int y)
 {
 	t_vect v_x;
 	t_vect v_y;
@@ -35,10 +35,9 @@ t_vect	camera(t_img *img, int x, int y)
 	v_x = vect_mult(u_x, x - img->w / 2);
 	v_y = vect_mult(u_y, img->h / 2 - y);
 	img->u_view = vect_unit(vect_add(vect_add(v_x, v_y), center));
-	return (img->u_view);
 }
 
-void	screen_center(t_img *img)
+void		vect_init_cam_to_screen_center(t_img *img)
 {
 	double distance;
 
@@ -93,7 +92,10 @@ void		node_judge(t_img *img)
 	void	*obj;
 	double	dist;
 	t_vect	to_cam;
-
+	
+	ft_bzero(&img->node, sizeof(img->node));
+	img->node.dist = -1;
+	img->ray_start = img->cam->pos;
 	img->lst = img->o_start;
 	while ((img->lst))
 	{
@@ -107,7 +109,7 @@ void		node_judge(t_img *img)
 	}
 }
 
-void	object_to_cam(t_img *img)
+void	vect_init_object_to_cam(t_img *img)
 {
 	img->lst = img->o_start;
 	while (img->lst)
@@ -130,28 +132,20 @@ void	draw_img(t_img *img)
 	int		x;
 	int		y;
 
-	screen_center(img);
-	object_to_cam(img);
+	vect_init_object_to_cam(img);
+	vect_init_cam_to_screen_center(img);
 	y = 0;
 	while (y < img->h)
 	{
 		x = 0;
 		while (x < img->w)
 		{
-			img->ray_start = img->cam->pos;
-			img->u_view = camera(img, x, y);
-			ft_bzero(&img->node, sizeof(img->node));
-			img->node.dist = -1;
-			// if (x == 255 && y == 255)
+			vect_init_unit_view(img, x, y);
 			node_judge(img);
 			if (img->node.dist != -1)
 			{
 				shadow(img);
-				// if (x == 254 && y == 254)
-				// if (img->light->on == OFF)
 				pixel_put(img, x, y, color(img));
-				// else
-				// pixel_put(img, x, y, (255 << 16) + (255 << 8) + 255);
 			}
 			else
 				pixel_put(img, x, y, 0);
