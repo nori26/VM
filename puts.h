@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 08:57:15 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 09:02:19 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,11 +223,11 @@ int				parse_rgb(char *s, double *r, double *g, double *b);
 double			ft_mini_atoinf(const char *s, char type);
 int				split_comma_normal(char *s, double *a, double *b, double *c);
 int				check_range(char *s, char c);
-double			sphere(t_img *img, t_sp *sp, t_vect u_view, t_vect to_cam);
-double			plane(t_img *img, t_pl *pl, t_vect u_view, t_vect to_cam);
-double			square(t_img *img, t_sq *sq, t_vect u_view, t_vect to_cam);
-double			cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_cam);
-double			triangle(t_img *img, t_tr *tr, t_vect u_view, t_vect to_cam);
+double			sphere(t_img *img, t_sp *sp, t_vect u_view, t_vect to_raystart);
+double			plane(t_img *img, t_pl *pl, t_vect u_view, t_vect to_raystart);
+double			square(t_img *img, t_sq *sq, t_vect u_view, t_vect to_raystart);
+double			cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart);
+double			triangle(t_img *img, t_tr *tr, t_vect u_view, t_vect to_raystart);
 int				check_parallel(t_vect a, t_vect b, t_vect c);
 void			vprint(t_vect v);
 int				is_inside(t_tr tr, t_vect node);

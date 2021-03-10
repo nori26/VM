@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 08:50:30 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 09:25:30 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,13 +124,13 @@ void	draw_img(t_img *img)
 
 	screen_center(img);
 	object_to_cam(img);
-	img->ray_start = img->cam->pos;
 	y = 0;
 	while (y < img->h)
 	{
 		x = 0;
 		while (x < img->w)
 		{
+			img->ray_start = img->cam->pos;
 			img->u_view = camera(img, x, y);
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
