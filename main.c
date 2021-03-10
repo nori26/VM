@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 12:12:20 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 13:28:15 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		shadow(t_img *img)
 		while ((img->lst))
 		{
 			dist = shadow_node_dist(img, u_ray);
-			if (dist != -1 && dist < dist_from_light)
+			if (dist != -1 && dist_from_light - dist > EPSILON)
 			{
 				img->light->on = OFF;
 				break ;
@@ -92,7 +92,7 @@ void		node_judge(t_img *img)
 	void	*obj;
 	double	dist;
 	t_vect	to_cam;
-	
+
 	ft_bzero(&img->node, sizeof(img->node));
 	img->node.dist = -1;
 	img->ray_start = img->cam->pos;
@@ -132,8 +132,6 @@ void	draw_img(t_img *img)
 	int		x;
 	int		y;
 
-	vect_init_object_to_cam(img);
-	vect_init_cam_to_screen_center(img);
 	y = 0;
 	while (y < img->h)
 	{
@@ -158,22 +156,10 @@ void	draw_img(t_img *img)
 
 void	calc(t_img *img)
 {
-	// if (!img->lst)
-	// {
-	// 	// sp_init(img, vect_init(3, 0, 25), 1, rgb_init(255, 0, 0));
-	// 	// sp_init(img, vect_init(2, 0, 20), 1, rgb_init(0, 255, 0));
-	// 	// sp_init(img, vect_init(1, 0, 15), 1, rgb_init(0, 0, 255));
-	// 	// sp_init(img, vect_init(0, 0, 10), 1, rgb_init(255, 255, 255));
-	// 	// sp_init(img, vect_init(-1, 0, 5), 1, rgb_init(255, 0, 0));
-	// 	sp_init(img, vect_init(0, 0, 5), 1, rgb_init(255, 0, 0));
-	// 	// printf("aaa\n");
-	// 	light_init(img, vect_init(-5, 5, -5));
-	// 	// light_init(img, vect_init(150, 150, -150));
-	// 	// img->cam = vect_init(0, 0, -30);
-	// 	img->o_start = img->lst;
-	// }
 	while (img->cam)
 	{
+		vect_init_object_to_cam(img);
+		vect_init_cam_to_screen_center(img);
 		draw_img(img);
 		img->cam = img->cam->next;
 	}
@@ -206,7 +192,7 @@ int     main(int argc, char *argv[])
 {
 	t_img 	img;
 
-	if (argc < 2 || argc > 3)
+	if (argc != 2 && argc != 3)
 		return (0);
 	ft_bzero(&img, sizeof(img));
 	if (argc > 2 && !(img.bmp += !ft_strncmp(argv[2], "--save", 7)))
@@ -215,36 +201,50 @@ int     main(int argc, char *argv[])
 	make_img(&img);
 }
 
-t_rgb	rgb_init(int r, int g, int b)
-{
-	t_rgb color;
+// t_rgb	rgb_init(int r, int g, int b)
+// {
+// 	t_rgb color;
 
-	color.r = r / 255.0;
-	color.g = g / 255.0;
-	color.b = b / 255.0;
-	return (color);
-}
+// 	color.r = r / 255.0;
+// 	color.g = g / 255.0;
+// 	color.b = b / 255.0;
+// 	return (color);
+// }
 
-int	sp_init(t_img *img, t_vect o, double r, t_rgb rgb)
-{
-	t_sp	*sp;
+// int	sp_init(t_img *img, t_vect o, double r, t_rgb rgb)
+// {
+// 	t_sp	*sp;
 
-	if (!(sp = malloc(sizeof(t_sp))))
-		return (-1);
-	sp->o = o;
-	sp->r = r;
-	sp->rgb = rgb;
-	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(sp, SP)))
-		return (-1);
-	return (0);
-}
+// 	if (!(sp = malloc(sizeof(t_sp))))
+// 		return (-1);
+// 	sp->o = o;
+// 	sp->r = r;
+// 	sp->rgb = rgb;
+// 	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(sp, SP)))
+// 		return (-1);
+// 	return (0);
+// }
 
-void light_init(t_img *img, t_vect l)
-{
-	t_llist light;
+// void light_init(t_img *img, t_vect l)
+// {
+// 	t_llist light;
 
-	light.pos = l;
-	light.rgb = rgb_init(255, 255, 255);
-	light.pow = 1;
-	img->light = ft_lstnew_l(light);
-}
+// 	light.pos = l;
+// 	light.rgb = rgb_init(255, 255, 255);
+// 	light.pow = 1;
+// 	img->light = ft_lstnew_l(light);
+// }
+	// if (!img->lst)
+	// {
+	// 	// sp_init(img, vect_init(3, 0, 25), 1, rgb_init(255, 0, 0));
+	// 	// sp_init(img, vect_init(2, 0, 20), 1, rgb_init(0, 255, 0));
+	// 	// sp_init(img, vect_init(1, 0, 15), 1, rgb_init(0, 0, 255));
+	// 	// sp_init(img, vect_init(0, 0, 10), 1, rgb_init(255, 255, 255));
+	// 	// sp_init(img, vect_init(-1, 0, 5), 1, rgb_init(255, 0, 0));
+	// 	sp_init(img, vect_init(0, 0, 5), 1, rgb_init(255, 0, 0));
+	// 	// printf("aaa\n");
+	// 	light_init(img, vect_init(-5, 5, -5));
+	// 	// light_init(img, vect_init(150, 150, -150));
+	// 	// img->cam = vect_init(0, 0, -30);
+	// 	img->o_start = img->lst;
+	// }

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 09:02:19 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 13:30:17 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define BMP_MAX 3000
 # define AMB 0.1
 # define GLOSS 30
-# define EPSILON 0.00001
+# define EPSILON 0.000001
 # define ON  1
 # define OFF 0
 // # define AMB 1

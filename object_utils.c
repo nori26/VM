@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 09:23:55 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 13:56:31 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void			func_ary_init(t_img *img)
 	img->f_ret_to_raystart[CY] = ret_to_raystart_cy;
 	img->f_ret_to_raystart[TR] = ret_to_raystart_tr;
 }
-
 
 t_vect			ret_to_raystart_sp(t_sp *sp, t_vect ray_start)
 {
@@ -168,13 +167,13 @@ void			update_node(t_img *img, double dist, t_rgb rgb, t_vect n)
 	img->node.normal = n;
 }
 
-double		dist_to_plane(double *vndot, t_vect u_view, t_vect to_raystart, t_vect n)
+double		dist_to_plane(double *vndot, t_vect u_view, t_vect to_cam, t_vect n)
 {
 	double dist;
 
-	if (0 - EPSILON < (*vndot = dot(vect_mult(u_view, -1), n)) && *vndot < EPSILON)
+	if (!(*vndot = dot(vect_mult(u_view, -1), n)))
 		return (-1);
-	if ((dist = dot(to_raystart, n) / *vndot) < EPSILON)
+	if ((dist = dot(to_cam, n) / *vndot) <= 0)
 		return (-1);
 	return (dist);
 }
