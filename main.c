@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 17:28:34 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 08:26:00 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,16 @@ void		shadow(t_img *img)
 	t_vect u_shadow_ray;
 	t_vect ray_start;
 
+	dist= -1;
+	img->shad = 1;
 	img->light = img->l_start;
-	u_shadow_ray = vect_unit(vect_sub(img->light->pos, img->node.pos));
-	ray_start = vect_add(img->node.pos, vect_mult(u_shadow_ray, EPSILON));
-	dist_from_light = vect_len(vect_sub(img->light->pos, ray_start)); 
-	img->lst = img->o_start;
 	while (img->light)
 	{
+		u_shadow_ray = vect_unit(vect_sub(img->light->pos, img->node.pos));
+		ray_start = vect_add(img->node.pos, vect_mult(u_shadow_ray, EPSILON));
+		dist_from_light = vect_len(vect_sub(img->light->pos, ray_start)); 
+		img->ray_start = ray_start;
+		img->lst = img->o_start;
 		while ((img->lst))
 		{
 			dist = img->f_node_judge[img->lst->id]
@@ -77,6 +80,7 @@ void		shadow(t_img *img)
 		}
 		img->light = img->light->next;
 	}
+	img->shad = 0;
 }
 
 void		node_judge(t_img *img)

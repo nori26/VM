@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 13:03:31 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 08:04:35 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ double		plane(t_img *img, t_pl *pl, t_vect u_view, t_vect to_cam)
 	(void)img;
 	if ((dist = dist_to_plane(&vn_dot, u_view, to_cam, pl->n)) == -1)
 		return (-1);
+	if (!img->shad)
 	pl->n = vn_dot > 0 ? pl->n : vect_mult(pl->n, -1);
 	return (dist);
 }
@@ -119,6 +120,7 @@ double		square(t_img *img, t_sq *sq, t_vect u_view, t_vect to_cam)
 	if (fabs(dot(o_p, sq->u_x)) > sq->size / 2 ||
 		fabs(dot(o_p, sq->u_y)) > sq->size / 2)
 		return (-1);
+	if (!img->shad)
 	sq->n = vn_dot > 0 ? sq->n : vect_mult(sq->n, -1);
 	return (dist);
 }
@@ -155,6 +157,7 @@ double		triangle(t_img *img, t_tr *tr, t_vect u_view, t_vect to_cam)
 	node = vect_add(img->v_view, img->ray_start);
 	if (is_inside(*tr, node))
 		return (-1);
-	tr->n = vn_dot > 0 ? tr->n : vect_mult(tr->n, -1);
+	if (!img->shad)
+		tr->n = vn_dot > 0 ? tr->n : vect_mult(tr->n, -1);
 	return (dist);
 }
