@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 14:59:44 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 08:44:40 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ double			quadratic_formula(double a, double b, double c)
 	double root_d;
 
 	if ((d = b * b - 4 * a * c) < 0)
-		return (0);
+		return (-1);
 	root_d = sqrt(d);
 	small = (-b - root_d) / (2 * a);
 	if (small > 0)
@@ -195,7 +195,7 @@ double			quadratic_formula(double a, double b, double c)
 	large = (-b + root_d) / (2 * a);
 	if (large > 0)
 		return (large);
-	return (0);
+	return (-1);
 }
 
 double			quadratic_formularge(double a, double b, double c)
