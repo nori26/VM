@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 11:53:52 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 11:59:12 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,18 @@ void		shadow(t_img *img)
 
 void		node_judge(t_img *img)
 {
-	double dist;
+	int		id;
+	void	*obj;
+	double	dist;
+	t_vect	to_cam;
 
 	img->lst = img->o_start;
 	while ((img->lst))
 	{
-		dist = img->f_node_judge[img->lst->id]
-			(img, img->lst->obj, img->u_view,
-			img->f_ret_to_cam[img->lst->id](img->lst->obj));
+		id = img->lst->id;
+		obj = img->lst->obj;
+		to_cam = img->f_ret_to_cam[id](obj);
+		dist = img->f_node_judge[id](img, obj, img->u_view,	to_cam);
 		if (dist != -1 && (img->node.dist == -1 || (dist < img->node.dist)))
 			img->f_update_node[img->lst->id](img, dist, img->lst->obj);
 		img->lst = img->lst->next;
