@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 08:26:00 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 08:48:05 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ void	draw_img(t_img *img)
 		x = 0;
 		while (x < img->w)
 		{
-			light_on(img);
 			img->u_view = camera(img, x, y);
 			ft_bzero(&img->node, sizeof(img->node));
 			img->node.dist = -1;
@@ -139,7 +138,7 @@ void	draw_img(t_img *img)
 			node_judge(img);
 			if (img->node.dist != -1)
 			{
-				shadow(img);
+				// shadow(img);
 				// if (x == 254 && y == 254)
 				// if (img->light->on == OFF)
 				pixel_put(img, x, y, color(img));
@@ -148,6 +147,7 @@ void	draw_img(t_img *img)
 			}
 			else
 				pixel_put(img, x, y, 0);
+			light_on(img);
 			x++;
 		}
 		y++;

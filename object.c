@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 08:04:35 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/10 08:45:24 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ double		sphere(t_img *img, t_sp *sp, t_vect u_view, t_vect to_cam)
 	(void)img;
 	b = 2 * dot(u_view, to_cam);
 	c = pow(vect_len(to_cam), 2) - sp->r * sp->r;
-	if (!(dist = quadratic_formula(1, b, c)))
+	if ((dist = quadratic_formula(1, b, c)) == -1)
 		return (-1);
 	return (dist);
 }
@@ -139,7 +139,7 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_cam)
 	a = pow(vect_len(vn_cross), 2);
 	b = 2 * dot(vn_cross, tmp);
 	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
-	if (!(a = quadratic_formula(a, b, c)))
+	if ((a = quadratic_formula(a, b, c)) == -1)
 		return (-1);
 	//half
 	return (0);
