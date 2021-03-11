@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/11 17:07:45 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/11 17:13:16 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,13 +147,12 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 		return (-1);
 	img->v_view = vect_mult(u_view, dist);
 	node = vect_add(img->v_view, img->ray_start);
-	height = dot(vect_sub(node, to_raystart), cy->n);
+	height = dot(vect_add(img->v_view, to_raystart), cy->n);
 	dist2 = quadratic_formularge(a, b, c);
 	if (height > cy->h || height < 0)
 		return (-1);
 	if (!img->shad)
-		// cy->node_n = vect_unit(vect_sub(node, vect_add(cy->p, vect_mult(cy->n, height))));
-		cy->node_n = cy->n;
+		cy->node_n = vect_unit(vect_sub(node, vect_add(cy->p, vect_mult(cy->n, height))));
 	return (dist);
 }
 
