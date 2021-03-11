@@ -6,18 +6,18 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/11 17:54:41 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/11 23:40:00 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-void			vprint(t_vect v)
+void		vprint(t_vect v)
 {
 	printf("x : % .30f\ny : % .30f\nz : % .30f\n", v.x, v.y, v.z);
 }
 
-void			func_ary_init(t_img *img)
+void		func_ary_init(t_img *img)
 {
 	img->f_node_judge[SP] = sphere;
 	img->f_node_judge[PL] = plane;
@@ -46,82 +46,82 @@ void			func_ary_init(t_img *img)
 	img->f_ret_to_raystart[TR] = ret_to_raystart_tr;
 }
 
-t_vect			ret_to_raystart_sp(t_sp *sp, t_vect ray_start)
+t_vect		ret_to_raystart_sp(t_sp *sp, t_vect ray_start)
 {
 	return (vect_sub(ray_start, sp->o));
 }
 
-t_vect			ret_to_raystart_pl(t_pl *pl, t_vect ray_start)
+t_vect		ret_to_raystart_pl(t_pl *pl, t_vect ray_start)
 {
 	return (vect_sub(ray_start, pl->p));
 }
 
-t_vect			ret_to_raystart_sq(t_sq *sq, t_vect ray_start)
+t_vect		ret_to_raystart_sq(t_sq *sq, t_vect ray_start)
 {
 	return (vect_sub(ray_start, sq->p));
 }
 
-t_vect			ret_to_raystart_cy(t_cy *cy, t_vect ray_start)
+t_vect		ret_to_raystart_cy(t_cy *cy, t_vect ray_start)
 {
 	return (vect_sub(ray_start, cy->p));
 }
 
-t_vect			ret_to_raystart_tr(t_tr *tr, t_vect ray_start)
+t_vect		ret_to_raystart_tr(t_tr *tr, t_vect ray_start)
 {
 	return (vect_sub(ray_start, tr->a));
 }
 
-t_vect			ret_to_cam_sp(t_sp *sp)
+t_vect		ret_to_cam_sp(t_sp *sp)
 {
 	return (sp->to_cam);
 }
 
-t_vect			ret_to_cam_pl(t_pl *pl)
+t_vect		ret_to_cam_pl(t_pl *pl)
 {
 	return (pl->to_cam);
 }
 
-t_vect			ret_to_cam_sq(t_sq *sq)
+t_vect		ret_to_cam_sq(t_sq *sq)
 {
 	return (sq->to_cam);
 }
 
-t_vect			ret_to_cam_cy(t_cy *cy)
+t_vect		ret_to_cam_cy(t_cy *cy)
 {
 	return (cy->to_cam);
 }
 
-t_vect			ret_to_cam_tr(t_tr *tr)
+t_vect		ret_to_cam_tr(t_tr *tr)
 {
 	return (tr->to_cam);
 }
 
-void			to_cam_vect_sp(t_img *img, t_sp *sp)
+void		to_cam_vect_sp(t_img *img, t_sp *sp)
 {
 	sp->to_cam = vect_sub(img->cam->pos, sp->o);
 }
 
-void			to_cam_vect_pl(t_img *img, t_pl *pl)
+void		to_cam_vect_pl(t_img *img, t_pl *pl)
 {
 	pl->to_cam = vect_sub(img->cam->pos, pl->p);
 }
 
-void			to_cam_vect_sq(t_img *img, t_sq *sq)
+void		to_cam_vect_sq(t_img *img, t_sq *sq)
 {
 	sq->to_cam = vect_sub(img->cam->pos, sq->p);
 }
 
-void			to_cam_vect_cy(t_img *img, t_cy *cy)
+void		to_cam_vect_cy(t_img *img, t_cy *cy)
 {
 	cy->to_cam = vect_sub(img->cam->pos, cy->p);
 }
 
-void			to_cam_vect_tr(t_img *img, t_tr *tr)
+void		to_cam_vect_tr(t_img *img, t_tr *tr)
 {
 	tr->to_cam = vect_sub(img->cam->pos, tr->a);
 }
 
-void			update_node_sp(t_img *img, double dist, t_sp *sp)
+void		update_node_sp(t_img *img, double dist, t_sp *sp)
 {
 	t_vect norm;
 
@@ -132,35 +132,35 @@ void			update_node_sp(t_img *img, double dist, t_sp *sp)
 	update_node(img, dist, sp->rgb, sp->n);
 }
 
-void			update_node_pl(t_img *img, double dist, t_pl *pl)
+void		update_node_pl(t_img *img, double dist, t_pl *pl)
 {
 	img->v_view = vect_mult(img->u_view, dist);
 	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	update_node(img, dist, pl->rgb, pl->n);
 }
 
-void			update_node_sq(t_img *img, double dist, t_sq *sq)
+void		update_node_sq(t_img *img, double dist, t_sq *sq)
 {
 	img->v_view = vect_mult(img->u_view, dist);
 	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	update_node(img, dist, sq->rgb, sq->n);
 }
 
-void			update_node_cy(t_img *img, double dist, t_cy *cy)
+void		update_node_cy(t_img *img, double dist, t_cy *cy)
 {
 	img->v_view = vect_mult(img->u_view, dist);
 	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	update_node(img, dist, cy->rgb, cy->node_n);
 }
 
-void			update_node_tr(t_img *img, double dist, t_tr *tr)
+void		update_node_tr(t_img *img, double dist, t_tr *tr)
 {
 	img->v_view = vect_mult(img->u_view, dist);
 	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	update_node(img, dist, tr->rgb, tr->n);
 }
 
-void			update_node(t_img *img, double dist, t_rgb rgb, t_vect n)
+void		update_node(t_img *img, double dist, t_rgb rgb, t_vect n)
 {
 	img->node.rgb = rgb;
 	img->node.dist = dist;
@@ -178,7 +178,7 @@ double		dist_to_plane(double *vndot, t_vect u_view, t_vect to_cam, t_vect n)
 	return (dist);
 }
 
-double			quadratic_formula(double a, double b, double c)
+double		quadratic_formula(double a, double b, double c)
 {
 	double d;
 	double small;
@@ -197,7 +197,7 @@ double			quadratic_formula(double a, double b, double c)
 	return (-1);
 }
 
-double			quadratic_formularge(double a, double b, double c)
+double		quadratic_formularge(double a, double b, double c)
 {
 	double d;
 	double ans;
@@ -211,7 +211,7 @@ double			quadratic_formularge(double a, double b, double c)
 	return (-1);
 }
 
-int				is_inside(t_tr tr, t_vect node)
+int			is_inside(t_tr tr, t_vect node)
 {
 	int8_t	result_ab;
 	int8_t	result_bc;
