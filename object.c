@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/11 07:16:57 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/11 08:26:15 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,17 +130,22 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 	double a;
 	double b;
 	double c;
+	double dist;
+	double dist2;
+	double height;
 	t_vect tmp;
 	t_vect vn_cross;
 
-	(void)to_raystart;
 	vn_cross = cross(u_view, cy->n); //cross correct?
 	tmp = cross(to_raystart, cy->n);
 	a = pow(vect_len(vn_cross), 2);
 	b = 2 * dot(vn_cross, tmp);
 	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
-	if ((a = quadratic_formula(a, b, c)) == -1)
+	if ((dist = quadratic_formula(a, b, c)) == -1)
 		return (-1);
+	img->v_view = vect_mult(u_view, dist);
+	height = dot(vect_sub(img->v_view, to_raystart), cy->n);
+	dist2 = quadratic_formularge(a, b, c);
 	
 	//half
 	return (0);
