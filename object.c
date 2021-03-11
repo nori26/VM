@@ -6,13 +6,13 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/11 20:11:40 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/11 23:45:10 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-t_idlst	*ft_lstnew_id(void *obj, int id)
+t_idlst		*ft_lstnew_id(void *obj, int id)
 {
 	t_idlst *lst;
 
@@ -24,7 +24,7 @@ t_idlst	*ft_lstnew_id(void *obj, int id)
 	return (lst);
 }
 
-t_idlst	*ft_lstadd_front_o(t_idlst **lst, t_idlst *new)
+t_idlst		*ft_lstadd_front_o(t_idlst **lst, t_idlst *new)
 {
 	if (*lst && new)
 		new->next = *lst;
@@ -32,7 +32,7 @@ t_idlst	*ft_lstadd_front_o(t_idlst **lst, t_idlst *new)
 	return (new);
 }
 
-t_clist	*ft_lstadd_front_c(t_clist **lst, t_clist *new)
+t_clist		*ft_lstadd_front_c(t_clist **lst, t_clist *new)
 {
 	if (*lst && new)
 		new->next = *lst;
@@ -40,7 +40,7 @@ t_clist	*ft_lstadd_front_c(t_clist **lst, t_clist *new)
 	return (new);
 }
 
-t_llist	*ft_lstadd_front_l(t_llist **lst, t_llist *new)
+t_llist		*ft_lstadd_front_l(t_llist **lst, t_llist *new)
 {
 	if (*lst && new)
 		new->next = *lst;
@@ -48,7 +48,7 @@ t_llist	*ft_lstadd_front_l(t_llist **lst, t_llist *new)
 	return (new);
 }
 
-t_clist	*ft_lstnew_c(t_clist c)
+t_clist		*ft_lstnew_c(t_clist c)
 {
 	t_clist *cam;
 
