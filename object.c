@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/11 23:45:10 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/12 00:17:46 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,10 +142,12 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 	double c;
 	double dist;
 	double height;
+	double flag;
 	t_vect tmp;
 	t_vect node;
 	t_vect vn_cross;
 
+	flag = 1;
 	vn_cross = cross(u_view, cy->n); //cross correct?
 	tmp = cross(to_raystart, cy->n);
 	if (!(a = dot(vn_cross, vn_cross)))
@@ -162,12 +164,14 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 		height = cy_height(dist, to_raystart, cy, u_view);
 		if (height < 0 || height > cy->h)
 			return (-1);
+		flag = -1;
 	}
 	if (!img->shad)
 	{
 		img->v_view = vect_mult(u_view, dist);
 		node = vect_add(img->v_view, img->ray_start);
 		cy->node_n = vect_unit(vect_sub(node, vect_add(cy->p, vect_mult(cy->n, height))));
+		cy->node_n = vect_mult(cy->node_n, flag);
 	}
 	return (dist);
 }

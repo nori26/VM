@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/11 20:18:48 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/12 00:22:31 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void	draw_img(t_img *img)
 			node_judge(img);
 			if (img->node.dist != -1)
 			{
-				// shadow(img);
+				shadow(img);
 				pixel_put(img, x, y, color(img));
 			}
 			else
