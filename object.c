@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/11 16:01:09 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/11 17:07:45 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,21 +134,27 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 	double dist2;
 	double height;
 	t_vect tmp;
+	t_vect node;
 	t_vect vn_cross;
 
 	vn_cross = cross(u_view, cy->n); //cross correct?
 	tmp = cross(to_raystart, cy->n);
-	a = pow(vect_len(vn_cross), 2);
+	if (!(a = dot(vn_cross, vn_cross)))
+		return (-1);
 	b = 2 * dot(vn_cross, tmp);
 	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
 	if ((dist = quadratic_formula(a, b, c)) == -1)
 		return (-1);
 	img->v_view = vect_mult(u_view, dist);
-	height = dot(vect_sub(img->v_view, to_raystart), cy->n);
+	node = vect_add(img->v_view, img->ray_start);
+	height = dot(vect_sub(node, to_raystart), cy->n);
 	dist2 = quadratic_formularge(a, b, c);
 	if (height > cy->h || height < 0)
 		return (-1);
-	return (-1);
+	if (!img->shad)
+		// cy->node_n = vect_unit(vect_sub(node, vect_add(cy->p, vect_mult(cy->n, height))));
+		cy->node_n = cy->n;
+	return (dist);
 }
 
 double		triangle(t_img *img, t_tr *tr, t_vect u_view, t_vect to_raystart)

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 13:56:31 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/11 16:53:20 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void			update_node_cy(t_img *img, double dist, t_cy *cy)
 {
 	img->v_view = vect_mult(img->u_view, dist);
 	img->node.pos = vect_add(img->v_view, img->cam->pos);
-	update_node(img, dist, cy->rgb, cy->n);
+	update_node(img, dist, cy->rgb, cy->node_n);
 }
 
 void			update_node_tr(t_img *img, double dist, t_tr *tr)
