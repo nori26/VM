@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/11 16:53:20 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/11 17:54:41 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,12 +204,11 @@ double			quadratic_formularge(double a, double b, double c)
 	double root_d;
 
 	if ((d = b * b - 4 * a * c) < 0)
-		return (0);
+		return (-1);
 	root_d = sqrt(d);
-	ans = (-b + root_d) / (2 * a);
-	if (ans > 0)
+	if ((ans = (-b + root_d) / (2 * a)) > 0)
 		return (ans);
-	return (0);
+	return (-1);
 }
 
 int				is_inside(t_tr tr, t_vect node)

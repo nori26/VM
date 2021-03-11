@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/11 17:13:16 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/11 20:11:40 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,22 @@ double		square(t_img *img, t_sq *sq, t_vect u_view, t_vect to_raystart)
 	return (dist);
 }
 
+double		cy_height(double dist, t_vect to_raystart, t_cy *cy, t_vect u_view)
+{
+	t_vect v_view;
+	double height;
+
+	v_view = vect_mult(u_view, dist);
+	height = dot(vect_add(v_view, to_raystart), cy->n);
+	return (height);
+}
+
 double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 {
 	double a;
 	double b;
 	double c;
 	double dist;
-	double dist2;
 	double height;
 	t_vect tmp;
 	t_vect node;
@@ -145,14 +154,21 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
 	if ((dist = quadratic_formula(a, b, c)) == -1)
 		return (-1);
-	img->v_view = vect_mult(u_view, dist);
-	node = vect_add(img->v_view, img->ray_start);
-	height = dot(vect_add(img->v_view, to_raystart), cy->n);
-	dist2 = quadratic_formularge(a, b, c);
-	if (height > cy->h || height < 0)
-		return (-1);
+	height = cy_height(dist, to_raystart, cy, u_view);
+	if (height < 0 || height > cy->h)
+	{
+		if ((dist = quadratic_formularge(a, b, c)) == -1)
+			return (-1);
+		height = cy_height(dist, to_raystart, cy, u_view);
+		if (height < 0 || height > cy->h)
+			return (-1);
+	}
 	if (!img->shad)
+	{
+		img->v_view = vect_mult(u_view, dist);
+		node = vect_add(img->v_view, img->ray_start);
 		cy->node_n = vect_unit(vect_sub(node, vect_add(cy->p, vect_mult(cy->n, height))));
+	}
 	return (dist);
 }
 
