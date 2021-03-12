@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 13:30:17 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/12 09:51:25 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ t_vect			point_to_vect(double x, double y, t_img img);
 t_vect			vect_init(double x, double y, double z);
 double			vect_len(t_vect v);
 double			quadratic_formula(double a, double b, double d);
+double			quadratic_formula1(double a, double b, double c, double *ans);
 double			quadratic_formularge(double a, double b, double c);
 t_vect			vect_unit(t_vect v);
 double			light_diff(t_img *img);
