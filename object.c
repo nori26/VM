@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/12 12:21:36 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/12 13:28:51 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,7 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 	flag = 1;
 	vn_cross = cross(u_view, cy->n); //cross correct?
 	tmp = cross(to_raystart, cy->n);
-	if (!(a = dot(vn_cross, vn_cross)))
-		return (-1);
+	a = dot(vn_cross, vn_cross);
 	b = 2 * dot(vn_cross, tmp);
 	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
 	if ((quadratic_formula(a, b, c, ans)) == -1)

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/10 14:22:08 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/12 14:30:57 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,33 @@ double light_spec(t_img *img)
 
 double		primary_colors(t_img *img, double diff, double spec, char rgb)
 {
-	double ret;
+	double ret = 0.0;
 
 	if (rgb == 'r')
 	{
-		ret = img->node.rgb.r * img->amb->rgb.r * img->amb->pow;
-		ret += diff * img->light->rgb.r * img->light->pow * img->node.rgb.r;
+		ret = diff * img->light->rgb.r * img->light->pow * img->node.rgb.r;
 		ret = (spec * img->light->rgb.r * img->light->pow * SPEC + ret) * 255;
 	}
 	if (rgb == 'g')
 	{
-		ret = img->node.rgb.g * img->amb->rgb.g * img->amb->pow;
-		ret += diff * img->light->rgb.g * img->light->pow * img->node.rgb.g;
+		ret = diff * img->light->rgb.g * img->light->pow * img->node.rgb.g;
 		ret = (spec * img->light->rgb.g * img->light->pow * SPEC + ret) * 255;
 	}
 	if (rgb == 'b')
 	{
-		ret = img->node.rgb.b * img->amb->rgb.b * img->amb->pow;
-		ret += diff * img->light->rgb.b * img->light->pow * img->node.rgb.b;
+		ret = diff * img->light->rgb.b * img->light->pow * img->node.rgb.b;
 		ret = (spec * img->light->rgb.b * img->light->pow * SPEC + ret) * 255;
 	}
 	if (ret > 255)
 		ret = 255;
 	return (ret);
+}
+
+void	ambient(t_img *img, t_rgb *rgb)
+{
+	rgb->r = img->node.rgb.r * img->amb->rgb.r * img->amb->pow;
+	rgb->g = img->node.rgb.g * img->amb->rgb.g * img->amb->pow;
+	rgb->b = img->node.rgb.b * img->amb->rgb.b * img->amb->pow;
 }
 
 int		color(t_img *img)
@@ -70,7 +74,7 @@ int		color(t_img *img)
 	double	diff;
 	double	spec;
 
-	ft_bzero(&rgb, sizeof(rgb));
+	ambient(img, &rgb);
 	img->light = img->l_start;
 	while (img->light)
 	{
