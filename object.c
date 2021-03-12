@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/12 00:17:46 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/12 12:21:36 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,18 @@ double		sphere(t_img *img, t_sp *sp, t_vect u_view, t_vect to_raystart)
 {
 	double b;
 	double c;
-	double dist;
+	double ans[2];
 
 	(void)img;
 	b = 2 * dot(u_view, to_raystart);
 	c = pow(vect_len(to_raystart), 2) - sp->r * sp->r;
-	if ((dist = quadratic_formula(1, b, c)) == -1)
+	if ((quadratic_formula(1, b, c, ans)) == -1)
 		return (-1);
-	return (dist);
+	if (ans[0] > 0)
+		return (ans[0]);
+	if (ans[1] > 0)
+		return (ans[1]);
+	return (-1);
 }
 
 double		plane(t_img *img, t_pl *pl, t_vect u_view, t_vect to_raystart)
@@ -143,6 +147,7 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 	double dist;
 	double height;
 	double flag;
+	double ans[2];
 	t_vect tmp;
 	t_vect node;
 	t_vect vn_cross;
@@ -154,13 +159,16 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 		return (-1);
 	b = 2 * dot(vn_cross, tmp);
 	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
-	if ((dist = quadratic_formula(a, b, c)) == -1)
+	if ((quadratic_formula(a, b, c, ans)) == -1)
 		return (-1);
+	if (ans[0] > 0)
+		dist = ans[0];
+	else
+		dist = ans[1];
 	height = cy_height(dist, to_raystart, cy, u_view);
 	if (height < 0 || height > cy->h)
 	{
-		if ((dist = quadratic_formularge(a, b, c)) == -1)
-			return (-1);
+		dist = ans[1];
 		height = cy_height(dist, to_raystart, cy, u_view);
 		if (height < 0 || height > cy->h)
 			return (-1);

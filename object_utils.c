@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/12 09:53:18 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:13:27 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,23 +178,38 @@ double		dist_to_plane(double *vndot, t_vect u_view, t_vect to_cam, t_vect n)
 	return (dist);
 }
 
-double		quadratic_formula(double a, double b, double c)
+// double		quadratic_formula(double a, double b, double c)
+// {
+// 	double d;
+// 	double small;
+// 	double large;
+// 	double root_d;
+
+// 	if (!a || (d = b * b - 4 * a * c) < 0)
+// 		return (-1);
+// 	root_d = sqrt(d);
+// 	small = (-b - root_d) / (2 * a);
+// 	if (small > 0)
+// 		return (small);
+// 	large = (-b + root_d) / (2 * a);
+// 	if (large > 0)
+// 		return (large);
+// 	return (-1);
+// }
+
+double		quadratic_formula(double a, double b, double c, double *ans)
 {
 	double d;
-	double small;
-	double large;
 	double root_d;
 
 	if (!a || (d = b * b - 4 * a * c) < 0)
 		return (-1);
 	root_d = sqrt(d);
-	small = (-b - root_d) / (2 * a);
-	if (small > 0)
-		return (small);
-	large = (-b + root_d) / (2 * a);
-	if (large > 0)
-		return (large);
-	return (-1);
+	ans[0] = (-b - root_d) / (2 * a);
+	ans[1] = (-b + root_d) / (2 * a);
+	if (ans[1] <= 0)
+		return (-1);
+	return (0);
 }
 
 double		quadratic_formularge(double a, double b, double c)
@@ -211,20 +226,6 @@ double		quadratic_formularge(double a, double b, double c)
 	return (-1);
 }
 
-double		quadratic_formula1(double a, double b, double c, double *ans)
-{
-	double d;
-	double root_d;
-
-	if (!a || (d = b * b - 4 * a * c) < 0)
-		return (-1);
-	root_d = sqrt(d);
-	ans[0] = (-b - root_d) / (2 * a);
-	ans[1] = (-b + root_d) / (2 * a);
-	if (ans[1] <= 0)
-		return (-1);
-	return (0);
-}
 
 int			is_inside(t_tr tr, t_vect node)
 {
