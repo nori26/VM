@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 14:46:05 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 16:33:21 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,14 +142,30 @@ double		cy_height(double dist, t_vect to_raystart, t_cy *cy, t_vect u_view)
 t_vect		cy_normal(t_img *img, t_cy *cy, double dist, double height)
 {
 	t_vect node;
-	t_vect normal;
-	t_vect node_n;
+	t_vect center;
 
 	img->v_view = vect_mult(img->u_view, dist);
 	node = vect_add(img->v_view, img->ray_start);
-	normal = vect_add(cy->p, vect_mult(cy->n, height));
-	node_n = vect_sub(node, normal);
-	return (node_n);
+	center = vect_add(cy->p, vect_mult(cy->n, height));
+	return (vect_sub(node, center));
+}
+
+int			cy_dist(t_cy *cy, t_vect to_raystart, t_vect u_view, double *ans)
+{
+	double a;
+	double b;
+	double c;
+	t_vect sn_cross;
+	t_vect vn_cross;
+
+	vn_cross = cross(u_view, cy->n);
+	sn_cross = cross(to_raystart, cy->n);
+	a = dot(vn_cross, vn_cross);
+	b = 2 * dot(vn_cross, sn_cross);
+	c = pow(vect_len(sn_cross), 2) - pow(cy->r, 2);
+	if ((quadratic_formula(a, b, c, ans)) == -1)
+		return (-1);
+	return (0);
 }
 
 double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
@@ -158,24 +174,19 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 	double height;
 	double flag;
 	double ans[2];
-	t_vect tmp;
-	t_vect vn_cross;
 
 	flag = 1;
-	vn_cross = cross(u_view, cy->n);
-	tmp = cross(to_raystart, cy->n);
-	if ((quadratic_formula(dot(vn_cross, vn_cross), 2 * dot(vn_cross, tmp),
-		pow(vect_len(tmp), 2) - pow(cy->r, 2), ans)) == -1)
+	if (cy_dist(cy, to_raystart, u_view, ans) == -1)
 		return (-1);
 	dist = ans[0];
 	height = cy_height(dist, to_raystart, cy, u_view);
 	if (height < 0 || height > cy->h || dist < 0)
 	{
+		flag = -1;
 		dist = ans[1];
 		height = cy_height(dist, to_raystart, cy, u_view);
 		if (height < 0 || height > cy->h)
 			return (-1);
-		flag = -1;
 	}
 	if (!img->shad)
 		cy->node_n = vect_mult(cy_normal(img, cy, dist, height), flag);
