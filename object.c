@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/12 13:28:51 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 11:23:47 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,29 +141,29 @@ double		cy_height(double dist, t_vect to_raystart, t_cy *cy, t_vect u_view)
 
 double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 {
-	double a;
-	double b;
-	double c;
 	double dist;
 	double height;
 	double flag;
 	double ans[2];
 	t_vect tmp;
 	t_vect node;
+	t_vect v_height;
+	t_vect v_radius;
 	t_vect vn_cross;
 
 	flag = 1;
-	vn_cross = cross(u_view, cy->n); //cross correct?
+	vn_cross = cross(u_view, cy->n);
 	tmp = cross(to_raystart, cy->n);
-	a = dot(vn_cross, vn_cross);
-	b = 2 * dot(vn_cross, tmp);
-	c = pow(vect_len(tmp), 2) - pow(cy->r, 2);
-	if ((quadratic_formula(a, b, c, ans)) == -1)
+	if ((quadratic_formula(dot(vn_cross, vn_cross), 2 * dot(vn_cross, tmp),
+		pow(vect_len(tmp), 2) - pow(cy->r, 2), ans)) == -1)
 		return (-1);
 	if (ans[0] > 0)
 		dist = ans[0];
 	else
+	{
 		dist = ans[1];
+		flag = -1;
+	}
 	height = cy_height(dist, to_raystart, cy, u_view);
 	if (height < 0 || height > cy->h)
 	{
@@ -177,7 +177,9 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 	{
 		img->v_view = vect_mult(u_view, dist);
 		node = vect_add(img->v_view, img->ray_start);
-		cy->node_n = vect_unit(vect_sub(node, vect_add(cy->p, vect_mult(cy->n, height))));
+		v_height = vect_add(cy->p, vect_mult(cy->n, height));
+		v_radius = vect_sub(node, v_height);
+		cy->node_n = vect_unit(v_radius);
 		cy->node_n = vect_mult(cy->node_n, flag);
 	}
 	return (dist);
