@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 21:53:12 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 22:18:34 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	light_on(t_pic *img)
 		img->light = img->light->next;
 	}
 }
-void	draw_img(t_pic *img)
+void	make_img(t_pic *img)
 {
 	int		x;
 	int		y;
@@ -154,7 +154,7 @@ void	draw_img(t_pic *img)
 	}
 }
 
-void	calc(t_pic *img)
+void	ray_trace(t_pic *img)
 {
 	while (1)
 	{
@@ -163,7 +163,7 @@ void	calc(t_pic *img)
 						&img->line_length, &img->endian);
 		vect_init_object_to_cam(img);
 		vect_init_cam_to_screen_center(img);
-		draw_img(img);
+		make_img(img);
 		img->cam = img->cam->next;
 		if (img->cam == img->c_start)
 			break ;
@@ -177,23 +177,18 @@ int		main_loop(t_pic *img)
 	return (0);
 }
 
-void	make_img(t_pic *img)
+void	draw_img(t_pic *img)
 {
 	int w;
 	int h;
 
-	w = BMP_MAX;
-	h = BMP_MAX;
     img->mlx = mlx_init();
-	if (!img->bmp)
-	{
-		img->win = mlx_new_window(img->mlx, img->w, img->h, "miniRT");
-		mlx_get_screen_size(img->mlx, &w, &h);
-	}
+	img->win = mlx_new_window(img->mlx, img->w, img->h, "miniRT");
+	mlx_get_screen_size(img->mlx, &w, &h);
 	img->w = img->w > w ? w : img->w;
 	img->h = img->h > h ? h : img->h;
 	func_ary_init(img);
-	calc(img);
+	ray_trace(img);
 	mlx_hook(img->win, 2, 1, close2, img);
 	mlx_hook(img->win, 33, 1 << 17, close1, img);
 	mlx_loop_hook(img->mlx, &main_loop, img);
@@ -205,12 +200,14 @@ int     main(int argc, char *argv[])
 	t_pic 	img;
 
 	if (argc != 2 && argc != 3)
-		return (0);
+		return (1);
 	ft_bzero(&img, sizeof(img));
 	if (argc > 2 && !(img.bmp += !ft_strncmp(argv[2], "--save", 7)))
-		return 0;
+		return (1);
+	if (img.bmp)
+		exit(bmp(img));
 	read_rt(&img, argv[1]);
-	make_img(&img);
+	draw_img(&img);
 }
 
 // t_rgb	rgb_init(int r, int g, int b)
