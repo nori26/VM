@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/12 10:02:51 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 16:49:34 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,4 +258,10 @@ t_vect			ret_to_raystart_pl(t_pl *pl, t_vect ray_start);
 t_vect			ret_to_raystart_sq(t_sq *sq, t_vect ray_start);
 t_vect			ret_to_raystart_cy(t_cy *cy, t_vect ray_start);
 t_vect			ret_to_raystart_tr(t_tr *tr, t_vect ray_start);
+t_idlst			*ft_lstnew_id(void *obj, int id);
+t_clist			*ft_lstnew_c(t_clist c);
+t_llist			*ft_lstnew_l(t_llist l);
+t_idlst			*ft_lstadd_front_o(t_idlst **lst, t_idlst *new);
+t_clist			*ft_lstadd_front_c(t_clist **lst, t_clist *new);
+t_llist			*ft_lstadd_front_l(t_llist **lst, t_llist *new);
 #endif
