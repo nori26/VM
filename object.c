@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 00:15:43 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 11:23:47 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 14:46:05 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,19 @@ double		cy_height(double dist, t_vect to_raystart, t_cy *cy, t_vect u_view)
 	return (height);
 }
 
+t_vect		cy_normal(t_img *img, t_cy *cy, double dist, double height)
+{
+	t_vect node;
+	t_vect normal;
+	t_vect node_n;
+
+	img->v_view = vect_mult(img->u_view, dist);
+	node = vect_add(img->v_view, img->ray_start);
+	normal = vect_add(cy->p, vect_mult(cy->n, height));
+	node_n = vect_sub(node, normal);
+	return (node_n);
+}
+
 double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 {
 	double dist;
@@ -146,9 +159,6 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 	double flag;
 	double ans[2];
 	t_vect tmp;
-	t_vect node;
-	t_vect v_height;
-	t_vect v_radius;
 	t_vect vn_cross;
 
 	flag = 1;
@@ -157,15 +167,9 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 	if ((quadratic_formula(dot(vn_cross, vn_cross), 2 * dot(vn_cross, tmp),
 		pow(vect_len(tmp), 2) - pow(cy->r, 2), ans)) == -1)
 		return (-1);
-	if (ans[0] > 0)
-		dist = ans[0];
-	else
-	{
-		dist = ans[1];
-		flag = -1;
-	}
+	dist = ans[0];
 	height = cy_height(dist, to_raystart, cy, u_view);
-	if (height < 0 || height > cy->h)
+	if (height < 0 || height > cy->h || dist < 0)
 	{
 		dist = ans[1];
 		height = cy_height(dist, to_raystart, cy, u_view);
@@ -174,14 +178,7 @@ double		cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart)
 		flag = -1;
 	}
 	if (!img->shad)
-	{
-		img->v_view = vect_mult(u_view, dist);
-		node = vect_add(img->v_view, img->ray_start);
-		v_height = vect_add(cy->p, vect_mult(cy->n, height));
-		v_radius = vect_sub(node, v_height);
-		cy->node_n = vect_unit(v_radius);
-		cy->node_n = vect_mult(cy->node_n, flag);
-	}
+		cy->node_n = vect_mult(cy_normal(img, cy, dist, height), flag);
 	return (dist);
 }
 
