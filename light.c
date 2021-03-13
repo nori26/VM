@@ -6,13 +6,13 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/12 14:30:57 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 18:12:48 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-double	light_diff(t_img *img)
+double	light_diff(t_pic *img)
 {
 	double	nl_dot;
 	t_vect	u_light;
@@ -22,7 +22,7 @@ double	light_diff(t_img *img)
 	return (nl_dot > 0 ? nl_dot : 0);
 }
 
-double light_spec(t_img *img)
+double	light_spec(t_pic *img)
 {
 	t_vect ref;
 	double cos_vr;
@@ -37,7 +37,7 @@ double light_spec(t_img *img)
 	return (cos_vr < 0 ? 0 : pow(cos_vr, GLOSS));
 }
 
-double		primary_colors(t_img *img, double diff, double spec, char rgb)
+double	primary_colors(t_pic *img, double diff, double spec, char rgb)
 {
 	double ret = 0.0;
 
@@ -61,14 +61,14 @@ double		primary_colors(t_img *img, double diff, double spec, char rgb)
 	return (ret);
 }
 
-void	ambient(t_img *img, t_rgb *rgb)
+void	ambient(t_pic *img, t_rgb *rgb)
 {
 	rgb->r = img->node.rgb.r * img->amb->rgb.r * img->amb->pow;
 	rgb->g = img->node.rgb.g * img->amb->rgb.g * img->amb->pow;
 	rgb->b = img->node.rgb.b * img->amb->rgb.b * img->amb->pow;
 }
 
-int		color(t_img *img)
+int		color(t_pic *img)
 {
 	t_rgb	rgb;
 	double	diff;

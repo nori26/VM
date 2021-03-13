@@ -6,13 +6,13 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/09 07:29:57 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 18:12:48 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-int	pl_init(char *data, t_img *img)
+int	pl_init(char *data, t_pic *img)
 {
 	t_pl *pl;
 
@@ -32,7 +32,7 @@ int	pl_init(char *data, t_img *img)
 		return (freeturn((char **)&pl, -1));
 	return (0);
 }
-int	sp1_init(char *data, t_img *img)
+int	sp1_init(char *data, t_pic *img)
 {
 	t_sp	*sp;
 
@@ -55,7 +55,7 @@ int	sp1_init(char *data, t_img *img)
 	return (0);
 }
 
-int	sq_init(char *data, t_img *img)
+int	sq_init(char *data, t_pic *img)
 {
 	t_sq *sq;
 
@@ -79,7 +79,7 @@ int	sq_init(char *data, t_img *img)
 	return (0);
 }
 
-int	cy_init(char *data, t_img *img)
+int	cy_init(char *data, t_pic *img)
 {
 	t_cy *cy;
 
@@ -108,7 +108,7 @@ int	cy_init(char *data, t_img *img)
 	return (0);
 }
 
-int	tr_init(char *data, t_img *img)
+int	tr_init(char *data, t_pic *img)
 {
 	t_tr *tr;
 

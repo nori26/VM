@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct  s_img {
+typedef struct  s_pic {
     void        *img;
     char        *addr;
     int         bpp;
@@ -10,8 +10,8 @@ typedef struct  s_img {
     int         endian;
 	void		*mlx;
 	void		*win;
-}               t_img;
-void            pixel_put(t_img *data, int x, int y, int color)
+}               t_pic;
+void            pixel_put(t_pic *data, int x, int y, int color)
 {
     char    *dst;
 
@@ -23,7 +23,7 @@ int             main(void)
 {
     void    *mlx;
     void    *mlx_win;
-    t_img  img;
+    t_pic  img;
 
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, 500, 500, "Hello world!");

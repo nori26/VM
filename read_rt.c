@@ -6,13 +6,13 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:50:38 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/03 20:51:47 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 18:12:48 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-int		make_obj(char *data, t_img *img, int64_t *flag)
+int		make_obj(char *data, t_pic *img, int64_t *flag)
 {
 	if (data[0] == 'R')
 		return(resolution_init(++data, img, flag));
@@ -37,7 +37,7 @@ int		make_obj(char *data, t_img *img, int64_t *flag)
 	return (-1);
 }
 
-int		parse_rt(t_img *img, char *path)
+int		parse_rt(t_pic *img, char *path)
 {
 	int			fd;
 	int			res;
@@ -68,7 +68,7 @@ int		parse_rt(t_img *img, char *path)
 	return (0);
 }
 
-void		read_rt(t_img *img, char *path)
+void		read_rt(t_pic *img, char *path)
 {
 	size_t	len;
 

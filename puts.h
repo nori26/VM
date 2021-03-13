@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 16:49:34 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 18:21:09 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,13 @@
 # define DIFF 0.9
 // # define SPEC 0.9
 # define SPEC 0.9
+# define ESC 65307
+# define LEFT 65361
+# define RIGHT 65363
 typedef struct s_idlst	t_idlst;
 typedef struct s_clist	t_clist;
 typedef struct s_llist	t_llist;
-typedef struct s_img	t_img;
+typedef struct s_pic	t_pic;
 enum			e_id
 {
 				SP,
@@ -130,6 +133,7 @@ struct			s_clist
 	t_vect		pos;
 	t_vect		n;
 	double		fov;
+    void		*img;
     char        *addr;
 	t_vect		cent;
 	t_clist		*next;
@@ -142,7 +146,7 @@ typedef struct s_llist
 	double		pow;
 	t_llist		*next;
 }				t_llist;
-struct  		s_img
+struct  		s_pic
 {
     void        *img;
 	int			bmp;
@@ -178,22 +182,22 @@ struct  		s_img
 };
 //win minus or int_max
 
-void            pixel_put(t_img *data, int x, int y, int color);
-int             close1(t_img *vars);
-int             close2(int keycode, t_img *vars);
+void            pixel_put(t_pic *data, int x, int y, int color);
+int             close1(t_pic *vars);
+int             close2(int keycode, t_pic *vars);
 double			dot(t_vect v1, t_vect v2);
 t_vect			cross(t_vect v1, t_vect v2);
 t_vect			vect_add(t_vect v1, t_vect v2);
 t_vect			vect_mult(t_vect v1, double d);
 t_vect			vect_sub(t_vect v1, t_vect v2);
-t_vect			point_to_vect(double x, double y, t_img img);
+t_vect			point_to_vect(double x, double y, t_pic img);
 t_vect			vect_init(double x, double y, double z);
 double			vect_len(t_vect v);
 // double			quadratic_formula(double a, double b, double d);
 double			quadratic_formula(double a, double b, double c, double *ans);
 double			quadratic_formularge(double a, double b, double c);
 t_vect			vect_unit(t_vect v);
-double			light_diff(t_img *img);
+double			light_diff(t_pic *img);
 t_idlst			*ft_lstadd_front_o(t_idlst **lst, t_idlst *new);
 t_clist			*ft_lstadd_front_c(t_clist **lst, t_clist *new);
 t_llist			*ft_lstadd_front_l(t_llist **lst, t_llist *new);
@@ -201,18 +205,18 @@ t_idlst			*ft_lstnew_o(void *obj, void *func);
 t_clist			*ft_lstnew_c(t_clist c);
 t_llist			*ft_lstnew_l(t_llist l);
 t_rgb			rgb_init(int r, int g, int b);
-int				color(t_img *img);
-void			read_rt(t_img *img, char *path);
-int				pl_init(char *data, t_img *img);
-int				sp1_init(char *data, t_img *img);
-int				sq_init(char *data, t_img *img);
-int				cy_init(char *data, t_img *img);
-int				tr_init(char *data, t_img *img);
-int				parse_resolution(char *start, t_img *img);
-int				resolution_init(char *data, t_img *img, int64_t *flag);
-int				amb_init(char *data, t_img *img, int64_t *flag);
-int				cam_init(char *data, t_img *img, int64_t *flag);
-int				light1_init(char *data, t_img *img, int64_t *flag);
+int				color(t_pic *img);
+void			read_rt(t_pic *img, char *path);
+int				pl_init(char *data, t_pic *img);
+int				sp1_init(char *data, t_pic *img);
+int				sq_init(char *data, t_pic *img);
+int				cy_init(char *data, t_pic *img);
+int				tr_init(char *data, t_pic *img);
+int				parse_resolution(char *start, t_pic *img);
+int				resolution_init(char *data, t_pic *img, int64_t *flag);
+int				amb_init(char *data, t_pic *img, int64_t *flag);
+int				cam_init(char *data, t_pic *img, int64_t *flag);
+int				light1_init(char *data, t_pic *img, int64_t *flag);
 int				ft_isspace(int c);
 char			*skip_space(char *s);
 char			*skip_not_space(char *s);
@@ -224,28 +228,28 @@ int				parse_rgb(char *s, double *r, double *g, double *b);
 double			ft_mini_atoinf(const char *s, char type);
 int				split_comma_normal(char *s, double *a, double *b, double *c);
 int				check_range(char *s, char c);
-double			sphere(t_img *img, t_sp *sp, t_vect u_view, t_vect to_raystart);
-double			plane(t_img *img, t_pl *pl, t_vect u_view, t_vect to_raystart);
-double			square(t_img *img, t_sq *sq, t_vect u_view, t_vect to_raystart);
-double			cylinder(t_img *img, t_cy *cy, t_vect u_view, t_vect to_raystart);
-double			triangle(t_img *img, t_tr *tr, t_vect u_view, t_vect to_raystart);
+double			sphere(t_pic *img, t_sp *sp, t_vect u_view, t_vect to_raystart);
+double			plane(t_pic *img, t_pl *pl, t_vect u_view, t_vect to_raystart);
+double			square(t_pic *img, t_sq *sq, t_vect u_view, t_vect to_raystart);
+double			cylinder(t_pic *img, t_cy *cy, t_vect u_view, t_vect to_raystart);
+double			triangle(t_pic *img, t_tr *tr, t_vect u_view, t_vect to_raystart);
 int				check_parallel(t_vect a, t_vect b, t_vect c);
 void			vprint(t_vect v);
 int				is_inside(t_tr tr, t_vect node);
-double			primary_colors(t_img *img, double diff, double spec, char rgb);
-void			func_ary_init(t_img *img);
+double			primary_colors(t_pic *img, double diff, double spec, char rgb);
+void			func_ary_init(t_pic *img);
 t_idlst			*ft_lstnew_id(void *obj, int id);
-void			update_node(t_img *img, double dist, t_rgb rgb, t_vect n);
-void			update_node_sp(t_img *img, double dist, t_sp *sp);
-void			update_node_pl(t_img *img, double dist, t_pl *pl);
-void			update_node_sq(t_img *img, double dist, t_sq *sq);
-void			update_node_cy(t_img *img, double dist, t_cy *cy);
-void			update_node_tr(t_img *img, double dist, t_tr *tr);
-void			to_cam_vect_sp(t_img *img, t_sp *sp);
-void			to_cam_vect_pl(t_img *img, t_pl *pl);
-void			to_cam_vect_sq(t_img *img, t_sq *sq);
-void			to_cam_vect_cy(t_img *img, t_cy *cy);
-void			to_cam_vect_tr(t_img *img, t_tr *tr);
+void			update_node(t_pic *img, double dist, t_rgb rgb, t_vect n);
+void			update_node_sp(t_pic *img, double dist, t_sp *sp);
+void			update_node_pl(t_pic *img, double dist, t_pl *pl);
+void			update_node_sq(t_pic *img, double dist, t_sq *sq);
+void			update_node_cy(t_pic *img, double dist, t_cy *cy);
+void			update_node_tr(t_pic *img, double dist, t_tr *tr);
+void			to_cam_vect_sp(t_pic *img, t_sp *sp);
+void			to_cam_vect_pl(t_pic *img, t_pl *pl);
+void			to_cam_vect_sq(t_pic *img, t_sq *sq);
+void			to_cam_vect_cy(t_pic *img, t_cy *cy);
+void			to_cam_vect_tr(t_pic *img, t_tr *tr);
 double			dist_to_plane
 				(double *vndot, t_vect u_view, t_vect to_cam, t_vect n);
 t_vect			ret_to_cam_sp(t_sp *sp);

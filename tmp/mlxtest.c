@@ -3,7 +3,7 @@
 
 int     main(void)
 {
-	t_img  img;
+	t_pic  img;
 
 	img.w = 1920;
 	img.h = 975;

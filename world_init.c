@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/08 14:23:07 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 18:12:48 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int		parse_rgb(char *s, double *r, double *g, double *b)
 	return (0);
 }
 
-int		resolution_init(char *data, t_img *img, int64_t *flag)
+int		resolution_init(char *data, t_pic *img, int64_t *flag)
 {
 	double		width;
 	double		height;
@@ -154,7 +154,7 @@ int		resolution_init(char *data, t_img *img, int64_t *flag)
 	return (0);
 }
 
-int		amb_init(char *data, t_img *img, int64_t *flag)
+int		amb_init(char *data, t_pic *img, int64_t *flag)
 {
 	t_llist a;
 	char 	*ratio;
@@ -176,7 +176,7 @@ int		amb_init(char *data, t_img *img, int64_t *flag)
 	return (0);
 }
 
-int		cam_init(char *data, t_img *img, int64_t *flag)
+int		cam_init(char *data, t_pic *img, int64_t *flag)
 {
 	t_clist	camera;
 
@@ -200,7 +200,7 @@ int		cam_init(char *data, t_img *img, int64_t *flag)
 	return (0);
 }
 
-int		light1_init(char *data, t_img *img, int64_t *flag)
+int		light1_init(char *data, t_pic *img, int64_t *flag)
 {
 	t_llist l;
 	char 	*ratio;

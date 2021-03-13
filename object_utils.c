@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/12 13:17:16 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 18:12:48 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		vprint(t_vect v)
 	printf("x : % .30f\ny : % .30f\nz : % .30f\n", v.x, v.y, v.z);
 }
 
-void		func_ary_init(t_img *img)
+void		func_ary_init(t_pic *img)
 {
 	img->f_node_judge[SP] = sphere;
 	img->f_node_judge[PL] = plane;
@@ -96,32 +96,32 @@ t_vect		ret_to_cam_tr(t_tr *tr)
 	return (tr->to_cam);
 }
 
-void		to_cam_vect_sp(t_img *img, t_sp *sp)
+void		to_cam_vect_sp(t_pic *img, t_sp *sp)
 {
 	sp->to_cam = vect_sub(img->cam->pos, sp->o);
 }
 
-void		to_cam_vect_pl(t_img *img, t_pl *pl)
+void		to_cam_vect_pl(t_pic *img, t_pl *pl)
 {
 	pl->to_cam = vect_sub(img->cam->pos, pl->p);
 }
 
-void		to_cam_vect_sq(t_img *img, t_sq *sq)
+void		to_cam_vect_sq(t_pic *img, t_sq *sq)
 {
 	sq->to_cam = vect_sub(img->cam->pos, sq->p);
 }
 
-void		to_cam_vect_cy(t_img *img, t_cy *cy)
+void		to_cam_vect_cy(t_pic *img, t_cy *cy)
 {
 	cy->to_cam = vect_sub(img->cam->pos, cy->p);
 }
 
-void		to_cam_vect_tr(t_img *img, t_tr *tr)
+void		to_cam_vect_tr(t_pic *img, t_tr *tr)
 {
 	tr->to_cam = vect_sub(img->cam->pos, tr->a);
 }
 
-void		update_node_sp(t_img *img, double dist, t_sp *sp)
+void		update_node_sp(t_pic *img, double dist, t_sp *sp)
 {
 	t_vect norm;
 
@@ -132,35 +132,35 @@ void		update_node_sp(t_img *img, double dist, t_sp *sp)
 	update_node(img, dist, sp->rgb, sp->n);
 }
 
-void		update_node_pl(t_img *img, double dist, t_pl *pl)
+void		update_node_pl(t_pic *img, double dist, t_pl *pl)
 {
 	img->v_view = vect_mult(img->u_view, dist);
 	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	update_node(img, dist, pl->rgb, pl->n);
 }
 
-void		update_node_sq(t_img *img, double dist, t_sq *sq)
+void		update_node_sq(t_pic *img, double dist, t_sq *sq)
 {
 	img->v_view = vect_mult(img->u_view, dist);
 	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	update_node(img, dist, sq->rgb, sq->n);
 }
 
-void		update_node_cy(t_img *img, double dist, t_cy *cy)
+void		update_node_cy(t_pic *img, double dist, t_cy *cy)
 {
 	img->v_view = vect_mult(img->u_view, dist);
 	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	update_node(img, dist, cy->rgb, cy->node_n);
 }
 
-void		update_node_tr(t_img *img, double dist, t_tr *tr)
+void		update_node_tr(t_pic *img, double dist, t_tr *tr)
 {
 	img->v_view = vect_mult(img->u_view, dist);
 	img->node.pos = vect_add(img->v_view, img->cam->pos);
 	update_node(img, dist, tr->rgb, tr->n);
 }
 
-void		update_node(t_img *img, double dist, t_rgb rgb, t_vect n)
+void		update_node(t_pic *img, double dist, t_rgb rgb, t_vect n)
 {
 	img->node.rgb = rgb;
 	img->node.dist = dist;
