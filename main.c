@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 21:02:45 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 21:53:12 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,12 +179,17 @@ int		main_loop(t_pic *img)
 
 void	make_img(t_pic *img)
 {
-	int w = 0;
-	int h = 0;
+	int w;
+	int h;
 
+	w = BMP_MAX;
+	h = BMP_MAX;
     img->mlx = mlx_init();
-	img->win = mlx_new_window(img->mlx, img->w, img->h, "miniRT");
-	mlx_get_screen_size(img->mlx, &w, &h);
+	if (!img->bmp)
+	{
+		img->win = mlx_new_window(img->mlx, img->w, img->h, "miniRT");
+		mlx_get_screen_size(img->mlx, &w, &h);
+	}
 	img->w = img->w > w ? w : img->w;
 	img->h = img->h > h ? h : img->h;
 	func_ary_init(img);
