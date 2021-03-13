@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 16:51:45 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 16:53:47 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 20:38:21 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@ t_idlst		*ft_lstadd_front_o(t_idlst **lst, t_idlst *new)
 t_clist		*ft_lstadd_front_c(t_clist **lst, t_clist *new)
 {
 	if (*lst && new)
+	{
 		new->next = *lst;
+		new->prev = (*lst)->prev;
+		(*lst)->prev = new;
+	}
+	else if (!*lst && new)
+		new->prev = new;
 	*lst = new;
 	return (new);
 }

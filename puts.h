@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 18:21:09 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 19:01:08 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ struct			s_clist
     char        *addr;
 	t_vect		cent;
 	t_clist		*next;
+	t_clist		*prev;
 };
 typedef struct s_llist
 {

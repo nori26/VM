@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 18:12:48 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 21:02:45 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	vect_init_unit_view(t_pic *img, int x, int y)
 	img->u_view = vect_unit(vect_add(vect_add(v_x, v_y), center));
 }
 
-void		vect_init_cam_to_screen_center(t_pic *img)
+void	vect_init_cam_to_screen_center(t_pic *img)
 {
 	double distance;
 
@@ -45,7 +45,7 @@ void		vect_init_cam_to_screen_center(t_pic *img)
 	img->cam->cent = vect_mult(img->cam->n, distance);
 }
 
-double		shadow_node_dist(t_pic *img, t_vect u_ray)
+double	shadow_node_dist(t_pic *img, t_vect u_ray)
 {
 	void	*obj;
 	int		id;
@@ -57,7 +57,7 @@ double		shadow_node_dist(t_pic *img, t_vect u_ray)
 	return(img->f_node_judge[id](img, obj, u_ray, to_raystart));
 }
 
-void		shadow(t_pic *img)
+void	shadow(t_pic *img)
 {
 	double 	dist;
 	double 	dist_from_light;
@@ -86,7 +86,7 @@ void		shadow(t_pic *img)
 	img->shad = 0;
 }
 
-void		node_judge(t_pic *img)
+void	node_judge(t_pic *img)
 {
 	int		id;
 	void	*obj;
@@ -156,35 +156,42 @@ void	draw_img(t_pic *img)
 
 void	calc(t_pic *img)
 {
-	while (img->cam)
+	while (1)
 	{
 		img->cam->img = mlx_new_image(img->mlx, img->w, img->h);
-		img->cam->addr = mlx_get_data_addr(img->cam->img, &img->bpp, &img->line_length, &img->endian);
+		img->cam->addr = mlx_get_data_addr(img->cam->img, &img->bpp,
+						&img->line_length, &img->endian);
 		vect_init_object_to_cam(img);
 		vect_init_cam_to_screen_center(img);
 		draw_img(img);
 		img->cam = img->cam->next;
+		if (img->cam == img->c_start)
+			break ;
 	}
 	img->cam = img->c_start;
 }
 
-void		make_img(t_pic *img)
+int		main_loop(t_pic *img)
+{
+	mlx_put_image_to_window(img->mlx, img->win, img->cam->img, 0, 0);
+	return (0);
+}
+
+void	make_img(t_pic *img)
 {
 	int w = 0;
 	int h = 0;
 
     img->mlx = mlx_init();
-	printf("%d\n%d\n", img->w, img->h);
 	img->win = mlx_new_window(img->mlx, img->w, img->h, "miniRT");
 	mlx_get_screen_size(img->mlx, &w, &h);
 	img->w = img->w > w ? w : img->w;
 	img->h = img->h > h ? h : img->h;
-	printf("%d\n%d\n", w, h);
 	func_ary_init(img);
 	calc(img);
 	mlx_hook(img->win, 2, 1, close2, img);
 	mlx_hook(img->win, 33, 1 << 17, close1, img);
-	mlx_put_image_to_window(img->mlx, img->win, img->cam->img, 0, 0);
+	mlx_loop_hook(img->mlx, &main_loop, img);
     mlx_loop(img->mlx);
 }
 

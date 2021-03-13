@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 16:50:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 16:53:43 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 19:01:55 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_clist		*ft_lstnew_c(t_clist c)
 		return (NULL);
 	*cam = c;
 	cam->next = NULL;
+	cam->prev = NULL;
 	return (cam);
 }
 
