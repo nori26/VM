@@ -6,13 +6,18 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:55:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 21:58:40 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/14 06:11:10 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-void	bmp(t_pic *img)
+int	bmp(t_pic *img)
 {
+	int fd;
+
+	if ((fd = open("miniRT.bmp", O_WRONLY | O_CREAT)) == -1)
+		exit(1);
 	(void)img;
+	return (0);
 }

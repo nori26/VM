@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 19:01:08 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/13 22:26:00 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "libft/libft.h"
 # include "get_next_line.h"
 # include <fcntl.h>
+# include <errno.h>
 # define PI 3.14159265
 # define BMP_MAX 3000
 # define AMB 0.1
@@ -269,4 +270,5 @@ t_llist			*ft_lstnew_l(t_llist l);
 t_idlst			*ft_lstadd_front_o(t_idlst **lst, t_idlst *new);
 t_clist			*ft_lstadd_front_c(t_clist **lst, t_clist *new);
 t_llist			*ft_lstadd_front_l(t_llist **lst, t_llist *new);
+int				bmp(t_pic *img);
 #endif

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 22:18:34 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/14 07:45:51 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,10 +139,13 @@ void	make_img(t_pic *img)
 		while (x < img->w)
 		{
 			vect_init_unit_view(img, x, y);
+			// if ((x == 0 && y == 0) || (x == 500 && y == 500) ||
+			// 	(x == 1 && y == 511) || (x == 511 && y == 1))
 			node_judge(img);
 			if (img->node.dist != -1)
 			{
-				shadow(img);
+				// shadow(img);
+				// if (x == 500 && y == 500)
 				pixel_put(img, x, y, color(img));
 			}
 			else
@@ -205,7 +208,7 @@ int     main(int argc, char *argv[])
 	if (argc > 2 && !(img.bmp += !ft_strncmp(argv[2], "--save", 7)))
 		return (1);
 	if (img.bmp)
-		exit(bmp(img));
+		exit(bmp(&img));
 	read_rt(&img, argv[1]);
 	draw_img(&img);
 }

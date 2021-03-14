@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 18:12:48 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/14 07:44:15 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,11 +236,23 @@ int			is_inside(t_tr tr, t_vect node)
 	tr.ap = vect_sub(node, tr.a);
 	tr.bp = vect_sub(node, tr.b);
 	tr.cp = vect_sub(node, tr.c);
+	if (!vect_len(tr.cross_a = cross(tr.ap, tr.ab)) ||
+		!vect_len(tr.cross_b = cross(tr.bp, tr.bc)) ||
+		!vect_len(tr.cross_c = cross(tr.cp, tr.ca)))
+		return (-1);
 	tr.cross_a = vect_unit(cross(tr.ap, tr.ab));
 	tr.cross_b = vect_unit(cross(tr.bp, tr.bc));
 	tr.cross_c = vect_unit(cross(tr.cp, tr.ca));
 	result_ab = dot(tr.cross_a, tr.cross_b) > 0;
 	result_bc = dot(tr.cross_b, tr.cross_c) > 0;
 	result_ca = dot(tr.cross_c, tr.cross_a) > 0;
+	// printf("result_ab % d\nresult_bc % d\nresult_ca % d\n", result_ab, result_bc, result_ca);
+	// printf("dot_ab    % f\ndot_bc    % f\ndot_ca    % f\n", dot(tr.cross_a, tr.cross_b), dot(tr.cross_b, tr.cross_c), dot(tr.cross_c, tr.cross_a));
+	// printf("cross_a.x % f\ncross_a.y % f\ncross_a.z % f\n", tr.cross_a.x, tr.cross_a.y, tr.cross_a.z);
+	// printf("cross_b.x % f\ncross_b.y % f\ncross_b.z % f\n", tr.cross_b.x, tr.cross_b.y, tr.cross_b.z);
+	// printf("cross_c.x % f\ncross_c.y % f\ncross_c.z % f\n\n", tr.cross_c.x, tr.cross_c.y, tr.cross_c.z);
+	// printf("tr.bp.x   % f\ntr.bp.y   % f\ntr.bp.z   % f\n\n", tr.bp.x, tr.bp.y, tr.bp.z);
+	// printf("tr.bc.x   % f\ntr.bc.y   % f\ntr.bc.z   % f\n\n", tr.bc.x, tr.bc.y, tr.bc.z);
+	// printf("cross.x   % f\ncross.y   % f\ncross.z   % f\n\n", cross(tr.bp, tr.bc).x, cross(tr.bp, tr.bc).y, cross(tr.bp, tr.bc).z);
 	return ((result_ab + result_bc + result_ca) % 3);
 }
