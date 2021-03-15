@@ -5,7 +5,7 @@ void            pixel_put(t_pic *data, int x, int y, int color)
 {
     char    *dst;
 
-    dst = data->cam->addr + (y * data->line_length + x * (data->bpp / 8));
+    dst = data->cam->adr + (y * data->width_bytes + x * (data->bpp / 8));
     *(unsigned int*)dst = color;
 }
 

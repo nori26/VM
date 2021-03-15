@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:55:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 14:00:06 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 14:16:53 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,25 @@ void	file_header(t_pic *img, int fd)
 void	info_header(t_pic *img, int fd)
 {
 	uint32_t info;
+	uint32_t plane;
+	uint32_t bpp;
 
 	info = 12;
 	write(fd, &info, 4);
 	write(fd, &img->w, 2);
 	write(fd, &img->h, 2);
-	info = 1;
-	write(fd, &info, 2);
-	info = 32;
-	write(fd, &info, 2);
+	plane = 1;
+	write(fd, &plane, 2);
+	bpp = 32;
+	write(fd, &bpp, 2);
 }
 
 void	image_data(t_pic *img, int fd)
 {
-	int x;
-	int y;
-	int *buf;
-	int *tmp;
+	uint32_t x;
+	uint32_t y;
+	uint32_t *buf;
+	uint32_t *tmp;
 
 	if (!(buf = malloc(img->w * img->h * 4)))
 		return ;
@@ -57,7 +59,8 @@ void	image_data(t_pic *img, int fd)
 		x = 0;
 		while (x < img->w)
 		{
-			*tmp = *(int *)(img->cam->addr + (y * img->line_length + x * (img->bpp / 8)));
+			*tmp = *(int *)(img->cam->adr +
+			(y * img->width_bytes + x * (img->bpp / 8)));
 			tmp++;
 			x++;
 		}
@@ -79,7 +82,6 @@ int		bmp(t_pic *img)
 		img->w = BMP_MAX;
 	if (img->h > BMP_MAX)
 		img->h = BMP_MAX;
-
 	file_header(img, fd);
 	info_header(img, fd);
 	image_data(img, fd);

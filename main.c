@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 08:25:18 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 14:16:53 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,8 @@ void	ray_trace(t_pic *img)
 	while (1)
 	{
 		img->cam->img = mlx_new_image(img->mlx, img->w, img->h);
-		img->cam->addr = mlx_get_data_addr(img->cam->img, &img->bpp,
-						&img->line_length, &img->endian);
+		img->cam->adr = mlx_get_data_addr(img->cam->img, &img->bpp,
+						&img->width_bytes, &img->endian);
 		vect_init_object_to_cam(img);
 		vect_init_cam_to_screen_center(img);
 		make_img(img);

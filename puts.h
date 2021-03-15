@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 08:25:48 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 14:15:12 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ struct			s_clist
 	t_vect		n;
 	double		fov;
     void		*img;
-    char        *addr;
+    char        *adr;
 	t_vect		cent;
 	t_clist		*next;
 	t_clist		*prev;
@@ -157,7 +157,7 @@ struct  		s_pic
 	int			w;
 	int			h;
     int         bpp;
-    int         line_length;
+    int         width_bytes;
     int         endian;
 	void		*mlx;
 	void		*win;

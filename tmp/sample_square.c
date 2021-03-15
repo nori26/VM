@@ -6,7 +6,7 @@ typedef struct  s_pic {
     void        *img;
     char        *addr;
     int         bpp;
-    int         line_length;
+    int         width_bytes;
     int         endian;
 	void		*mlx;
 	void		*win;
@@ -15,7 +15,7 @@ void            pixel_put(t_pic *data, int x, int y, int color)
 {
     char    *dst;
 
-    dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+    dst = data->addr + (y * data->width_bytes + x * (data->bpp / 8));
     *(unsigned int*)dst = color;
 }
 
@@ -28,7 +28,7 @@ int             main(void)
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, 500, 500, "Hello world!");
     img.img = mlx_new_image(mlx, 1920, 1080);
-    img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length,
+    img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.width_bytes,
 								&img.endian);
 	int i = 0;
 	int j = 0;
