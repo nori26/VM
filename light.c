@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 18:12:48 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 07:15:27 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ double	primary_colors(t_pic *img, double diff, double spec, char rgb)
 
 void	ambient(t_pic *img, t_rgb *rgb)
 {
-	rgb->r = img->node.rgb.r * img->amb->rgb.r * img->amb->pow;
-	rgb->g = img->node.rgb.g * img->amb->rgb.g * img->amb->pow;
-	rgb->b = img->node.rgb.b * img->amb->rgb.b * img->amb->pow;
+	rgb->r = img->node.rgb.r * img->amb->rgb.r * img->amb->pow * 255;
+	rgb->g = img->node.rgb.g * img->amb->rgb.g * img->amb->pow * 255;
+	rgb->b = img->node.rgb.b * img->amb->rgb.b * img->amb->pow * 255;
 }
 
 int		color(t_pic *img)

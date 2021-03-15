@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:50:38 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 20:39:40 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 06:56:18 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void		read_rt(t_pic *img, char *path)
 		exit(1);
 	img->o_start = img->lst;
 	img->c_start = img->cam;
-	img->cam->prev->next = img->cam;
+	if (img->cam)
+		img->cam->prev->next = img->cam;
 	img->l_start = img->light;
 }
