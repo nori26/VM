@@ -6,11 +6,10 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 14:16:53 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 14:28:52 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
 #include "puts.h"
 
 void	vect_init_unit_view(t_pic *img, int x, int y)

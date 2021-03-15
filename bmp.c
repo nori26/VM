@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:55:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 14:18:02 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 14:30:13 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	info_header(t_pic *img, int fd)
 
 void	image_data(t_pic *img, int fd)
 {
-	uint32_t x;
-	uint32_t y;
-	uint32_t *buf;
-	uint32_t *tmp;
+	int			x;
+	int			y;
+	uint32_t	*buf;
+	uint32_t	*tmp;
 
 	if (!(buf = malloc(img->w * img->h * 4)))
 		return ;
