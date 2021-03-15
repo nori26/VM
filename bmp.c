@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:55:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 08:03:03 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 08:41:33 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	bmp(t_pic *img)
 		img->w = BMP_MAX;
 	if (img->h > BMP_MAX)
 		img->h = BMP_MAX;
-	func_ary_init(img);
-	ray_trace(img);
 	size = img->w * img->h * 4 + 14 + 12;
 	write(fd, "BM", 2);
 	write(fd, &size, 4);
@@ -49,15 +47,16 @@ int	bmp(t_pic *img)
 	write(fd, &info, 4);
 	x = 0;
 	y = 0;
-	while (x < img->h * img->w * 4)
-	{
-		write(fd, img->cam->addr + x++, 1);
-	}
+	// while (x < img->h * img->w * 4)
+	// {
+	// 	write(fd, img->cam->addr + x++, 1);
+	// }
 	// write(fd, , );
 	// write(fd, , );
 	// write(fd, , );
 	// write(fd, , );
 	// write(fd, , );
 	// write(fd, , );
+	close(fd);
 	return (0);
 }
