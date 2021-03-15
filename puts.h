@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 14:15:12 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 14:19:39 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,4 +282,7 @@ void			ray_trace(t_pic *img);
 int				main_loop(t_pic *img);
 void			draw_img(t_pic *img);
 int				bmp(t_pic *img);
+void			file_header(t_pic *img, int fd);
+void			info_header(t_pic *img, int fd);
+void			image_data(t_pic *img, int fd);
 #endif
