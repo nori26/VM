@@ -6,13 +6,14 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 15:38:33 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 18:12:32 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUTS_H
 # define PUTS_H
 # include <stdio.h>
+# include <string.h>
 # include "mlx.h"
 # include <stdlib.h>
 # include <math.h>
@@ -287,4 +288,8 @@ int				bmp(t_pic *img);
 void			file_header(t_pic *img, int fd);
 void			info_header(t_pic *img, int fd);
 void			image_data(t_pic *img, int fd);
+void			err_exit(t_pic *img, int num);
+char			*err_message(int num);
+void			*lst_free(void *lst, void *next);
+void			close_img(t_pic *img);
 #endif

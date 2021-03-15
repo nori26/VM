@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:30:49 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 17:44:17 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 18:19:16 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*err_message(int num)
 {
-	char *msg[20];
+	char *msg[10];
 
 	msg[SP] = "sphere ";
 	msg[PL] = "plane ";
@@ -33,13 +33,19 @@ void	err_exit(t_pic *img, int num)
 	char *s;
 
 	write(STDERR_FILENO, "Error\n", 7);
-	if (!errno)
+	if (errno)
 	{
-		write(STDERR_FILENO, s = err_message(num), ft_strlen(s));
+		s = strerror(errno);
+		write(STDERR_FILENO, s, ft_strlen(s));
+	}
+	else if (num)
+	{
+		s = err_message(num);
+		write(STDERR_FILENO, s, ft_strlen(s));
 		write(STDERR_FILENO, "input error", 11);
 	}
 	else
-		write(STDERR_FILENO, s = strerror(errno), ft_strlen(s));
+		write(STDERR_FILENO, "argument error", 14);
 	close_img(img);
 	exit(1);
 }
@@ -58,9 +64,14 @@ void	close_img(t_pic *img)
 		img->light = lst_free(img->light, img->light->next);
 	while (1)
 	{
+		if (!img->cam)
+			break;
 		mlx_destroy_image(img->mlx, img->cam->img);
 		img->cam = lst_free(img->cam, img->cam->next);
 		if (img->cam == img->c_start)
 			break ;
 	}
+	mlx_destroy_window(img->mlx, img->win);
+	mlx_destroy_display(img->mlx);
+	free(img->mlx);
 }
