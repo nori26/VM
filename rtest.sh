@@ -1,4 +1,4 @@
-make re
+make san
 
 run=./a.out
 path_ko=rt/invalid

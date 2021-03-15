@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 19:43:25 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 20:48:37 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int		split_comma(char *s, double *a, double *b, double *c)
 	free_all(&status);
 	if (*a == INFINITY || *b == INFINITY || *c == INFINITY)
 		return (-1);
-	printf("%g,%g,%g  ", *a, *b, *c);
+	// printf("%g,%g,%g  ", *a, *b, *c);
 	return (0);
 }
 
@@ -128,7 +128,7 @@ int		parse_rgb(char *s, double *r, double *g, double *b)
 	*r /= 255;
 	*g /= 255;
 	*b /= 255;
-	puts("");
+	// printf("\n");
 	return (0);
 }
 
@@ -148,9 +148,7 @@ int		resolution_init(char *data, t_pic *img, int64_t *flag)
 		return (RES);
 	img->w = width > INT_MAX ? INT_MAX : (int)width;
 	img->h = height > INT_MAX ? INT_MAX : (int)height;
-	img->bmp_w = width > BMP_MAX ? BMP_MAX : (int)width;
-	img->bmp_h = height > BMP_MAX ? BMP_MAX : (int)height;
-	printf("%d  %d\n", img->w, img->h);
+	// printf("%d  %d\n", img->w, img->h);
 	return (INT_MIN);
 }
 
@@ -167,7 +165,7 @@ int		amb_init(char *data, t_pic *img, int64_t *flag)
 		(a.pow = ft_mini_atoinf(ratio, 'f')) < 0 ||
 		a.pow > 1 || a.pow == INFINITY)
 		return (AMB);
-	printf("%.1f  ", a.pow);
+	// printf("%.1f  ", a.pow);
 	if (parse_rgb(data,
 		&a.rgb.r, &a.rgb.g, &a.rgb.b) < 0)
 		return (AMB);
@@ -192,7 +190,7 @@ int		cam_init(char *data, t_pic *img)
 	if ((camera.fov = ft_mini_atoinf(skip_space(data), 'd')) == INFINITY ||
 		!(0 <= camera.fov && camera.fov <= 180))
 		return (CAM);
-	printf("%.1500g\n", camera.fov);
+	// printf("%.1500g\n", camera.fov);
 	camera.fov = camera.fov * PI / 180; //rad
 	if (!ft_lstadd_front_c(&img->cam, ft_lstnew_c(camera)))
 		return (CAM);
@@ -214,7 +212,7 @@ int		light1_init(char *data, t_pic *img)
 		check_range(ratio, '1') < 0 ||
 		(l.pow = ft_mini_atoinf(ratio, 'f')) < 0 || l.pow > 1)
 		return (LIGHT);
-	printf("%g  ", l.pow);
+	// printf("%g  ", l.pow);
 	if (parse_rgb
 		(data, &l.rgb.r, &l.rgb.g, &l.rgb.b) < 0)
 		return (LIGHT);

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:55:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 19:49:59 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 20:38:07 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	image_data(t_pic *img, int fd)
 	free(buf);
 }
 
-int		bmp(t_pic *img)
+void		bmp(t_pic *img)
 {
 	int fd;
 
@@ -79,15 +79,10 @@ int		bmp(t_pic *img)
 	if ((fd = open("miniRT.bmp",
 		O_WRONLY | O_CREAT, S_IRWXU | S_IRWXG | S_IRWXO)) == -1)
 		err_exit(img, -3);
-	printf("XXXXXXXXX\n");
-	
-	if (img->w > BMP_MAX)
-		img->w = BMP_MAX;
-	if (img->h > BMP_MAX)
-		img->h = BMP_MAX;
 	file_header(img, fd);
 	info_header(img, fd);
 	image_data(img, fd);
 	close(fd);
-	return (0);
+	close_img(img);
+	exit(0);
 }

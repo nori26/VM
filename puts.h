@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 19:43:06 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 20:05:29 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ struct			s_idlst
 {
 	int			id;
 	void		*obj;
-	double		(*f)();
 	t_idlst		*next;
 };
 struct			s_clist
@@ -284,7 +283,7 @@ void			make_img(t_pic *img);
 void			ray_trace(t_pic *img);
 int				main_loop(t_pic *img);
 void			draw_img(t_pic *img);
-int				bmp(t_pic *img);
+void			bmp(t_pic *img);
 void			file_header(t_pic *img, int fd);
 void			info_header(t_pic *img, int fd);
 void			image_data(t_pic *img, int fd);

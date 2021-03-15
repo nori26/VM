@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:50:38 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 19:47:38 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 20:19:30 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		parse_rt(t_pic *img, char *path)
 	}
 	if (flag['R'] != 1)
 		return (RES);
-	if (flag['A'] != 1)
+	if (flag['A'] > 1)
 		return (AMB);
 	return (INT_MIN);
 }
@@ -74,9 +74,10 @@ void		read_rt(t_pic *img, char *path)
 	len = ft_strlen(path);
 	if (len < 4 || path[len - 4] == '/' || ft_strncmp(path + len - 3, ".rt", 3))
 		err_exit(img, -2);
-	if ((res = parse_rt(img, path)) != INT_MIN)
-		err_exit(img, res);
+	res = parse_rt(img, path);
 	img->o_start = img->lst;
 	img->c_start = img->cam;
 	img->l_start = img->light;
+	if (res != INT_MIN)
+		err_exit(img, res);
 }

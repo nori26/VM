@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 19:49:55 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 20:42:45 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void	light_on(t_pic *img)
 		img->light = img->light->next;
 	}
 }
+
 void	make_img(t_pic *img)
 {
 	int		x;
@@ -180,14 +181,6 @@ int		main_loop(t_pic *img)
 
 void	window(t_pic *img)
 {
-	int w;
-	int h;
-
-	mlx_get_screen_size(img->mlx, &w, &h);
-	if (img->w > w)
-		img->w = w;
-	if (img->h > h)
-		img->h = h;
 	img->win = mlx_new_window(img->mlx, img->w, img->h, "miniRT");
 	mlx_hook(img->win, 2, 1, close2, img);
 	mlx_hook(img->win, 33, 1 << 17, close1, img);
@@ -196,9 +189,32 @@ void	window(t_pic *img)
     mlx_loop(img->mlx);
 }
 
+void	img_size(t_pic *img)
+{
+	int w;
+	int h;
+
+	if (img->bmp)
+	{
+		if (img->w > BMP_MAX)
+			img->w = BMP_MAX;
+		if (img->h > BMP_MAX)
+			img->h = BMP_MAX;
+	}
+	else
+	{
+		mlx_get_screen_size(img->mlx, &w, &h);
+		if (img->w > w)
+			img->w = w;
+		if (img->h > h)
+			img->h = h;
+	}
+}
+
 void	draw_img(t_pic *img)
 {
     img->mlx = mlx_init();
+	img_size(img);
 	func_ary_init(img);
 	ray_trace(img);
 	if (img->bmp)
