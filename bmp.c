@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:55:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 14:30:13 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 18:24:02 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	image_data(t_pic *img, int fd)
 	uint32_t	*tmp;
 
 	if (!(buf = malloc(img->w * img->h * 4)))
-		return ;
+		err_exit(img, 0);
 	x = 0;
 	y = img->h - 1;
 	tmp = buf;
@@ -75,10 +75,10 @@ int		bmp(t_pic *img)
 	int fd;
 
 	if (!img->cam)
-		exit(1);
+		err_exit(img, CAM);
 	if ((fd = open("miniRT.bmp",
 		O_WRONLY | O_CREAT, S_IRWXU | S_IRWXG | S_IRWXO)) == -1)
-		exit(1);
+		err_exit(img, 0);
 	if (img->w > BMP_MAX)
 		img->w = BMP_MAX;
 	if (img->h > BMP_MAX)

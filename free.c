@@ -6,27 +6,11 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:30:49 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 18:19:16 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 18:26:52 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
-
-char	*err_message(int num)
-{
-	char *msg[10];
-
-	msg[SP] = "sphere ";
-	msg[PL] = "plane ";
-	msg[SQ] = "square ";
-	msg[CY] = "cylinder ";
-	msg[TR] = "trinagle ";
-	msg[CAM] = "camera ";
-	msg[LIGHT] = "light ";
-	msg[AMB] = "ambient ";
-	msg[RES] = "resolution ";
-	return (msg[num]);
-}
 
 void	err_exit(t_pic *img, int num)
 {
@@ -50,6 +34,22 @@ void	err_exit(t_pic *img, int num)
 	exit(1);
 }
 
+char	*err_message(int num)
+{
+	char *msg[10];
+
+	msg[SP] = "sphere ";
+	msg[PL] = "plane ";
+	msg[SQ] = "square ";
+	msg[CY] = "cylinder ";
+	msg[TR] = "trinagle ";
+	msg[CAM] = "camera ";
+	msg[LIGHT] = "light ";
+	msg[AMB] = "ambient ";
+	msg[RES] = "resolution ";
+	return (msg[num]);
+}
+
 void	*lst_free(void *lst, void *next)
 {
 	free(lst);
@@ -71,7 +71,9 @@ void	close_img(t_pic *img)
 		if (img->cam == img->c_start)
 			break ;
 	}
-	mlx_destroy_window(img->mlx, img->win);
-	mlx_destroy_display(img->mlx);
+	if (img->mlx && img->win)
+		mlx_destroy_window(img->mlx, img->win);
+	if (img->mlx)
+		mlx_destroy_display(img->mlx);
 	free(img->mlx);
 }
