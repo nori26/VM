@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 22:26:00 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/14 15:27:23 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <float.h>
 # include "libft/libft.h"
 # include "get_next_line.h"
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <fcntl.h>
 # include <errno.h>
 # define PI 3.14159265
@@ -195,9 +197,7 @@ t_vect			vect_sub(t_vect v1, t_vect v2);
 t_vect			point_to_vect(double x, double y, t_pic img);
 t_vect			vect_init(double x, double y, double z);
 double			vect_len(t_vect v);
-// double			quadratic_formula(double a, double b, double d);
 double			quadratic_formula(double a, double b, double c, double *ans);
-double			quadratic_formularge(double a, double b, double c);
 t_vect			vect_unit(t_vect v);
 double			light_diff(t_pic *img);
 t_idlst			*ft_lstadd_front_o(t_idlst **lst, t_idlst *new);
@@ -270,5 +270,16 @@ t_llist			*ft_lstnew_l(t_llist l);
 t_idlst			*ft_lstadd_front_o(t_idlst **lst, t_idlst *new);
 t_clist			*ft_lstadd_front_c(t_clist **lst, t_clist *new);
 t_llist			*ft_lstadd_front_l(t_llist **lst, t_llist *new);
+void			vect_init_unit_view(t_pic *img, int x, int y);
+void			vect_init_cam_to_screen_center(t_pic *img);
+double			shadow_node_dist(t_pic *img, t_vect u_ray);
+void			shadow(t_pic *img);
+void			node_judge(t_pic *img);
+void			vect_init_object_to_cam(t_pic *img);
+void			light_on(t_pic *img);
+void			make_img(t_pic *img);
+void			ray_trace(t_pic *img);
+int				main_loop(t_pic *img);
+void			draw_img(t_pic *img);
 int				bmp(t_pic *img);
 #endif

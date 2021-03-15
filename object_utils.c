@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/14 07:44:15 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/14 07:52:37 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,25 +178,6 @@ double		dist_to_plane(double *vndot, t_vect u_view, t_vect to_cam, t_vect n)
 	return (dist);
 }
 
-// double		quadratic_formula(double a, double b, double c)
-// {
-// 	double d;
-// 	double small;
-// 	double large;
-// 	double root_d;
-
-// 	if (!a || (d = b * b - 4 * a * c) < 0)
-// 		return (-1);
-// 	root_d = sqrt(d);
-// 	small = (-b - root_d) / (2 * a);
-// 	if (small > 0)
-// 		return (small);
-// 	large = (-b + root_d) / (2 * a);
-// 	if (large > 0)
-// 		return (large);
-// 	return (-1);
-// }
-
 double		quadratic_formula(double a, double b, double c, double *ans)
 {
 	double d;
@@ -226,7 +207,6 @@ double		quadratic_formularge(double a, double b, double c)
 	return (-1);
 }
 
-
 int			is_inside(t_tr tr, t_vect node)
 {
 	int8_t	result_ab;
@@ -246,13 +226,5 @@ int			is_inside(t_tr tr, t_vect node)
 	result_ab = dot(tr.cross_a, tr.cross_b) > 0;
 	result_bc = dot(tr.cross_b, tr.cross_c) > 0;
 	result_ca = dot(tr.cross_c, tr.cross_a) > 0;
-	// printf("result_ab % d\nresult_bc % d\nresult_ca % d\n", result_ab, result_bc, result_ca);
-	// printf("dot_ab    % f\ndot_bc    % f\ndot_ca    % f\n", dot(tr.cross_a, tr.cross_b), dot(tr.cross_b, tr.cross_c), dot(tr.cross_c, tr.cross_a));
-	// printf("cross_a.x % f\ncross_a.y % f\ncross_a.z % f\n", tr.cross_a.x, tr.cross_a.y, tr.cross_a.z);
-	// printf("cross_b.x % f\ncross_b.y % f\ncross_b.z % f\n", tr.cross_b.x, tr.cross_b.y, tr.cross_b.z);
-	// printf("cross_c.x % f\ncross_c.y % f\ncross_c.z % f\n\n", tr.cross_c.x, tr.cross_c.y, tr.cross_c.z);
-	// printf("tr.bp.x   % f\ntr.bp.y   % f\ntr.bp.z   % f\n\n", tr.bp.x, tr.bp.y, tr.bp.z);
-	// printf("tr.bc.x   % f\ntr.bc.y   % f\ntr.bc.z   % f\n\n", tr.bc.x, tr.bc.y, tr.bc.z);
-	// printf("cross.x   % f\ncross.y   % f\ncross.z   % f\n\n", cross(tr.bp, tr.bc).x, cross(tr.bp, tr.bc).y, cross(tr.bp, tr.bc).z);
 	return ((result_ab + result_bc + result_ca) % 3);
 }
