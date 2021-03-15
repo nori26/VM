@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 07:08:00 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 07:33:16 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ void	make_img(t_pic *img)
 
 void	ray_trace(t_pic *img)
 {
+	if (!img->cam)
+		return ;
 	while (1)
 	{
 		img->cam->img = mlx_new_image(img->mlx, img->w, img->h);
@@ -190,7 +192,8 @@ void	window(t_pic *img)
 	img->win = mlx_new_window(img->mlx, img->w, img->h, "miniRT");
 	mlx_hook(img->win, 2, 1, close2, img);
 	mlx_hook(img->win, 33, 1 << 17, close1, img);
-	mlx_loop_hook(img->mlx, &main_loop, img);
+	if (img->cam)
+		mlx_loop_hook(img->mlx, &main_loop, img);
     mlx_loop(img->mlx);
 }
 
@@ -199,10 +202,10 @@ void	draw_img(t_pic *img)
     img->mlx = mlx_init();
 	func_ary_init(img);
 	ray_trace(img);
-	if (!img->bmp)
-		window(img);
-	else
+	if (img->bmp)
 		bmp(img);
+	else
+		window(img);
 }
 
 int     main(int argc, char *argv[])
@@ -218,51 +221,3 @@ int     main(int argc, char *argv[])
 	read_rt(&img, argv[1]);
 	draw_img(&img);
 }
-
-// t_rgb	rgb_init(int r, int g, int b)
-// {
-// 	t_rgb color;
-
-// 	color.r = r / 255.0;
-// 	color.g = g / 255.0;
-// 	color.b = b / 255.0;
-// 	return (color);
-// }
-
-// int	sp_init(t_img *img, t_vect o, double r, t_rgb rgb)
-// {
-// 	t_sp	*sp;
-
-// 	if (!(sp = malloc(sizeof(t_sp))))
-// 		return (-1);
-// 	sp->o = o;
-// 	sp->r = r;
-// 	sp->rgb = rgb;
-// 	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(sp, SP)))
-// 		return (-1);
-// 	return (0);
-// }
-
-// void light_init(t_img *img, t_vect l)
-// {
-// 	t_llist light;
-
-// 	light.pos = l;
-// 	light.rgb = rgb_init(255, 255, 255);
-// 	light.pow = 1;
-// 	img->light = ft_lstnew_l(light);
-// }
-	// if (!img->lst)
-	// {
-	// 	// sp_init(img, vect_init(3, 0, 25), 1, rgb_init(255, 0, 0));
-	// 	// sp_init(img, vect_init(2, 0, 20), 1, rgb_init(0, 255, 0));
-	// 	// sp_init(img, vect_init(1, 0, 15), 1, rgb_init(0, 0, 255));
-	// 	// sp_init(img, vect_init(0, 0, 10), 1, rgb_init(255, 255, 255));
-	// 	// sp_init(img, vect_init(-1, 0, 5), 1, rgb_init(255, 0, 0));
-	// 	sp_init(img, vect_init(0, 0, 5), 1, rgb_init(255, 0, 0));
-	// 	// printf("aaa\n");
-	// 	light_init(img, vect_init(-5, 5, -5));
-	// 	// light_init(img, vect_init(150, 150, -150));
-	// 	// img->cam = vect_init(0, 0, -30);
-	// 	img->o_start = img->lst;
-	// }
