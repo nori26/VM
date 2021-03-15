@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:50:38 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 08:40:43 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 18:57:14 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		parse_rt(t_pic *img, char *path)
 	int64_t		flag[130];
 
 	if ((fd = open(path, O_RDONLY)) < 0)
-		return (printf("error\n") - 10);//
+		err_exit(img, 0);
 	res = 1;
 	ft_bzero(flag, sizeof(flag));
 	while (res == 1)
@@ -55,16 +55,14 @@ int		parse_rt(t_pic *img, char *path)
 		res = get_next_line(fd, &data);
 		if ((tmp && !res && !*data) || (!flag[0]++ && !*data))
 			return (freeturn(&data, -1));
-		if (make_obj(data, img, flag) < 0)
-			return (freeturn(&data, -1));
+		if ((tmp = make_obj(data, img, flag)) < 0)
+			err_exit(img, freeturn(&data, tmp));
 		free(data);
 	}
-	if (flag['R'] != 1 || flag['A'] > 1)
-		return (-1);
-	if (!flag['c'])
-		return (0); //after
-	if (!flag['l'])
-		return (0); //after
+	if (flag['R'] != 1)
+		err_exit(img, RES);
+	if (flag['A'] != 1)
+		err_exit(img, AMB);
 	return (0);
 }
 
