@@ -6,13 +6,13 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:30:49 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 17:03:52 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 17:44:17 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-char	*put_message(int num)
+char	*err_message(int num)
 {
 	char *msg[20];
 
@@ -28,40 +28,39 @@ char	*put_message(int num)
 	return (msg[num]);
 }
 
-void	err_message(int num)
+void	err_exit(t_pic *img, int num)
 {
 	char *s;
 
 	write(STDERR_FILENO, "Error\n", 7);
 	if (!errno)
 	{
-		write(2, s = put_message(num), ft_strlen(s));
-		write(2, "input error", 11);
+		write(STDERR_FILENO, s = err_message(num), ft_strlen(s));
+		write(STDERR_FILENO, "input error", 11);
 	}
 	else
-		write(2, s = strerror(errno), ft_strlen(s));
+		write(STDERR_FILENO, s = strerror(errno), ft_strlen(s));
+	close_img(img);
+	exit(1);
 }
 
-int		lst_free(t_pic *img)
+void	*lst_free(void *lst, void *next)
 {
-	void *tmp;
+	free(lst);
+	return (next);
+}
 
+void	close_img(t_pic *img)
+{
 	while (img->lst)
-	{
-		tmp = img->lst->next;
-		free(img->lst);
-		img->lst = tmp;
-	}
+		img->lst = lst_free(img->lst, img->lst->next);
 	while (img->light)
+		img->light = lst_free(img->light, img->light->next);
+	while (1)
 	{
-		tmp = img->light->next;
-		free(img->light);
-		img->lst = tmp;
-	}
-	while (img->cam)
-	{
-		tmp = img->cam->next;
 		mlx_destroy_image(img->mlx, img->cam->img);
-		
+		img->cam = lst_free(img->cam, img->cam->next);
+		if (img->cam == img->c_start)
+			break ;
 	}
 }
