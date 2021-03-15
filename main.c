@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 18:22:36 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 19:49:55 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ int     main(int argc, char *argv[])
 	ft_bzero(&img, sizeof(img));
 	if ((argc != 2 && argc != 3) ||
 		(argc > 2 && !(img.bmp += !ft_strncmp(argv[2], "--save", 7))))
-		err_exit(&img, 0);
+		err_exit(&img, -1);
 	read_rt(&img, argv[1]);
 	draw_img(&img);
 }

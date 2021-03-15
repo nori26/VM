@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:30:49 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 18:56:12 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 19:28:42 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,25 @@ void	err_exit(t_pic *img, int num)
 {
 	char *s;
 
-	//num == CY,0 改行終端
+	//num == CY,0 改行終端, -1
 	write(STDERR_FILENO, "Error\n", 7);
 	if (errno)
 	{
 		s = strerror(errno);
 		write(STDERR_FILENO, s, ft_strlen(s));
 	}
-	else if (num)
+	else if (num >= 0)
 	{
 		s = err_message(num);
 		write(STDERR_FILENO, s, ft_strlen(s));
 		write(STDERR_FILENO, "input error", 11);
 	}
-	else
+	else if (num == -1)
 		write(STDERR_FILENO, "argument error", 14);
+	else if (num == -2)
+		write(STDERR_FILENO, "rt format error", 15);
+	else
+		write(STDERR_FILENO, "unknown error", 13);
 	close_img(img);
 	exit(1);
 }

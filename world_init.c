@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/13 18:12:48 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 19:43:25 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,19 +139,19 @@ int		resolution_init(char *data, t_pic *img, int64_t *flag)
 	static char	*res;
 
 	if (!ft_isspace(*data) || flag['R']++)
-		return (-1);
+		return (RES);
 	res = trim_space(&data);
 	width = ft_mini_atoinf(res, 'd');
 	res = skip_space(data);
 	height = ft_mini_atoinf(res, 'd');
 	if (width == INFINITY || height == INFINITY || width <= 0 || height <= 0)
-		return (-1);
+		return (RES);
 	img->w = width > INT_MAX ? INT_MAX : (int)width;
 	img->h = height > INT_MAX ? INT_MAX : (int)height;
 	img->bmp_w = width > BMP_MAX ? BMP_MAX : (int)width;
 	img->bmp_h = height > BMP_MAX ? BMP_MAX : (int)height;
 	printf("%d  %d\n", img->w, img->h);
-	return (0);
+	return (INT_MIN);
 }
 
 int		amb_init(char *data, t_pic *img, int64_t *flag)
@@ -160,69 +160,67 @@ int		amb_init(char *data, t_pic *img, int64_t *flag)
 	char 	*ratio;
 
 	if (!ft_isspace(*data) || flag['A']++)
-		return (-1);
+		return (AMB);
 	if (!(ratio = trim_space(&data)) ||
 		(*ratio == '-' && check_range(ratio, '0') < 0) ||
 		check_range(ratio, '1') < 0 ||
 		(a.pow = ft_mini_atoinf(ratio, 'f')) < 0 ||
 		a.pow > 1 || a.pow == INFINITY)
-		return (-1);
+		return (AMB);
 	printf("%.1f  ", a.pow);
 	if (parse_rgb(data,
 		&a.rgb.r, &a.rgb.g, &a.rgb.b) < 0)
-		return (-1);
+		return (AMB);
 	if (!ft_lstadd_front_l(&img->amb, ft_lstnew_l(a)))
-		return (-1);
-	return (0);
+		return (AMB);
+	return (INT_MIN);
 }
 
-int		cam_init(char *data, t_pic *img, int64_t *flag)
+int		cam_init(char *data, t_pic *img)
 {
 	t_clist	camera;
 
 	if (!ft_isspace(*data))
-		return (-1);
-	flag['c']++;
+		return (CAM);
 	if (split_comma(trim_space(&data),
 		&camera.pos.x, &camera.pos.y, &camera.pos.z) < 0 ||
 		split_comma_normal(trim_space(&data),
 		&camera.n.x, &camera.n.y, &camera.n.z) < 0 ||
 		(!camera.n.x && !camera.n.y && !camera.n.z))
-		return (-1);
+		return (CAM);
 	camera.n = vect_unit(camera.n);
 	if ((camera.fov = ft_mini_atoinf(skip_space(data), 'd')) == INFINITY ||
 		!(0 <= camera.fov && camera.fov <= 180))
-		return (-1);
+		return (CAM);
 	printf("%.1500g\n", camera.fov);
 	camera.fov = camera.fov * PI / 180; //rad
 	if (!ft_lstadd_front_c(&img->cam, ft_lstnew_c(camera)))
-		return (-1);
-	return (0);
+		return (CAM);
+	return (INT_MIN);
 }
 
-int		light1_init(char *data, t_pic *img, int64_t *flag)
+int		light1_init(char *data, t_pic *img)
 {
 	t_llist l;
 	char 	*ratio;
 
 	if (!ft_isspace(*data))
-		return (-1);
-	flag['l']++;
+		return (LIGHT);
 	if (split_comma(trim_space(&data),
 		&l.pos.x, &l.pos.y, &l.pos.z) < 0)
-		return (-1);
+		return (LIGHT);
 	if (!(ratio = trim_space(&data)) ||
 		(*ratio == '-' && check_range(ratio, '0') < 0) ||
 		check_range(ratio, '1') < 0 ||
 		(l.pow = ft_mini_atoinf(ratio, 'f')) < 0 || l.pow > 1)
-		return (-1);
+		return (LIGHT);
 	printf("%g  ", l.pow);
 	if (parse_rgb
 		(data, &l.rgb.r, &l.rgb.g, &l.rgb.b) < 0)
-		return (-1);
+		return (LIGHT);
 	if (!ft_lstadd_front_l(&img->light, ft_lstnew_l(l)))
-		return (-1);
-	return (0);
+		return (LIGHT);
+	return (INT_MIN);
 }
 
 double	ft_mini_atoinf(const char *s, char type)

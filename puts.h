@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 18:12:32 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 19:43:06 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,8 +220,8 @@ int				tr_init(char *data, t_pic *img);
 int				parse_resolution(char *start, t_pic *img);
 int				resolution_init(char *data, t_pic *img, int64_t *flag);
 int				amb_init(char *data, t_pic *img, int64_t *flag);
-int				cam_init(char *data, t_pic *img, int64_t *flag);
-int				light1_init(char *data, t_pic *img, int64_t *flag);
+int				cam_init(char *data, t_pic *img);
+int				light1_init(char *data, t_pic *img);
 int				ft_isspace(int c);
 char			*skip_space(char *s);
 char			*skip_not_space(char *s);
