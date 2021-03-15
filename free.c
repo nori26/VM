@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:30:49 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 21:03:38 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/15 21:41:02 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ char	*err_message(int num)
 	return (msg[num]);
 }
 
-void	*lst_free(void *lst, void *next)
+void	*lst_free(void *lst, void *next, void *content)
 {
 	free(lst);
+	free(content);
 	return (next);
 }
 
@@ -68,19 +69,16 @@ void	close_img(t_pic *img)
 	img->light = img->l_start;
 	img->cam = img->c_start;
 	while (img->lst)
-	{
-		free(img->lst->obj);
-		img->lst = lst_free(img->lst, img->lst->next);
-	}
+		img->lst = lst_free(img->lst, img->lst->next, img->lst->obj);
 	while (img->light)
-		img->light = lst_free(img->light, img->light->next);
+		img->light = lst_free(img->light, img->light->next, 0);
 	while (1)
 	{
 		if (!img->cam)
 			break;
 		if (img->cam && img->mlx && img->cam->img)
 			mlx_destroy_image(img->mlx, img->cam->img);
-		img->cam = lst_free(img->cam, img->cam->next);
+		img->cam = lst_free(img->cam, img->cam->next, 0);
 		if (img->cam == img->c_start)
 			break ;
 	}
