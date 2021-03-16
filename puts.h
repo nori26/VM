@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:31:36 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:31:53 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,16 @@ typedef struct	s_pl
 	t_vect		n;
 	t_vect		to_cam;
 }				t_pl;
-typedef struct	s_cy
-{
-	t_rgb		rgb;
-	t_vect		p;
-	t_vect		n;
-	t_vect		node_n;
-	double		r;
-	double		h;
-	t_vect		to_cam;
-}				t_cy;
+// typedef struct	s_cy
+// {
+// 	t_rgb		rgb;
+// 	t_vect		p;
+// 	t_vect		n;
+// 	t_vect		node_n;
+// 	double		r;
+// 	double		h;
+// 	t_vect		to_cam;
+// }				t_cy;
 // typedef struct	s_tr
 // {
 // 	t_rgb		rgb;
