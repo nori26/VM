@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:50:38 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:09:29 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:20:37 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		parse_rt(t_pic *img, char *path)
 	return (INT_MIN);
 }
 
-void		read_rt(t_pic *img, char *path)
+void	read_rt(t_pic *img, char *path)
 {
 	int		res;
 	size_t	len;
