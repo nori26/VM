@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:35:10 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 05:33:58 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:05:50 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		resolution_init(char *data, t_pic *img, int64_t *flag)
 int		amb_init(char *data, t_pic *img, int64_t *flag)
 {
 	t_llist a;
-	char 	*ratio;
+	char	*ratio;
 
 	if (!ft_isspace(*data) || flag['A']++)
 		return (AMB);
@@ -68,7 +68,7 @@ int		cam_init(char *data, t_pic *img)
 	if ((camera.fov = ft_mini_atoinf(skip_space(data), 'd')) == INFINITY ||
 		!(0 <= camera.fov && camera.fov <= 180))
 		return (CAM);
-	camera.fov = camera.fov * PI / 180; //rad
+	camera.fov = camera.fov * PI / 180;
 	if (!ft_lstadd_front_c(&img->cam, ft_lstnew_c(camera)))
 		return (CAM);
 	return (INT_MIN);
@@ -77,7 +77,7 @@ int		cam_init(char *data, t_pic *img)
 int		light1_init(char *data, t_pic *img)
 {
 	t_llist l;
-	char 	*ratio;
+	char	*ratio;
 
 	if (!ft_isspace(*data))
 		return (LIGHT);
@@ -89,8 +89,7 @@ int		light1_init(char *data, t_pic *img)
 		check_range(ratio, '1') < 0 ||
 		(l.pow = ft_mini_atoinf(ratio, 'f')) < 0 || l.pow > 1)
 		return (LIGHT);
-	if (parse_rgb
-		(data, &l.rgb.r, &l.rgb.g, &l.rgb.b) < 0)
+	if (parse_rgb(data, &l.rgb.r, &l.rgb.g, &l.rgb.b) < 0)
 		return (LIGHT);
 	if (!ft_lstadd_front_l(&img->light, ft_lstnew_l(l)))
 		return (LIGHT);
@@ -122,5 +121,5 @@ double	ft_mini_atoinf(const char *s, char type)
 		fraction = fraction / 10 + (s[len] - '0');
 	if (len > 0)
 		return (INFINITY);
-	return (neg ? -(integer + fraction / 10) : integer + fraction / 10); 
+	return (neg ? -(integer + fraction / 10) : integer + fraction / 10);
 }

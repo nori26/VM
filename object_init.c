@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 05:30:26 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:16:37 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	pl_init(char *data, t_pic *img)
 		return (freeturn((char **)&pl, PL));
 	return (INT_MIN);
 }
+
 int	sp1_init(char *data, t_pic *img)
 {
 	t_sp	*sp;

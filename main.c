@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:55:51 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 07:15:50 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:08:45 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	window(t_pic *img)
 	mlx_hook(img->win, 33, 1 << 17, close1, img);
 	if (img->cam)
 		mlx_loop_hook(img->mlx, &main_loop, img);
-    mlx_loop(img->mlx);
+	mlx_loop(img->mlx);
 }
 
 void	img_size(t_pic *img)
@@ -52,7 +52,7 @@ void	img_size(t_pic *img)
 
 void	draw_img(t_pic *img)
 {
-    img->mlx = mlx_init();
+	img->mlx = mlx_init();
 	img_size(img);
 	func_ary_init(img);
 	ray_trace(img);
@@ -62,9 +62,9 @@ void	draw_img(t_pic *img)
 		window(img);
 }
 
-int     main(int argc, char *argv[])
+int		main(int argc, char *argv[])
 {
-	t_pic 	img;
+	t_pic img;
 
 	errno = 0;
 	ft_bzero(&img, sizeof(img));

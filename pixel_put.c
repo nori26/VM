@@ -1,6 +1,6 @@
 #include "puts.h"
 
-void            pixel_put(t_pic *data, int x, int y, int color)
+void	pixel_put(t_pic *data, int x, int y, int color)
 {
     char    *dst;
 
@@ -8,16 +8,14 @@ void            pixel_put(t_pic *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-int             close1(t_pic *img)
+int		close1(t_pic *img)
 {
 	close_img(img);
 	exit(0);
 }
 
-int             close2(int keycode, t_pic *img)
+int		close2(int keycode, t_pic *img)
 {
-	// printf("%d\n", keycode);
-	// printf("%d\n", keycode);
     if (keycode == ESC)
 	{
 		close_img(img);

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 07:02:53 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 07:52:33 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:01:00 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ double	shadow_node_dist(t_pic *img, t_vect u_ray)
 	id = img->lst->id;
 	obj = img->lst->obj;
 	to_raystart = img->f_ret_to_raystart[id](obj, img->ray_start);
-	return(img->f_node_judge[id](img, obj, u_ray, to_raystart));
+	return (img->f_node_judge[id](img, obj, u_ray, to_raystart));
 }
 
 void	shadow(t_pic *img)
 {
-	double 	dist;
-	double 	dist_from_light;
-	t_vect 	u_ray;
+	double dist;
+	double dist_from_light;
+	t_vect u_ray;
 
 	img->shad = 1;
 	img->light = img->l_start;

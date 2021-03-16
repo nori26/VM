@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:50:38 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 20:19:30 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:09:29 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 int		make_obj(char *data, t_pic *img, int64_t *flag)
 {
 	if (data[0] == 'R')
-		return(resolution_init(++data, img, flag));
+		return (resolution_init(++data, img, flag));
 	else if (data[0] == 'A')
-		return(amb_init(++data, img, flag));
+		return (amb_init(++data, img, flag));
 	else if (data[0] == 'c' && data[1] == 'y')
-		return(cy_init(data + 2, img));
+		return (cy_init(data + 2, img));
 	else if (data[0] == 'c')
-		return(cam_init(++data, img));
+		return (cam_init(++data, img));
 	else if (data[0] == 'l')
-		return(light1_init(++data, img));
+		return (light1_init(++data, img));
 	else if (data[0] == 'p' && data[1] == 'l')
-		return(pl_init(data + 2, img));
+		return (pl_init(data + 2, img));
 	else if (data[0] == 's' && data[1] == 'p')
-		return(sp1_init(data + 2, img));
+		return (sp1_init(data + 2, img));
 	else if (data[0] == 's' && data[1] == 'q')
-		return(sq_init(data + 2, img));
+		return (sq_init(data + 2, img));
 	else if (data[0] == 't' && data[1] == 'r')
-		return(tr_init(data + 2, img));
+		return (tr_init(data + 2, img));
 	else if (!data[0])
 		return (INT_MIN);
 	return (-2);

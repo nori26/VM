@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:55:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 20:38:07 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:15:19 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	image_data(t_pic *img, int fd)
 	free(buf);
 }
 
-void		bmp(t_pic *img)
+void	bmp(t_pic *img)
 {
 	int fd;
 

@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 06:54:19 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/01 22:50:40 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:14:22 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #  define BUFFER_SIZE 1000
 # endif
 # define BUF_SIZE BUFFER_SIZE
+
 int		get_next_line(int fd, char **line);
 int		check_buf(char **buf, char **line, char *p);
 int		freeturn(char **p, int ret);

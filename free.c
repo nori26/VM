@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:30:49 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 06:47:20 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:07:07 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	close_img(t_pic *img)
 	while (1)
 	{
 		if (!img->cam)
-			break;
+			break ;
 		if (img->cam && img->mlx && img->cam->img)
 			mlx_destroy_image(img->mlx, img->cam->img);
 		img->cam = lst_free(img->cam, img->cam->next, 0);

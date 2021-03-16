@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 07:16:02 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 07:16:08 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:13:26 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	node_judge(t_pic *img)
 		id = img->lst->id;
 		obj = img->lst->obj;
 		to_cam = img->f_ret_to_cam[id](obj);
-		dist = img->f_node_judge[id](img, obj, img->u_view,	to_cam);
+		dist = img->f_node_judge[id](img, obj, img->u_view, to_cam);
 		if (dist != -1 && (img->node.dist == -1 || (dist < img->node.dist)))
 			img->f_update_node[img->lst->id](img, dist, img->lst->obj);
 		img->lst = img->lst->next;

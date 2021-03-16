@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 05:53:12 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 06:07:41 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:03:24 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ double			vect_len(t_vect v)
 
 int				check_parallel(t_vect a, t_vect b, t_vect c)
 {
-    t_vect v1;
-    t_vect v2;
+	t_vect v1;
+	t_vect v2;
 
-    v1 = vect_sub(a, b);
-    v2 = vect_sub(a, c);
-    return (!vect_len(cross(v1, v2)));
+	v1 = vect_sub(a, b);
+	v2 = vect_sub(a, c);
+	return (!vect_len(cross(v1, v2)));
 }

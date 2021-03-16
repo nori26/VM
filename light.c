@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 20:23:51 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:11:09 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ double	light_spec(t_pic *img)
 
 double	primary_colors(t_pic *img, double diff, double spec, char rgb)
 {
-	double ret = 0.0;
+	double ret;
 
 	if (rgb == 'r')
 	{
