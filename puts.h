@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:25:20 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:26:04 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@
 # define LEFT 65361
 # define RIGHT 65363
 
-// typedef struct s_idlst	t_idlst;
-// typedef struct s_clist	t_clist;
-// typedef struct s_llist	t_llist;
-// typedef struct s_pic	t_pic;
+typedef struct s_idlst	t_idlst;
+typedef struct s_clist	t_clist;
+typedef struct s_llist	t_llist;
+typedef struct s_pic	t_pic;
 enum			e_id
 {
 				SP,
@@ -176,11 +176,11 @@ struct  		s_pic
 	t_vect		cam_normal;
 	t_vect		u_view;
 	t_vect		v_view;
-	double		(*f_node_judge[5])();
-	void		(*f_update_node[5])();
-	void		(*f_to_cam_vect[5])();
-	t_vect		(*f_ret_to_cam[5])();
-	t_vect		(*f_ret_to_raystart[5])();
+	// double		(*f_node_judge[5])();
+	// void		(*f_update_node[5])();
+	// void		(*f_to_cam_vect[5])();
+	// t_vect		(*f_ret_to_cam[5])();
+	// t_vect		(*f_ret_to_raystart[5])();
 	int			bmp_w;
 	int			bmp_h;
 	int			shad;
