@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:29:18 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:29:50 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,14 +143,14 @@ struct			s_clist
 	t_clist		*next;
 	t_clist		*prev;
 };
-// typedef struct s_llist
-// {
-// 	t_vect		pos;
-// 	t_rgb		rgb;
-// 	int			on;
-// 	double		pow;
-// 	t_llist		*next;
-// }				t_llist;
+typedef struct s_llist
+{
+	t_vect		pos;
+	t_rgb		rgb;
+	int			on;
+	double		pow;
+	t_llist		*next;
+}				t_llist;
 // struct  		s_pic
 // {
 //     void        *img;
