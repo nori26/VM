@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:42:17 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:43:33 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@
 
 typedef struct	s_idlst
 				t_idlst;
-typedef struct 	s_clist
+typedef struct	s_clist
 				t_clist;
-typedef struct 	s_llist
+typedef struct	s_llist
 				t_llist;
-typedef struct 	s_pic
+typedef struct	s_pic
 				t_pic;
 enum			e_id
 {
