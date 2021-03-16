@@ -1,6 +1,6 @@
 NAME    = miniRT
 CC      = gcc
-CFLAGS  =  -lm libmlx_Linux.a -lXext -lX11 -Wall -Werror -Wextra
+CFLAGS  =  -Wall -Werror -Wextra -lm -lXext -lX11
 AR      = ar
 ARFLAGS = scr
 SRCDIR  = ./
@@ -15,15 +15,15 @@ SRCNAME = main.c pixel_put.c light.c vector_utils.c object.c\
 
 all     : $(NAME)
 
-$(NAME) :
+$(NAME) : ${OBJS}
 	$(MAKE) -C ./libft
 	cp ./libft/libft.a .
-	$(CC) ${SRCNAME} libft.a $(CFLAGS)
+	$(CC) ${OBJS} libmlx_Linux.a libft.a $(CFLAGS)
 
-san	    :
+san	    : ${OBJS}
 	$(MAKE) -C ./libft
 	cp ./libft/libft.a .
-	$(CC) ${SRCNAME} libft.a $(CFLAGS) -g -fsanitize=address
+	$(CC) $(CFLAGS) -g -fsanitize=address ${OBJS} libft.a 
 
 clean   :
 	$(MAKE) clean -C ./libft
