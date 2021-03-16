@@ -2,10 +2,10 @@
 
 void	pixel_put(t_pic *data, int x, int y, int color)
 {
-    char    *dst;
+	char    *dst;
 
-    dst = data->cam->adr + (y * data->width_bytes + x * (data->bpp / 8));
-    *(unsigned int*)dst = color;
+	dst = data->cam->adr + (y * data->width_bytes + x * (data->bpp / 8));
+	*(unsigned int*)dst = color;
 }
 
 int		close1(t_pic *img)
@@ -16,7 +16,7 @@ int		close1(t_pic *img)
 
 int		close2(int keycode, t_pic *img)
 {
-    if (keycode == ESC)
+	if (keycode == ESC)
 	{
 		close_img(img);
 		exit(0);
