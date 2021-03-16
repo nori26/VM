@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:26:30 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:26:59 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,154 +37,154 @@
 # define LEFT 65361
 # define RIGHT 65363
 
-typedef struct s_idlst	t_idlst;
-typedef struct s_clist	t_clist;
-typedef struct s_llist	t_llist;
-typedef struct s_pic	t_pic;
-enum			e_id
-{
-				SP,
-				PL,
-				SQ,
-				CY,
-				TR,
-				CAM,
-				LIGHT,
-				AMB,
-				RES,
-};
-typedef struct	s_rgb
-{
-	double		r;
-	double		g;
-	double		b;
-}				t_rgb;
-typedef struct	s_vect
-{
-	double		x;
-	double		y;
-	double		z;
-}				t_vect;
+// typedef struct s_idlst	t_idlst;
+// typedef struct s_clist	t_clist;
+// typedef struct s_llist	t_llist;
+// typedef struct s_pic	t_pic;
+// enum			e_id
+// {
+// 				SP,
+// 				PL,
+// 				SQ,
+// 				CY,
+// 				TR,
+// 				CAM,
+// 				LIGHT,
+// 				AMB,
+// 				RES,
+// };
+// typedef struct	s_rgb
+// {
+// 	double		r;
+// 	double		g;
+// 	double		b;
+// }				t_rgb;
+// typedef struct	s_vect
+// {
+// 	double		x;
+// 	double		y;
+// 	double		z;
+// }				t_vect;
 
-typedef struct	s_sp
-{
-	t_rgb		rgb;
-	t_vect		o;
-	t_vect		n;
-	t_vect		to_cam;
-	double		r;
-}				t_sp;
-typedef struct	s_sq
-{
-	t_rgb		rgb;
-	t_vect		p;
-	t_vect		n;
-	t_vect		u_x;
-	t_vect		u_y;
-	double		size;
-	t_vect		to_cam;
-}				t_sq;
-typedef struct	s_pl
-{
-	t_rgb		rgb;
-	t_vect		p;
-	t_vect		n;
-	t_vect		to_cam;
-}				t_pl;
-typedef struct	s_cy
-{
-	t_rgb		rgb;
-	t_vect		p;
-	t_vect		n;
-	t_vect		node_n;
-	double		r;
-	double		h;
-	t_vect		to_cam;
-}				t_cy;
-typedef struct	s_tr
-{
-	t_rgb		rgb;
-	t_vect		a;
-	t_vect		b;
-	t_vect		c;
-	t_vect		ab;
-	t_vect		bc;
-	t_vect		ca;
-	t_vect		ap;
-	t_vect		bp;
-	t_vect		cp;
-	t_vect		n;
-	t_vect		cross_a;
-	t_vect		cross_b;
-	t_vect		cross_c;
-	t_vect		to_cam;
-}				t_tr;
-typedef struct	s_node
-{
-	t_rgb		rgb;
-	t_vect		pos;
-	t_vect		normal;
-	double		dist;
-}				t_node;
-struct			s_idlst
-{
-	int			id;
-	void		*obj;
-	t_idlst		*next;
-};
-struct			s_clist
-{
-	t_vect		pos;
-	t_vect		n;
-	double		fov;
-    void		*img;
-    char        *adr;
-	t_vect		cent;
-	t_clist		*next;
-	t_clist		*prev;
-};
-typedef struct s_llist
-{
-	t_vect		pos;
-	t_rgb		rgb;
-	int			on;
-	double		pow;
-	t_llist		*next;
-}				t_llist;
-struct  		s_pic
-{
-    void        *img;
-	int			bmp;
-	int			w;
-	int			h;
-    int         bpp;
-    int         width_bytes;
-    int         endian;
-	void		*mlx;
-	void		*win;
-	t_vect		ray_start;
-	t_rgb		rgb;
-	t_llist		*amb;
-	t_node		node;
-	t_idlst		*lst;
-	t_clist		*cam;
-	t_llist		*light;
-	t_idlst		*o_start;
-	t_clist		*c_start;
-	t_llist		*l_start;
-	double		fov;
-	t_vect		cam_normal;
-	t_vect		u_view;
-	t_vect		v_view;
-	double		(*f_node_judge[5])();
-	void		(*f_update_node[5])();
-	void		(*f_to_cam_vect[5])();
-	t_vect		(*f_ret_to_cam[5])();
-	t_vect		(*f_ret_to_raystart[5])();
-	int			bmp_w;
-	int			bmp_h;
-	int			shad;
-};
+// typedef struct	s_sp
+// {
+// 	t_rgb		rgb;
+// 	t_vect		o;
+// 	t_vect		n;
+// 	t_vect		to_cam;
+// 	double		r;
+// }				t_sp;
+// typedef struct	s_sq
+// {
+// 	t_rgb		rgb;
+// 	t_vect		p;
+// 	t_vect		n;
+// 	t_vect		u_x;
+// 	t_vect		u_y;
+// 	double		size;
+// 	t_vect		to_cam;
+// }				t_sq;
+// typedef struct	s_pl
+// {
+// 	t_rgb		rgb;
+// 	t_vect		p;
+// 	t_vect		n;
+// 	t_vect		to_cam;
+// }				t_pl;
+// typedef struct	s_cy
+// {
+// 	t_rgb		rgb;
+// 	t_vect		p;
+// 	t_vect		n;
+// 	t_vect		node_n;
+// 	double		r;
+// 	double		h;
+// 	t_vect		to_cam;
+// }				t_cy;
+// typedef struct	s_tr
+// {
+// 	t_rgb		rgb;
+// 	t_vect		a;
+// 	t_vect		b;
+// 	t_vect		c;
+// 	t_vect		ab;
+// 	t_vect		bc;
+// 	t_vect		ca;
+// 	t_vect		ap;
+// 	t_vect		bp;
+// 	t_vect		cp;
+// 	t_vect		n;
+// 	t_vect		cross_a;
+// 	t_vect		cross_b;
+// 	t_vect		cross_c;
+// 	t_vect		to_cam;
+// }				t_tr;
+// typedef struct	s_node
+// {
+// 	t_rgb		rgb;
+// 	t_vect		pos;
+// 	t_vect		normal;
+// 	double		dist;
+// }				t_node;
+// struct			s_idlst
+// {
+// 	int			id;
+// 	void		*obj;
+// 	t_idlst		*next;
+// };
+// struct			s_clist
+// {
+// 	t_vect		pos;
+// 	t_vect		n;
+// 	double		fov;
+//     void		*img;
+//     char        *adr;
+// 	t_vect		cent;
+// 	t_clist		*next;
+// 	t_clist		*prev;
+// };
+// typedef struct s_llist
+// {
+// 	t_vect		pos;
+// 	t_rgb		rgb;
+// 	int			on;
+// 	double		pow;
+// 	t_llist		*next;
+// }				t_llist;
+// struct  		s_pic
+// {
+//     void        *img;
+// 	int			bmp;
+// 	int			w;
+// 	int			h;
+//     int         bpp;
+//     int         width_bytes;
+//     int         endian;
+// 	void		*mlx;
+// 	void		*win;
+// 	t_vect		ray_start;
+// 	t_rgb		rgb;
+// 	t_llist		*amb;
+// 	t_node		node;
+// 	t_idlst		*lst;
+// 	t_clist		*cam;
+// 	t_llist		*light;
+// 	t_idlst		*o_start;
+// 	t_clist		*c_start;
+// 	t_llist		*l_start;
+// 	double		fov;
+// 	t_vect		cam_normal;
+// 	t_vect		u_view;
+// 	t_vect		v_view;
+// 	double		(*f_node_judge[5])();
+// 	void		(*f_update_node[5])();
+// 	void		(*f_to_cam_vect[5])();
+// 	t_vect		(*f_ret_to_cam[5])();
+// 	t_vect		(*f_ret_to_raystart[5])();
+// 	int			bmp_w;
+// 	int			bmp_h;
+// 	int			shad;
+// };
 
 // void            pixel_put(t_pic *data, int x, int y, int color);
 // int             close1(t_pic *vars);
