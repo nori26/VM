@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:34:07 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:34:27 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@
 # define LEFT 65361
 # define RIGHT 65363
 
-typedef struct s_idlst	t_idlst;
-typedef struct s_clist	t_clist;
-typedef struct s_llist	t_llist;
-typedef struct s_pic	t_pic;
+// typedef struct s_idlst	t_idlst;
+// typedef struct s_clist	t_clist;
+// typedef struct s_llist	t_llist;
+// typedef struct s_pic	t_pic;
 // enum			e_id
 // {
 // 				SP,
