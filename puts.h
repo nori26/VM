@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:46:15 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:48:30 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,12 +142,12 @@ struct			s_clist
 	t_vect		n;
 	double		fov;
 	void		*img;
-	char        *adr;
+	char		*adr;
 	t_vect		cent;
 	t_clist		*next;
 	t_clist		*prev;
 };
-struct s_llist
+struct			s_llist
 {
 	t_vect		pos;
 	t_rgb		rgb;
@@ -155,15 +155,15 @@ struct s_llist
 	double		pow;
 	t_llist		*next;
 };
-struct  		s_pic
+struct			s_pic
 {
-    void        *img;
+	void		*img;
 	int			bmp;
 	int			w;
 	int			h;
-    int         bpp;
-    int         width_bytes;
-    int         endian;
+	int			bpp;
+	int			width_bytes;
+	int			endian;
 	void		*mlx;
 	void		*win;
 	t_vect		ray_start;
@@ -190,9 +190,9 @@ struct  		s_pic
 	int			shad;
 };
 
-void            pixel_put(t_pic *data, int x, int y, int color);
-int             close1(t_pic *vars);
-int             close2(int keycode, t_pic *vars);
+void			pixel_put(t_pic *data, int x, int y, int color);
+int				close1(t_pic *vars);
+int				close2(int keycode, t_pic *vars);
 double			dot(t_vect v1, t_vect v2);
 t_vect			cross(t_vect v1, t_vect v2);
 t_vect			vect_add(t_vect v1, t_vect v2);
