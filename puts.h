@@ -6,36 +6,36 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:34:27 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:35:11 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUTS_H
 # define PUTS_H
-# include <stdio.h>
-# include <string.h>
-# include "mlx.h"
-# include <stdlib.h>
-# include <math.h>
-# include <float.h>
-# include "libft/libft.h"
-# include "get_next_line.h"
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <errno.h>
-# define PI 3.14159265
-# define BMP_MAX 3000
-# define GLOSS 30
-# define EPSILON img->node.dist / PREC
-# define PREC 10000000000000
-# define ON  1
-# define OFF 0
-# define DIFF 0.9
-# define SPEC 0.9
-# define ESC 65307
-# define LEFT 65361
-# define RIGHT 65363
+// # include <stdio.h>
+// # include <string.h>
+// # include "mlx.h"
+// # include <stdlib.h>
+// # include <math.h>
+// # include <float.h>
+// # include "libft/libft.h"
+// # include "get_next_line.h"
+// # include <sys/types.h>
+// # include <sys/stat.h>
+// # include <fcntl.h>
+// # include <errno.h>
+// # define PI 3.14159265
+// # define BMP_MAX 3000
+// # define GLOSS 30
+// # define EPSILON img->node.dist / PREC
+// # define PREC 10000000000000
+// # define ON  1
+// # define OFF 0
+// # define DIFF 0.9
+// # define SPEC 0.9
+// # define ESC 65307
+// # define LEFT 65361
+// # define RIGHT 65363
 
 // typedef struct s_idlst	t_idlst;
 // typedef struct s_clist	t_clist;
