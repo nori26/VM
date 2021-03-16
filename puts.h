@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 07:52:32 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:24:03 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define PI 3.14159265
 # define BMP_MAX 3000
 # define GLOSS 30
-# define EPSILON img->node.dist / PREC
 # define PREC 10000000000000
 # define ON  1
 # define OFF 0
@@ -36,6 +35,7 @@
 # define ESC 65307
 # define LEFT 65361
 # define RIGHT 65363
+
 typedef struct s_idlst	t_idlst;
 typedef struct s_clist	t_clist;
 typedef struct s_llist	t_llist;
