@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 05:33:40 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 09:03:18 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 09:04:45 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ int		split_comma(char *s, double *a, double *b, double *c)
 	if (!(status = ft_split(s, ',')))
 		return (-1);
 	if (comma_count(s) != 2 || split_count(status) != 3)
-		return ((int)free_all(&status) - 1);
+	{
+		free_all(&status);
+		return (-1);
+	}
 	*a = ft_mini_atoinf(status[0], 'f');
 	*b = ft_mini_atoinf(status[1], 'f');
 	*c = ft_mini_atoinf(status[2], 'f');
