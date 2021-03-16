@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:30:11 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:30:40 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,17 +132,17 @@ struct			s_idlst
 	void		*obj;
 	t_idlst		*next;
 };
-struct			s_clist
-{
-	t_vect		pos;
-	t_vect		n;
-	double		fov;
-    void		*img;
-    char        *adr;
-	t_vect		cent;
-	t_clist		*next;
-	t_clist		*prev;
-};
+// struct			s_clist
+// {
+// 	t_vect		pos;
+// 	t_vect		n;
+// 	double		fov;
+//     void		*img;
+//     char        *adr;
+// 	t_vect		cent;
+// 	t_clist		*next;
+// 	t_clist		*prev;
+// };
 // typedef struct s_llist
 // {
 // 	t_vect		pos;
