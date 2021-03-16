@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:35:57 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:37:30 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@
 // 	int			on;
 // 	double		pow;
 // 	t_llist		*next;
-}				t_llist;
+// }				t_llist;
 // struct  		s_pic
 // {
 //     void        *img;
