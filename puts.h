@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:30:40 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:31:00 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,12 @@ typedef struct	s_node
 	t_vect		normal;
 	double		dist;
 }				t_node;
-struct			s_idlst
-{
-	int			id;
-	void		*obj;
-	t_idlst		*next;
-};
+// struct			s_idlst
+// {
+// 	int			id;
+// 	void		*obj;
+// 	t_idlst		*next;
+// };
 // struct			s_clist
 // {
 // 	t_vect		pos;
