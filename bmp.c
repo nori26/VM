@@ -6,12 +6,11 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:55:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:15:19 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:47:07 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
-#include "mlx.h"
 
 void	file_header(t_pic *img, int fd)
 {

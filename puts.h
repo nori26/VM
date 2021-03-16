@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:52:19 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:46:46 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PUTS_H
 # include <stdio.h>
 # include <string.h>
-# include "mlx.h"
+# include "./minilibx-linux/mlx.h"
 # include <stdlib.h>
 # include <math.h>
 # include <float.h>

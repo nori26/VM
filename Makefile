@@ -4,6 +4,7 @@ CFLAGS  =  -Wall -Werror -Wextra -lm -lXext -lX11
 AR      = ar
 ARFLAGS = scr
 SRCDIR  = ./
+MLX		= minilibx-linux
 SRCS    = $(addprefix $(SRCDIR), $(SRCNAME))
 OBJS    = $(SRCS:.c=.o)
 SRCNAME = main.c pixel_put.c light.c vector_utils.c object.c\
@@ -15,23 +16,31 @@ SRCNAME = main.c pixel_put.c light.c vector_utils.c object.c\
 
 all     : $(NAME)
 
-$(NAME) : ${OBJS}
+$(MLX) :
+	git clone https://github.com/42Paris/minilibx-linux.git $(MLX)
+$(NAME) : $(MLX) ${OBJS}
 	$(MAKE) -C ./libft
+	$(MAKE) -C ./minilibx-linux
+	cp ./minilibx-linux/libmlx_Linux.a .
 	cp ./libft/libft.a .
-	$(CC) ${OBJS} libmlx_Linux.a libft.a $(CFLAGS)
+	$(CC) ${OBJS} libmlx_Linux.a libft.a $(CFLAGS) -o ${NAME}
 
 san	    : ${OBJS}
+	git clone https://github.com/42Paris/minilibx-linux.git
 	$(MAKE) -C ./libft
+	$(MAKE) -C ${MLX}
+	cp ./minilibx-linux/libmlx_Linux.a .
 	cp ./libft/libft.a .
-	$(CC) $(CFLAGS) -g -fsanitize=address ${OBJS} libft.a 
+	$(CC) -g -fsanitize=address ${OBJS} libmlx_Linux.a libft.a $(CFLAGS) -o ${NAME}
 
-clean   :
+clean   : ${MLX}
 	$(MAKE) clean -C ./libft
+	$(MAKE) clean -C ${MLX}
 	$(RM) $(OBJS) $(B_OBJS)
 
 fclean  : clean
 	$(MAKE) fclean -C ./libft
-	$(RM) $(NAME)
+	$(RM) $(NAME) libft.a libmlx_Linux.a
 
 re      : fclean all
 
