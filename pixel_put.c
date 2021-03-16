@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 08:22:03 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:22:05 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:23:14 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	pixel_put(t_pic *data, int x, int y, int color)
 {
-	char    *dst;
+	char *dst;
 
 	dst = data->cam->adr + (y * data->width_bytes + x * (data->bpp / 8));
 	*(unsigned int*)dst = color;
@@ -36,6 +36,6 @@ int		close2(int keycode, t_pic *img)
 	if (keycode == RIGHT)
 		img->cam = img->cam->next;
 	if (keycode == LEFT)
-		img->cam = img->cam->prev;;
+		img->cam = img->cam->prev;
 	return (0);
 }
