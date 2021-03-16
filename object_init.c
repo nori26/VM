@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:32:37 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 20:46:54 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 05:30:26 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	sp1_init(char *data, t_pic *img)
 	if ((sp->r = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
 		sp->r == INFINITY)
 		return (freeturn((char **)&sp, SP));
-	// printf("%g  ", sp->r);
 	sp->r /= 2;
 	if (parse_rgb(data, &sp->rgb.r, &sp->rgb.g, &sp->rgb.b) < 0)
 		return (freeturn((char **)&sp, SP));
@@ -71,7 +70,6 @@ int	sq_init(char *data, t_pic *img)
 	if ((sq->size = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
 		sq->size == INFINITY)
 		return (freeturn((char **)&sq, SQ));
-	// printf("%g  ", sq->size);
 	if (parse_rgb(data, &sq->rgb.r, &sq->rgb.g, &sq->rgb.b) < 0)
 		return (freeturn((char **)&sq, SQ));
 	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(sq, SQ)))
@@ -95,12 +93,10 @@ int	cy_init(char *data, t_pic *img)
 	if ((cy->r = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
 		cy->r == INFINITY)
 		return (freeturn((char **)&cy, CY));
-	// printf("%g  ", cy->r);
 	cy->r /= 2;
 	if ((cy->h = ft_mini_atoinf(trim_space(&data), 'f')) <= 0 ||
 		cy->h == INFINITY)
 		return (freeturn((char **)&cy, CY));
-	// printf("%g  ", cy->h);
 	if (parse_rgb(data, &cy->rgb.r, &cy->rgb.g, &cy->rgb.b) < 0)
 		return (freeturn((char **)&cy, CY));
 	if (!ft_lstadd_front_o(&img->lst, ft_lstnew_id(cy, CY)))

@@ -6,16 +6,11 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 18:22:29 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/14 07:52:37 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 06:56:07 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
-
-void		vprint(t_vect v)
-{
-	printf("x : % .30f\ny : % .30f\nz : % .30f\n", v.x, v.y, v.z);
-}
 
 void		func_ary_init(t_pic *img)
 {
@@ -44,120 +39,6 @@ void		func_ary_init(t_pic *img)
 	img->f_ret_to_raystart[SQ] = ret_to_raystart_sq;
 	img->f_ret_to_raystart[CY] = ret_to_raystart_cy;
 	img->f_ret_to_raystart[TR] = ret_to_raystart_tr;
-}
-
-t_vect		ret_to_raystart_sp(t_sp *sp, t_vect ray_start)
-{
-	return (vect_sub(ray_start, sp->o));
-}
-
-t_vect		ret_to_raystart_pl(t_pl *pl, t_vect ray_start)
-{
-	return (vect_sub(ray_start, pl->p));
-}
-
-t_vect		ret_to_raystart_sq(t_sq *sq, t_vect ray_start)
-{
-	return (vect_sub(ray_start, sq->p));
-}
-
-t_vect		ret_to_raystart_cy(t_cy *cy, t_vect ray_start)
-{
-	return (vect_sub(ray_start, cy->p));
-}
-
-t_vect		ret_to_raystart_tr(t_tr *tr, t_vect ray_start)
-{
-	return (vect_sub(ray_start, tr->a));
-}
-
-t_vect		ret_to_cam_sp(t_sp *sp)
-{
-	return (sp->to_cam);
-}
-
-t_vect		ret_to_cam_pl(t_pl *pl)
-{
-	return (pl->to_cam);
-}
-
-t_vect		ret_to_cam_sq(t_sq *sq)
-{
-	return (sq->to_cam);
-}
-
-t_vect		ret_to_cam_cy(t_cy *cy)
-{
-	return (cy->to_cam);
-}
-
-t_vect		ret_to_cam_tr(t_tr *tr)
-{
-	return (tr->to_cam);
-}
-
-void		to_cam_vect_sp(t_pic *img, t_sp *sp)
-{
-	sp->to_cam = vect_sub(img->cam->pos, sp->o);
-}
-
-void		to_cam_vect_pl(t_pic *img, t_pl *pl)
-{
-	pl->to_cam = vect_sub(img->cam->pos, pl->p);
-}
-
-void		to_cam_vect_sq(t_pic *img, t_sq *sq)
-{
-	sq->to_cam = vect_sub(img->cam->pos, sq->p);
-}
-
-void		to_cam_vect_cy(t_pic *img, t_cy *cy)
-{
-	cy->to_cam = vect_sub(img->cam->pos, cy->p);
-}
-
-void		to_cam_vect_tr(t_pic *img, t_tr *tr)
-{
-	tr->to_cam = vect_sub(img->cam->pos, tr->a);
-}
-
-void		update_node_sp(t_pic *img, double dist, t_sp *sp)
-{
-	t_vect norm;
-
-	img->v_view = vect_mult(img->u_view, dist);
-	img->node.pos = vect_add(img->v_view, img->cam->pos);
-	norm = vect_unit(vect_sub(img->node.pos, sp->o));
-	sp->n = vect_len(sp->to_cam) > sp->r ? norm : vect_mult(norm, -1);
-	update_node(img, dist, sp->rgb, sp->n);
-}
-
-void		update_node_pl(t_pic *img, double dist, t_pl *pl)
-{
-	img->v_view = vect_mult(img->u_view, dist);
-	img->node.pos = vect_add(img->v_view, img->cam->pos);
-	update_node(img, dist, pl->rgb, pl->n);
-}
-
-void		update_node_sq(t_pic *img, double dist, t_sq *sq)
-{
-	img->v_view = vect_mult(img->u_view, dist);
-	img->node.pos = vect_add(img->v_view, img->cam->pos);
-	update_node(img, dist, sq->rgb, sq->n);
-}
-
-void		update_node_cy(t_pic *img, double dist, t_cy *cy)
-{
-	img->v_view = vect_mult(img->u_view, dist);
-	img->node.pos = vect_add(img->v_view, img->cam->pos);
-	update_node(img, dist, cy->rgb, cy->node_n);
-}
-
-void		update_node_tr(t_pic *img, double dist, t_tr *tr)
-{
-	img->v_view = vect_mult(img->u_view, dist);
-	img->node.pos = vect_add(img->v_view, img->cam->pos);
-	update_node(img, dist, tr->rgb, tr->n);
 }
 
 void		update_node(t_pic *img, double dist, t_rgb rgb, t_vect n)
@@ -191,20 +72,6 @@ double		quadratic_formula(double a, double b, double c, double *ans)
 	if (ans[1] <= 0)
 		return (-1);
 	return (0);
-}
-
-double		quadratic_formularge(double a, double b, double c)
-{
-	double d;
-	double ans;
-	double root_d;
-
-	if (!a || (d = b * b - 4 * a * c) < 0)
-		return (-1);
-	root_d = sqrt(d);
-	if ((ans = (-b + root_d) / (2 * a)) > 0)
-		return (ans);
-	return (-1);
 }
 
 int			is_inside(t_tr tr, t_vect node)

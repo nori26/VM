@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_utils.c                                     :+:      :+:    :+:   */
+/*   obj_ret_to_cam.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/18 01:28:53 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 06:07:22 by nosuzuki         ###   ########.fr       */
+/*   Created: 2021/03/16 06:50:19 by nosuzuki          #+#    #+#             */
+/*   Updated: 2021/03/16 06:50:32 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puts.h"
 
-t_vect			vect_init(double x, double y, double z)
+t_vect		ret_to_cam_sp(t_sp *sp)
 {
-	t_vect ret;
-
-	ret.x = x;
-	ret.y = y;
-	ret.z = z;
-	return (ret);
+	return (sp->to_cam);
 }
 
-t_vect			vect_add(t_vect v1, t_vect v2)
+t_vect		ret_to_cam_pl(t_pl *pl)
 {
-	return (vect_init(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z));
+	return (pl->to_cam);
 }
 
-t_vect			vect_sub(t_vect v1, t_vect v2)
+t_vect		ret_to_cam_sq(t_sq *sq)
 {
-	return (vect_init(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z));
+	return (sq->to_cam);
 }
 
-t_vect			vect_mult(t_vect v, double d)
+t_vect		ret_to_cam_cy(t_cy *cy)
 {
-	return (vect_init(v.x * d, v.y * d, v.z * d));
+	return (cy->to_cam);
+}
+
+t_vect		ret_to_cam_tr(t_tr *tr)
+{
+	return (tr->to_cam);
 }

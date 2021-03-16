@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 20:05:29 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 07:52:32 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,11 @@
 # define PI 3.14159265
 # define BMP_MAX 3000
 # define GLOSS 30
-# define EPSILON 0.000001
+# define EPSILON img->node.dist / PREC
+# define PREC 10000000000000
 # define ON  1
 # define OFF 0
-// # define AMB 1
-// # define DIFF 0.69 * 0.9
 # define DIFF 0.9
-// # define SPEC 0.9
 # define SPEC 0.9
 # define ESC 65307
 # define LEFT 65361
@@ -186,7 +184,6 @@ struct  		s_pic
 	int			bmp_h;
 	int			shad;
 };
-//win minus or int_max
 
 void            pixel_put(t_pic *data, int x, int y, int color);
 int             close1(t_pic *vars);
@@ -289,6 +286,6 @@ void			info_header(t_pic *img, int fd);
 void			image_data(t_pic *img, int fd);
 void			err_exit(t_pic *img, int num);
 char			*err_message(int num);
-void			*lst_free(void *lst, void *next);
+void			*lst_free(void *lst, void *next, void *content);
 void			close_img(t_pic *img);
 #endif

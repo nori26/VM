@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:30:49 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/15 21:41:02 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 06:47:20 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	err_exit(t_pic *img, int num)
 {
 	char *s;
 
-	//num == CY,0 改行終端, -1
 	write(STDERR_FILENO, "Error\n", 7);
 	if (errno)
 	{
