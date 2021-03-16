@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:43:33 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:44:54 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ typedef struct	s_pic
 				t_pic;
 enum			e_id
 {
-				SP,
-				PL,
-				SQ,
-				CY,
-				TR,
-				CAM,
-				LIGHT,
-				AMB,
-				RES,
+	SP,
+	PL,
+	SQ,
+	CY,
+	TR,
+	CAM,
+	LIGHT,
+	AMB,
+	RES,
 };
 typedef struct	s_rgb
 {
