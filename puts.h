@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:33:12 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:33:40 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ enum			e_id
 				AMB,
 				RES,
 };
-typedef struct	s_rgb
-{
-	double		r;
-	double		g;
-	double		b;
-}				t_rgb;
+// typedef struct	s_rgb
+// {
+// 	double		r;
+// 	double		g;
+// 	double		b;
+// }				t_rgb;
 // typedef struct	s_vect
 // {
 // 	double		x;
