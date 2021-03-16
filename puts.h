@@ -6,12 +6,12 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:35:11 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:35:57 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUTS_H
-# define PUTS_H
+// #ifndef PUTS_H
+// # define PUTS_H
 // # include <stdio.h>
 // # include <string.h>
 // # include "mlx.h"
@@ -291,4 +291,4 @@
 // char			*err_message(int num);
 // void			*lst_free(void *lst, void *next, void *content);
 // void			close_img(t_pic *img);
-#endif
+// #endif
