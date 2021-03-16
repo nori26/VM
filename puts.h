@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:44:54 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:46:15 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,8 @@ struct			s_clist
 	t_vect		pos;
 	t_vect		n;
 	double		fov;
-    void		*img;
-    char        *adr;
+	void		*img;
+	char        *adr;
 	t_vect		cent;
 	t_clist		*next;
 	t_clist		*prev;
