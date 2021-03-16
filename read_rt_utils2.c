@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 05:33:40 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:03:48 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 09:03:18 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,17 @@ int		split_comma_normal(char *s, double *a, double *b, double *c)
 	if (!(res = ft_split(s, ',')))
 		return (-1);
 	if (comma_count(s) != 2 || split_count(res) != 3)
-		return ((int)free_all(&res) - 1);
+	{
+		free_all(&res);
+		return (-1);
+	}
 	if ((res[0][res[0][0] == '-'] == '1' && check_range(res[0], '1') < 0) ||
 		(res[1][res[1][0] == '-'] == '1' && check_range(res[1], '1') < 0) ||
 		(res[2][res[2][0] == '-'] == '1' && check_range(res[2], '1') < 0))
-		return ((int)free_all(&res) - 1);
+	{
+		free_all(&res);
+		return (-1);
+	}
 	*a = ft_mini_atoinf(res[0], 'f');
 	*b = ft_mini_atoinf(res[1], 'f');
 	*c = ft_mini_atoinf(res[2], 'f');

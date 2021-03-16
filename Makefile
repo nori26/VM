@@ -1,5 +1,5 @@
-NAME    = a.out
-CC      = clang
+NAME    = miniRT
+CC      = gcc
 CFLAGS  =  -lm libmlx_Linux.a -lXext -lX11 -Wall -Werror -Wextra
 AR      = ar
 ARFLAGS = scr
@@ -12,7 +12,6 @@ SRCNAME = main.c pixel_put.c light.c vector_utils.c object.c\
 		free.c vector_utils2.c read_rt_utils.c read_rt_utils2.c\
 		obj_ray_to_raystart.c obj_ret_to_cam.c obj_to_cam.c\
 		obj_update_node.c camera.c shadow.c raytrace.c
-
 
 all     : $(NAME)
 
