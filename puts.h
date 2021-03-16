@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:27:55 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:28:28 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,44 +53,44 @@ enum			e_id
 				AMB,
 				RES,
 };
-// typedef struct	s_rgb
-// {
-// 	double		r;
-// 	double		g;
-// 	double		b;
-// }				t_rgb;
-// typedef struct	s_vect
-// {
-// 	double		x;
-// 	double		y;
-// 	double		z;
-// }				t_vect;
+typedef struct	s_rgb
+{
+	double		r;
+	double		g;
+	double		b;
+}				t_rgb;
+typedef struct	s_vect
+{
+	double		x;
+	double		y;
+	double		z;
+}				t_vect;
 
-// typedef struct	s_sp
-// {
-// 	t_rgb		rgb;
-// 	t_vect		o;
-// 	t_vect		n;
-// 	t_vect		to_cam;
-// 	double		r;
-// }				t_sp;
-// typedef struct	s_sq
-// {
-// 	t_rgb		rgb;
-// 	t_vect		p;
-// 	t_vect		n;
-// 	t_vect		u_x;
-// 	t_vect		u_y;
-// 	double		size;
-// 	t_vect		to_cam;
-// }				t_sq;
-// typedef struct	s_pl
-// {
-// 	t_rgb		rgb;
-// 	t_vect		p;
-// 	t_vect		n;
-// 	t_vect		to_cam;
-// }				t_pl;
+typedef struct	s_sp
+{
+	t_rgb		rgb;
+	t_vect		o;
+	t_vect		n;
+	t_vect		to_cam;
+	double		r;
+}				t_sp;
+typedef struct	s_sq
+{
+	t_rgb		rgb;
+	t_vect		p;
+	t_vect		n;
+	t_vect		u_x;
+	t_vect		u_y;
+	double		size;
+	t_vect		to_cam;
+}				t_sq;
+typedef struct	s_pl
+{
+	t_rgb		rgb;
+	t_vect		p;
+	t_vect		n;
+	t_vect		to_cam;
+}				t_pl;
 // typedef struct	s_cy
 // {
 // 	t_rgb		rgb;
