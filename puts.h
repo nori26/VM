@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:24:03 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:25:20 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define PI 3.14159265
 # define BMP_MAX 3000
 # define GLOSS 30
+# define EPSILON img->node.dist / PREC
 # define PREC 10000000000000
 # define ON  1
 # define OFF 0
@@ -36,10 +37,10 @@
 # define LEFT 65361
 # define RIGHT 65363
 
-typedef struct s_idlst	t_idlst;
-typedef struct s_clist	t_clist;
-typedef struct s_llist	t_llist;
-typedef struct s_pic	t_pic;
+// typedef struct s_idlst	t_idlst;
+// typedef struct s_clist	t_clist;
+// typedef struct s_llist	t_llist;
+// typedef struct s_pic	t_pic;
 enum			e_id
 {
 				SP,
@@ -232,8 +233,10 @@ int				check_range(char *s, char c);
 double			sphere(t_pic *img, t_sp *sp, t_vect u_view, t_vect to_raystart);
 double			plane(t_pic *img, t_pl *pl, t_vect u_view, t_vect to_raystart);
 double			square(t_pic *img, t_sq *sq, t_vect u_view, t_vect to_raystart);
-double			cylinder(t_pic *img, t_cy *cy, t_vect u_view, t_vect to_raystart);
-double			triangle(t_pic *img, t_tr *tr, t_vect u_view, t_vect to_raystart);
+double			cylinder(t_pic *img, t_cy *cy, t_vect u_view,
+				t_vect to_raystart);
+double			triangle(t_pic *img, t_tr *tr, t_vect u_view,
+				t_vect to_raystart);
 int				check_parallel(t_vect a, t_vect b, t_vect c);
 void			vprint(t_vect v);
 int				is_inside(t_tr tr, t_vect node);
