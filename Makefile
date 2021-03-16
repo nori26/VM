@@ -15,7 +15,7 @@ SRCNAME = main.c pixel_put.c light.c vector_utils.c object.c\
 
 all     : $(NAME)
 
-$(NAME) : 
+$(NAME) :
 	$(MAKE) -C ./libft
 	cp ./libft/libft.a .
 	$(CC) ${SRCNAME} libft.a $(CFLAGS)
@@ -25,13 +25,12 @@ san	    :
 	cp ./libft/libft.a .
 	$(CC) ${SRCNAME} libft.a $(CFLAGS) -g -fsanitize=address
 
-bonus   : $(B_OBJS) $(OBJS)
-	$(AR) $(ARFLAGS) $(NAME) $^
-
 clean   :
+	$(MAKE) clean -C ./libft
 	$(RM) $(OBJS) $(B_OBJS)
 
 fclean  : clean
+	$(MAKE) fclean -C ./libft
 	$(RM) $(NAME)
 
 re      : fclean all
