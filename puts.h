@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:38:47 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:39:14 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,48 +143,48 @@ struct			s_clist
 	t_clist		*next;
 	t_clist		*prev;
 };
-// typedef struct s_llist
-// {
-// 	t_vect		pos;
-// 	t_rgb		rgb;
-// 	int			on;
-// 	double		pow;
-// 	t_llist		*next;
-// }				t_llist;
-// struct  		s_pic
-// {
-//     void        *img;
-// 	int			bmp;
-// 	int			w;
-// 	int			h;
-//     int         bpp;
-//     int         width_bytes;
-//     int         endian;
-// 	void		*mlx;
-// 	void		*win;
-// 	t_vect		ray_start;
-// 	t_rgb		rgb;
-// 	t_llist		*amb;
-// 	t_node		node;
-// 	t_idlst		*lst;
-// 	t_clist		*cam;
-// 	t_llist		*light;
-// 	t_idlst		*o_start;
-// 	t_clist		*c_start;
-// 	t_llist		*l_start;
-// 	double		fov;
-// 	t_vect		cam_normal;
-// 	t_vect		u_view;
-// 	t_vect		v_view;
-// 	double		(*f_node_judge[5])();
-// 	void		(*f_update_node[5])();
-// 	void		(*f_to_cam_vect[5])();
-// 	t_vect		(*f_ret_to_cam[5])();
-// 	t_vect		(*f_ret_to_raystart[5])();
-// 	int			bmp_w;
-// 	int			bmp_h;
-// 	int			shad;
-// };
+typedef struct s_llist
+{
+	t_vect		pos;
+	t_rgb		rgb;
+	int			on;
+	double		pow;
+	t_llist		*next;
+}				t_llist;
+struct  		s_pic
+{
+    void        *img;
+	int			bmp;
+	int			w;
+	int			h;
+    int         bpp;
+    int         width_bytes;
+    int         endian;
+	void		*mlx;
+	void		*win;
+	t_vect		ray_start;
+	t_rgb		rgb;
+	t_llist		*amb;
+	t_node		node;
+	t_idlst		*lst;
+	t_clist		*cam;
+	t_llist		*light;
+	t_idlst		*o_start;
+	t_clist		*c_start;
+	t_llist		*l_start;
+	double		fov;
+	t_vect		cam_normal;
+	t_vect		u_view;
+	t_vect		v_view;
+	double		(*f_node_judge[5])();
+	void		(*f_update_node[5])();
+	void		(*f_to_cam_vect[5])();
+	t_vect		(*f_ret_to_cam[5])();
+	t_vect		(*f_ret_to_raystart[5])();
+	int			bmp_w;
+	int			bmp_h;
+	int			shad;
+};
 
 // void            pixel_put(t_pic *data, int x, int y, int color);
 // int             close1(t_pic *vars);
