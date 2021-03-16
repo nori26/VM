@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:31:00 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:31:18 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,13 @@ typedef struct	s_tr
 	t_vect		cross_c;
 	t_vect		to_cam;
 }				t_tr;
-typedef struct	s_node
-{
-	t_rgb		rgb;
-	t_vect		pos;
-	t_vect		normal;
-	double		dist;
-}				t_node;
+// typedef struct	s_node
+// {
+// 	t_rgb		rgb;
+// 	t_vect		pos;
+// 	t_vect		normal;
+// 	double		dist;
+// }				t_node;
 // struct			s_idlst
 // {
 // 	int			id;
