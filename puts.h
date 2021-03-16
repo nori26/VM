@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:19:18 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:28:56 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:29:18 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,30 +119,30 @@ typedef struct	s_tr
 	t_vect		cross_c;
 	t_vect		to_cam;
 }				t_tr;
-// typedef struct	s_node
-// {
-// 	t_rgb		rgb;
-// 	t_vect		pos;
-// 	t_vect		normal;
-// 	double		dist;
-// }				t_node;
-// struct			s_idlst
-// {
-// 	int			id;
-// 	void		*obj;
-// 	t_idlst		*next;
-// };
-// struct			s_clist
-// {
-// 	t_vect		pos;
-// 	t_vect		n;
-// 	double		fov;
-//     void		*img;
-//     char        *adr;
-// 	t_vect		cent;
-// 	t_clist		*next;
-// 	t_clist		*prev;
-// };
+typedef struct	s_node
+{
+	t_rgb		rgb;
+	t_vect		pos;
+	t_vect		normal;
+	double		dist;
+}				t_node;
+struct			s_idlst
+{
+	int			id;
+	void		*obj;
+	t_idlst		*next;
+};
+struct			s_clist
+{
+	t_vect		pos;
+	t_vect		n;
+	double		fov;
+    void		*img;
+    char        *adr;
+	t_vect		cent;
+	t_clist		*next;
+	t_clist		*prev;
+};
 // typedef struct s_llist
 // {
 // 	t_vect		pos;
