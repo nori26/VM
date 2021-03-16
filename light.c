@@ -6,7 +6,7 @@
 /*   By: nosuzuki <nosuzuki@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 05:36:08 by nosuzuki          #+#    #+#             */
-/*   Updated: 2021/03/16 08:11:09 by nosuzuki         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:17:18 by nosuzuki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ double	light_spec(t_pic *img)
 {
 	t_vect ref;
 	double cos_vr;
-	double	nl_dot;
-	t_vect	u_light;
+	double nl_dot;
+	t_vect u_light;
 
 	u_light = vect_unit(vect_sub(img->light->pos, img->node.pos));
 	if ((nl_dot = dot(u_light, img->node.normal)) <= 0)
